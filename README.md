@@ -1,5 +1,40 @@
 # DoganSystem - Multi-Tenant SaaS Platform
 
+## 🚀 Quick Start
+
+**Ready to build and deploy!** See:
+- **`QUICK_START.md`** - Get running in 5 minutes
+- **`BUILD_AND_DEPLOY.md`** - Complete deployment guide
+- **`BUILD_READY.md`** - Current build status
+
+## 📋 Build Status
+
+✅ **Code Complete** - All features implemented
+⚠️ **Build Pending** - Requires NuGet package restore (needs internet access)
+
+## 🏗️ Quick Build
+
+```powershell
+# Windows
+.\build.ps1
+
+# Or manually
+dotnet restore
+dotnet build DoganSystem.sln --configuration Release
+```
+
+## 📚 Documentation
+
+- `QUICK_START.md` - Fastest way to get running
+- `BUILD_AND_DEPLOY.md` - Full deployment instructions
+- `BUILD_TROUBLESHOOTING.md` - Fix common issues
+- `APP_COMPLETION_SUMMARY.md` - What's been implemented
+- `BUILD_READY.md` - Current status and next steps
+
+---
+
+# DoganSystem - Multi-Tenant SaaS Platform
+
 Complete multi-tenant SaaS platform with ERPNext integration, multi-agent AI orchestration, and subscription management.
 
 ## 🚀 Features

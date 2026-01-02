@@ -1,0 +1,57 @@
+@model DoganSystem.Modules.ErpNext.Application.Dtos.ErpNextInstanceDto
+@{
+    ViewData["Title"] = "ERPNext Instance Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>ERPNext Instance Details</h2>
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Model.Name</dd>
+
+                        <dt class="col-sm-3">Base URL:</dt>
+                        <dd class="col-sm-9">@Model.BaseUrl</dd>
+
+                        <dt class="col-sm-3">Site Name:</dt>
+                        <dd class="col-sm-9">@Model.SiteName</dd>
+
+                        <dt class="col-sm-3">Status:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-@(Model.IsActive ? "success" : "secondary")">
+                                @(Model.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-3">Last Sync:</dt>
+                        <dd class="col-sm-9">@(Model.LastSyncTime?.ToString("yyyy-MM-dd HH:mm") ?? "Never")</dd>
+
+                        <dt class="col-sm-3">Description:</dt>
+                        <dd class="col-sm-9">@Model.Description</dd>
+                    </dl>
+
+                    <div class="mt-3">
+                        <button class="btn btn-success" onclick="testConnection('@Model.Id')">Test Connection</button>
+                        <a href="/ErpNext" class="btn btn-secondary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function testConnection(id) {
+            const response = await fetch(`/api/erpnext/${id}/test-connection`, { method: 'POST' });
+            if (response.ok) {
+                alert('Connection successful!');
+            } else {
+                alert('Connection failed!');
+            }
+        }
+    </script>
+}

@@ -111,7 +111,27 @@ namespace DoganSystem.Modules.TenantManagement.Application
             // Apply sorting
             if (!string.IsNullOrEmpty(input.Sorting))
             {
-                queryable = queryable.OrderBy(input.Sorting);
+                // Simple sorting by property name
+                if (input.Sorting.StartsWith("-"))
+                {
+                    var propName = input.Sorting.Substring(1).Trim();
+                    if (propName.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.Name);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                }
+                else
+                {
+                    var propName = input.Sorting.Trim();
+                    if (propName.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.Name);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                }
             }
             else
             {

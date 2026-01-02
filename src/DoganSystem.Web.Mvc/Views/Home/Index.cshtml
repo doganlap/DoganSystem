@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Tenants</h5>
                     <h2 class="text-primary" id="tenantCount">-</h2>
-                    <a href="/api/tenants" class="btn btn-sm btn-primary">Manage</a>
+                    <a href="/Tenants" class="btn btn-sm btn-primary">Manage</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">ERPNext Instances</h5>
                     <h2 class="text-success" id="erpnextCount">-</h2>
-                    <a href="/api/erpnext" class="btn btn-sm btn-success">Manage</a>
+                    <a href="/ErpNext" class="btn btn-sm btn-success">Manage</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Employee Agents</h5>
                     <h2 class="text-info" id="agentCount">-</h2>
-                    <a href="/api/agents" class="btn btn-sm btn-info">Manage</a>
+                    <a href="/Agents" class="btn btn-sm btn-info">Manage</a>
                 </div>
             </div>
         </div>
@@ -43,7 +43,23 @@
                 <div class="card-body">
                     <h5 class="card-title">Subscriptions</h5>
                     <h2 class="text-warning" id="subscriptionCount">-</h2>
-                    <a href="/api/subscriptions" class="btn btn-sm btn-warning">Manage</a>
+                    <a href="/Subscriptions" class="btn btn-sm btn-warning">Manage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <div class="btn-group" role="group">
+                        <a href="/Tenants/Create" class="btn btn-primary">Create Tenant</a>
+                        <a href="/Agents/Create" class="btn btn-info">Create Agent</a>
+                        <a href="/ErpNext/Create" class="btn btn-success">Add ERPNext</a>
+                        <a href="/swagger" class="btn btn-secondary">API Docs</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,14 +68,13 @@
 
 @section Scripts {
     <script>
-        // Load dashboard statistics
         async function loadDashboard() {
             try {
                 const [tenants, erpnext, agents, subscriptions] = await Promise.all([
-                    fetch('/api/tenants?MaxResultCount=1').then(r => r.json()),
-                    fetch('/api/erpnext?MaxResultCount=1').then(r => r.json()),
-                    fetch('/api/agents?MaxResultCount=1').then(r => r.json()),
-                    fetch('/api/subscriptions?MaxResultCount=1').then(r => r.json())
+                    fetch('/api/tenants?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
+                    fetch('/api/erpnext?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
+                    fetch('/api/agents?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
+                    fetch('/api/subscriptions?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 }))
                 ]);
 
                 document.getElementById('tenantCount').textContent = tenants.totalCount || 0;
@@ -68,6 +83,10 @@
                 document.getElementById('subscriptionCount').textContent = subscriptions.totalCount || 0;
             } catch (error) {
                 console.error('Error loading dashboard:', error);
+                document.getElementById('tenantCount').textContent = '0';
+                document.getElementById('erpnextCount').textContent = '0';
+                document.getElementById('agentCount').textContent = '0';
+                document.getElementById('subscriptionCount').textContent = '0';
             }
         }
 

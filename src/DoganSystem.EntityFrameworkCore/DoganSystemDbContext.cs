@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Identity.EntityFrameworkCore;
 using DoganSystem.Modules.ErpNext.Domain;
 using DoganSystem.Modules.TenantManagement.Domain;
 using DoganSystem.Modules.AgentOrchestrator.Domain;
 using DoganSystem.Modules.Subscription.Domain;
+using SubscriptionEntity = DoganSystem.Modules.Subscription.Domain.Subscription;
 
 namespace DoganSystem.EntityFrameworkCore
 {
@@ -21,7 +23,7 @@ namespace DoganSystem.EntityFrameworkCore
         public DbSet<EmployeeAgent> EmployeeAgents { get; set; }
         
         // Subscription Module
-        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<SubscriptionEntity> Subscriptions { get; set; }
 
         public DoganSystemDbContext(DbContextOptions<DoganSystemDbContext> options)
             : base(options)
@@ -31,6 +33,9 @@ namespace DoganSystem.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // Configure Identity entities
+            builder.ConfigureIdentity();
 
             // Configure entities
             builder.ConfigureDoganSystem();

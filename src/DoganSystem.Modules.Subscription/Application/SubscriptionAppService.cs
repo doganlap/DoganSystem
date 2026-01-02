@@ -9,13 +9,14 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using SubscriptionEntity = DoganSystem.Modules.Subscription.Domain.Subscription;
 
 namespace DoganSystem.Modules.Subscription.Application
 {
     [Authorize]
     public class SubscriptionAppService : ApplicationService, ISubscriptionAppService
     {
-        private readonly IRepository<Subscription, Guid> _subscriptionRepository;
+        private readonly IRepository<SubscriptionEntity, Guid> _subscriptionRepository;
 
         // Plan pricing
         private readonly Dictionary<string, decimal> _planPricing = new()
@@ -25,14 +26,14 @@ namespace DoganSystem.Modules.Subscription.Application
             { "Enterprise", 999.00m }
         };
 
-        public SubscriptionAppService(IRepository<Subscription, Guid> subscriptionRepository)
+        public SubscriptionAppService(IRepository<SubscriptionEntity, Guid> subscriptionRepository)
         {
             _subscriptionRepository = subscriptionRepository;
         }
 
         public async Task<SubscriptionDto> CreateAsync(CreateSubscriptionDto input)
         {
-            var subscription = new Subscription
+            var subscription = new SubscriptionEntity
             {
                 TenantId = input.TenantId,
                 PlanType = input.PlanType,
@@ -47,7 +48,7 @@ namespace DoganSystem.Modules.Subscription.Application
 
             subscription = await _subscriptionRepository.InsertAsync(subscription);
 
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
 
         public async Task<SubscriptionDto> UpdateAsync(Guid id, UpdateSubscriptionDto input)
@@ -71,7 +72,7 @@ namespace DoganSystem.Modules.Subscription.Application
 
             subscription = await _subscriptionRepository.UpdateAsync(subscription);
 
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -82,7 +83,7 @@ namespace DoganSystem.Modules.Subscription.Application
         public async Task<SubscriptionDto> GetAsync(Guid id)
         {
             var subscription = await _subscriptionRepository.GetAsync(id);
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
 
         public async Task<SubscriptionDto> GetByTenantIdAsync(Guid tenantId)
@@ -91,7 +92,7 @@ namespace DoganSystem.Modules.Subscription.Application
             if (subscription == null)
                 throw new UserFriendlyException($"No active subscription found for tenant {tenantId}");
 
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
 
         public async Task<PagedResultDto<SubscriptionDto>> GetListAsync(SubscriptionListDto input)
@@ -115,7 +116,27 @@ namespace DoganSystem.Modules.Subscription.Application
 
             if (!string.IsNullOrEmpty(input.Sorting))
             {
-                queryable = queryable.OrderBy(input.Sorting);
+                // Simple sorting by property name
+                if (input.Sorting.StartsWith("-"))
+                {
+                    var propName = input.Sorting.Substring(1).Trim();
+                    if (propName.Equals("PlanType", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.PlanType);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                }
+                else
+                {
+                    var propName = input.Sorting.Trim();
+                    if (propName.Equals("PlanType", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.PlanType);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                }
             }
             else
             {
@@ -130,7 +151,7 @@ namespace DoganSystem.Modules.Subscription.Application
 
             return new PagedResultDto<SubscriptionDto>(
                 totalCount,
-                ObjectMapper.Map<List<Subscription>, List<SubscriptionDto>>(items)
+                ObjectMapper.Map<List<SubscriptionEntity>, List<SubscriptionDto>>(items)
             );
         }
 
@@ -140,7 +161,7 @@ namespace DoganSystem.Modules.Subscription.Application
             subscription.Status = "Cancelled";
             subscription.EndDate = DateTime.UtcNow;
             subscription = await _subscriptionRepository.UpdateAsync(subscription);
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
 
         public async Task<SubscriptionDto> RenewAsync(Guid id)
@@ -149,7 +170,7 @@ namespace DoganSystem.Modules.Subscription.Application
             subscription.Status = "Active";
             subscription.NextBillingDate = DateTime.UtcNow.AddMonths(1);
             subscription = await _subscriptionRepository.UpdateAsync(subscription);
-            return ObjectMapper.Map<Subscription, SubscriptionDto>(subscription);
+            return ObjectMapper.Map<SubscriptionEntity, SubscriptionDto>(subscription);
         }
     }
 

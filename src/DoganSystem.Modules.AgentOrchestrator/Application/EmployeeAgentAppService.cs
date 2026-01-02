@@ -17,16 +17,13 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
     public class EmployeeAgentAppService : ApplicationService, IEmployeeAgentAppService
     {
         private readonly IRepository<EmployeeAgent, Guid> _agentRepository;
-        private readonly AgentOrchestratorService _orchestratorService;
         private readonly IConfiguration _configuration;
 
         public EmployeeAgentAppService(
             IRepository<EmployeeAgent, Guid> agentRepository,
-            AgentOrchestratorService orchestratorService,
             IConfiguration configuration)
         {
             _agentRepository = agentRepository;
-            _orchestratorService = orchestratorService;
             _configuration = configuration;
         }
 
@@ -41,14 +38,25 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
                 TeamId = input.TeamId,
                 ManagerId = input.ManagerId,
                 Status = "Available",
-                Capabilities = JsonSerializer.Serialize(input.Capabilities ?? new List<string>()),
-                PythonServiceUrl = _configuration["PythonServices:OrchestratorUrl"] ?? "http://localhost:8006"
+                Capabilities = input.Capabilities != null ? JsonSerializer.Serialize(input.Capabilities) : null,
+                PythonServiceUrl = _configuration["PythonServices:OrchestratorUrl"]
             };
 
             agent = await _agentRepository.InsertAsync(agent);
 
-            // Sync to Python orchestrator service
-            await _orchestratorService.SyncAgentToPythonServiceAsync(agent, agent.PythonServiceUrl);
+            // Sync to Python orchestrator service (if configured)
+            if (!string.IsNullOrEmpty(agent.PythonServiceUrl))
+            {
+                try
+                {
+                    var orchestratorService = LazyServiceProvider.LazyGetRequiredService<AgentOrchestratorService>();
+                    await orchestratorService.SyncAgentToPythonServiceAsync(agent, agent.PythonServiceUrl);
+                }
+                catch
+                {
+                    // Python service may not be available, continue without sync
+                }
+            }
 
             return ObjectMapper.Map<EmployeeAgent, EmployeeAgentDto>(agent);
         }
@@ -80,8 +88,19 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
 
             agent = await _agentRepository.UpdateAsync(agent);
 
-            // Sync to Python service
-            await _orchestratorService.SyncAgentToPythonServiceAsync(agent, agent.PythonServiceUrl);
+            // Sync to Python service (if configured)
+            if (!string.IsNullOrEmpty(agent.PythonServiceUrl))
+            {
+                try
+                {
+                    var orchestratorService = LazyServiceProvider.LazyGetRequiredService<AgentOrchestratorService>();
+                    await orchestratorService.SyncAgentToPythonServiceAsync(agent, agent.PythonServiceUrl);
+                }
+                catch
+                {
+                    // Python service may not be available, continue without sync
+                }
+            }
 
             return ObjectMapper.Map<EmployeeAgent, EmployeeAgentDto>(agent);
         }
@@ -95,7 +114,7 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
         {
             var agent = await _agentRepository.GetAsync(id);
             var dto = ObjectMapper.Map<EmployeeAgent, EmployeeAgentDto>(agent);
-            dto.Capabilities = JsonSerializer.Deserialize<List<string>>(agent.Capabilities ?? "[]");
+            dto.Capabilities = JsonSerializer.Deserialize<List<string>>(agent.Capabilities ?? "[]") ?? new List<string>();
             return dto;
         }
 
@@ -127,7 +146,27 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
 
             if (!string.IsNullOrEmpty(input.Sorting))
             {
-                queryable = queryable.OrderBy(input.Sorting);
+                // Simple sorting by property name
+                if (input.Sorting.StartsWith("-"))
+                {
+                    var propName = input.Sorting.Substring(1).Trim();
+                    if (propName.Equals("EmployeeName", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.EmployeeName);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderByDescending(x => x.EmployeeName);
+                }
+                else
+                {
+                    var propName = input.Sorting.Trim();
+                    if (propName.Equals("EmployeeName", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.EmployeeName);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderBy(x => x.EmployeeName);
+                }
             }
             else
             {
@@ -144,7 +183,7 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
             foreach (var item in items)
             {
                 var dto = ObjectMapper.Map<EmployeeAgent, EmployeeAgentDto>(item);
-                dto.Capabilities = JsonSerializer.Deserialize<List<string>>(item.Capabilities ?? "[]");
+                dto.Capabilities = JsonSerializer.Deserialize<List<string>>(item.Capabilities ?? "[]") ?? new List<string>();
                 dtos.Add(dto);
             }
 

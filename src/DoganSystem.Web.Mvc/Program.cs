@@ -1,48 +1,34 @@
 using DoganSystem.Web;
-using Serilog;
-using Serilog.Events;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Volo.Abp;
+using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.Modularity;
 
-public class Program
+namespace DoganSystem.Web.Mvc
 {
-    public async static Task<int> Main(string[] args)
+    public class Program
     {
-        var loggerConfiguration = new LoggerConfiguration()
-#if DEBUG
-            .MinimumLevel.Debug()
-#else
-            .MinimumLevel.Information()
-#endif
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
-            .Enrich.FromLogContext()
-            .WriteTo.Async(c => c.File("Logs/logs.txt"))
-            .WriteTo.Async(c => c.Console());
-
-        Log.Logger = loggerConfiguration.CreateLogger();
-
-        try
+        public async static Task<int> Main(string[] args)
         {
-            Log.Information("Starting DoganSystem web host.");
-            var builder = WebApplication.CreateBuilder(args);
-            await builder.AddApplicationAsync<DoganSystemWebMvcModule>();
-            var app = builder.Build();
-            await app.InitializeApplicationAsync();
-            await app.RunAsync();
-            return 0;
-        }
-        catch (Exception ex)
-        {
-            if (ex is HostAbortedException)
+            try
             {
-                throw;
+                var builder = WebApplication.CreateBuilder(args);
+                await builder.AddApplicationAsync<DoganSystemWebMvcModule>();
+                var app = builder.Build();
+                await app.InitializeApplicationAsync();
+                await app.RunAsync();
+                return 0;
             }
-
-            Log.Fatal(ex, "Host terminated unexpectedly!");
-            return 1;
-        }
-        finally
-        {
-            Log.CloseAndFlush();
+            catch (Exception ex)
+            {
+                if (ex is HostAbortedException)
+                {
+                    throw;
+                }
+                return 1;
+            }
         }
     }
 }

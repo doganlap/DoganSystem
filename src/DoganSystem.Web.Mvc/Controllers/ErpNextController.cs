@@ -4,6 +4,7 @@ using DoganSystem.Modules.ErpNext.Application;
 using DoganSystem.Modules.ErpNext.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.Application.Dtos;
 
 namespace DoganSystem.Web.Mvc.Controllers
 {

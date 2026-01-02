@@ -1,0 +1,82 @@
+@model List<DoganSystem.Modules.Subscription.Application.Dtos.SubscriptionDto>
+@{
+    ViewData["Title"] = "Subscriptions";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>Subscriptions</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tenant ID</th>
+                                <th>Plan Type</th>
+                                <th>Status</th>
+                                <th>Monthly Price</th>
+                                <th>Start Date</th>
+                                <th>Next Billing</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var subscription in Model)
+                            {
+                                <tr>
+                                    <td>@subscription.TenantId</td>
+                                    <td>@subscription.PlanType</td>
+                                    <td>
+                                        <span class="badge bg-@(subscription.Status == "Active" ? "success" : "warning")">
+                                            @subscription.Status
+                                        </span>
+                                    </td>
+                                    <td>@subscription.MonthlyPrice.ToString("C")</td>
+                                    <td>@subscription.StartDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@(subscription.NextBillingDate?.ToString("yyyy-MM-dd") ?? "N/A")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewSubscription('@subscription.Id')">View</button>
+                                        @if (subscription.Status == "Active")
+                                        {
+                                            <button class="btn btn-sm btn-warning" onclick="cancelSubscription('@subscription.Id')">Cancel</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-sm btn-success" onclick="renewSubscription('@subscription.Id')">Renew</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function viewSubscription(id) {
+            window.location.href = `/Subscriptions/Details/${id}`;
+        }
+
+        async function cancelSubscription(id) {
+            if (confirm('Are you sure you want to cancel this subscription?')) {
+                await fetch(`/api/subscriptions/${id}/cancel`, { method: 'POST' });
+                location.reload();
+            }
+        }
+
+        async function renewSubscription(id) {
+            await fetch(`/api/subscriptions/${id}/renew`, { method: 'POST' });
+            location.reload();
+        }
+    </script>
+}

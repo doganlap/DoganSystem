@@ -105,7 +105,27 @@ namespace DoganSystem.Modules.ErpNext.Application
 
             if (!string.IsNullOrEmpty(input.Sorting))
             {
-                queryable = queryable.OrderBy(input.Sorting);
+                // Simple sorting by property name
+                if (input.Sorting.StartsWith("-"))
+                {
+                    var propName = input.Sorting.Substring(1).Trim();
+                    if (propName.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.Name);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderByDescending(x => x.CreationTime);
+                }
+                else
+                {
+                    var propName = input.Sorting.Trim();
+                    if (propName.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.Name);
+                    else if (propName.Equals("CreationTime", StringComparison.OrdinalIgnoreCase))
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                    else
+                        queryable = queryable.OrderBy(x => x.CreationTime);
+                }
             }
             else
             {
@@ -131,19 +151,43 @@ namespace DoganSystem.Modules.ErpNext.Application
             // Test ERPNext connection
             try
             {
-                // TODO: Implement actual ERPNext API test
-                // var client = new HttpClient();
-                // var response = await client.GetAsync($"{instance.BaseUrl}/api/resource/User");
-                // response.EnsureSuccessStatusCode();
+                using var client = new HttpClient();
+                client.Timeout = TimeSpan.FromSeconds(30);
+                
+                // Build ERPNext API URL
+                var apiUrl = $"{instance.BaseUrl.TrimEnd('/')}/api/resource/User";
+                
+                // Add authentication headers if API key is provided
+                if (!string.IsNullOrEmpty(instance.ApiKey) && !string.IsNullOrEmpty(instance.ApiSecret))
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", $"token {instance.ApiKey}:{instance.ApiSecret}");
+                }
+                
+                // Test connection with a simple GET request
+                var response = await client.GetAsync(apiUrl);
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new UserFriendlyException($"ERPNext API returned status {response.StatusCode}: {errorContent}");
+                }
                 
                 instance.LastSyncTime = DateTime.UtcNow;
                 instance = await _erpNextRepository.UpdateAsync(instance);
                 
                 return ObjectMapper.Map<ErpNextInstance, ErpNextInstanceDto>(instance);
             }
+            catch (HttpRequestException ex)
+            {
+                throw new UserFriendlyException($"Failed to connect to ERPNext at {instance.BaseUrl}: {ex.Message}");
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new UserFriendlyException($"Connection to ERPNext timed out: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                throw new UserFriendlyException($"Failed to connect to ERPNext: {ex.Message}");
+                throw new UserFriendlyException($"Failed to test ERPNext connection: {ex.Message}");
             }
         }
     }

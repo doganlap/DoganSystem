@@ -1,0 +1,95 @@
+@model List<DoganSystem.Modules.TenantManagement.Application.Dtos.TenantDto>
+@{
+    ViewData["Title"] = "Tenants";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>Tenant Management</h1>
+            <button class="btn btn-primary" onclick="showCreateModal()">Create New Tenant</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped" id="tenantsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Subdomain</th>
+                                <th>Status</th>
+                                <th>Subscription Tier</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tenant in Model)
+                            {
+                                <tr>
+                                    <td>@tenant.Name</td>
+                                    <td>@tenant.Subdomain</td>
+                                    <td>
+                                        <span class="badge bg-@(tenant.Status == "Active" ? "success" : "warning")">
+                                            @tenant.Status
+                                        </span>
+                                    </td>
+                                    <td>@tenant.SubscriptionTier</td>
+                                    <td>@tenant.CreationTime.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewTenant('@tenant.Id')">View</button>
+                                        <button class="btn btn-sm btn-warning" onclick="editTenant('@tenant.Id')">Edit</button>
+                                        @if (tenant.Status != "Active")
+                                        {
+                                            <button class="btn btn-sm btn-success" onclick="activateTenant('@tenant.Id')">Activate</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-sm btn-secondary" onclick="suspendTenant('@tenant.Id')">Suspend</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function loadTenants() {
+            const response = await fetch('/api/tenants');
+            const data = await response.json();
+            // Update table
+        }
+
+        function showCreateModal() {
+            // Show create modal
+            window.location.href = '/Tenants/Create';
+        }
+
+        function viewTenant(id) {
+            window.location.href = `/Tenants/Details/${id}`;
+        }
+
+        function editTenant(id) {
+            window.location.href = `/Tenants/Edit/${id}`;
+        }
+
+        async function activateTenant(id) {
+            await fetch(`/api/tenants/${id}/activate`, { method: 'POST' });
+            location.reload();
+        }
+
+        async function suspendTenant(id) {
+            await fetch(`/api/tenants/${id}/suspend`, { method: 'POST' });
+            location.reload();
+        }
+    </script>
+}

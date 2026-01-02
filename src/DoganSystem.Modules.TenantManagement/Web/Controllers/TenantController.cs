@@ -4,6 +4,7 @@ using DoganSystem.Modules.TenantManagement.Application;
 using DoganSystem.Modules.TenantManagement.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.Application.Dtos;
 
 namespace DoganSystem.Modules.TenantManagement.Web.Controllers
 {

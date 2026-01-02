@@ -1,0 +1,83 @@
+@model List<DoganSystem.Modules.ErpNext.Application.Dtos.ErpNextInstanceDto>
+@{
+    ViewData["Title"] = "ERPNext Instances";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>ERPNext Instances</h1>
+            <button class="btn btn-primary" onclick="showCreateModal()">Add ERPNext Instance</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Base URL</th>
+                                <th>Site Name</th>
+                                <th>Status</th>
+                                <th>Last Sync</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var instance in Model)
+                            {
+                                <tr>
+                                    <td>@instance.Name</td>
+                                    <td>@instance.BaseUrl</td>
+                                    <td>@instance.SiteName</td>
+                                    <td>
+                                        <span class="badge bg-@(instance.IsActive ? "success" : "secondary")">
+                                            @(instance.IsActive ? "Active" : "Inactive")
+                                        </span>
+                                    </td>
+                                    <td>@(instance.LastSyncTime?.ToString("yyyy-MM-dd HH:mm") ?? "Never")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewInstance('@instance.Id')">View</button>
+                                        <button class="btn btn-sm btn-success" onclick="testConnection('@instance.Id')">Test</button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteInstance('@instance.Id')">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showCreateModal() {
+            window.location.href = '/ErpNext/Create';
+        }
+
+        function viewInstance(id) {
+            window.location.href = `/ErpNext/Details/${id}`;
+        }
+
+        async function testConnection(id) {
+            const response = await fetch(`/api/erpnext/${id}/test-connection`, { method: 'POST' });
+            if (response.ok) {
+                alert('Connection successful!');
+            } else {
+                alert('Connection failed!');
+            }
+        }
+
+        async function deleteInstance(id) {
+            if (confirm('Are you sure you want to delete this instance?')) {
+                await fetch(`/api/erpnext/${id}`, { method: 'DELETE' });
+                location.reload();
+            }
+        }
+    </script>
+}

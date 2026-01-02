@@ -1,0 +1,50 @@
+@model DoganSystem.Modules.ErpNext.Application.Dtos.CreateErpNextInstanceDto
+@{
+    ViewData["Title"] = "Add ERPNext Instance";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Add ERPNext Instance</h2>
+            <form asp-action="Create" method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label">Name *</label>
+                    <input asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="BaseUrl" class="form-label">Base URL *</label>
+                    <input asp-for="BaseUrl" type="url" class="form-control" placeholder="http://localhost:8000" required />
+                    <span asp-validation-for="BaseUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ApiKey" class="form-label">API Key</label>
+                    <input asp-for="ApiKey" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ApiSecret" class="form-label">API Secret</label>
+                    <input asp-for="ApiSecret" type="password" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="SiteName" class="form-label">Site Name</label>
+                    <input asp-for="SiteName" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Add Instance</button>
+                    <a href="/ErpNext" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

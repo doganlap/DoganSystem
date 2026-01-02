@@ -1,0 +1,113 @@
+# Multi-Tenant SaaS Platform Docker Compose
+version: '3.8'
+
+services:
+  # API Gateway
+  api-gateway:
+    build: .
+    command: python api-gateway.py
+    ports:
+      - "8006:8006"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Tenant Management API
+  tenant-api:
+    build: .
+    command: python tenant-api.py
+    ports:
+      - "8002:8002"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Webhook Receiver
+  webhook-receiver:
+    build: .
+    command: python webhook-receiver.py
+    ports:
+      - "8003:8003"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Monitoring Dashboard
+  monitoring-dashboard:
+    build: .
+    command: python monitoring-dashboard.py
+    ports:
+      - "8005:8005"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Tenant Admin API
+  tenant-admin-api:
+    build: .
+    command: python tenant-admin-api.py
+    ports:
+      - "8007:8007"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Redis (for event bus)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # PostgreSQL (optional, for production)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=dogansystem
+      - POSTGRES_USER=dogansystem
+      - POSTGRES_PASSWORD=changeme
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  redis-data:
+  postgres-data:
+
+networks:
+  default:
+    name: dogansystem-network

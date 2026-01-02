@@ -1,0 +1,139 @@
+version: '3.8'
+
+services:
+  # Node 1
+  node1:
+    build: .
+    container_name: dogansystem-node1
+    environment:
+      - NODE_ID=1
+      - NODE_URL=http://node1:8001
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - REDIS_HOST=redis
+      - PEER_NODES=node2,node3
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  # Node 2
+  node2:
+    build: .
+    container_name: dogansystem-node2
+    environment:
+      - NODE_ID=2
+      - NODE_URL=http://node2:8001
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - REDIS_HOST=redis
+      - PEER_NODES=node1,node3
+    ports:
+      - "8002:8001"
+    depends_on:
+      - redis
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  # Node 3
+  node3:
+    build: .
+    container_name: dogansystem-node3
+    environment:
+      - NODE_ID=3
+      - NODE_URL=http://node3:8001
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - REDIS_HOST=redis
+      - PEER_NODES=node1,node2
+    ports:
+      - "8003:8001"
+    depends_on:
+      - redis
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  # Load Balancer
+  load-balancer:
+    image: nginx:alpine
+    container_name: dogansystem-lb
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-lb.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - node1
+      - node2
+      - node3
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  # Redis for shared state
+  redis:
+    image: redis:7-alpine
+    container_name: dogansystem-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  # Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: dogansystem-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: dogansystem-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - dogansystem-network
+    restart: unless-stopped
+
+networks:
+  dogansystem-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  prometheus-data:
+  grafana-data:

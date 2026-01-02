@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "DoganSystem Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>DoganSystem Dashboard</h1>
+            <p class="lead">Multi-Tenant SaaS Platform with ERPNext Integration</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tenants</h5>
+                    <h2 class="text-primary" id="tenantCount">-</h2>
+                    <a href="/api/tenants" class="btn btn-sm btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ERPNext Instances</h5>
+                    <h2 class="text-success" id="erpnextCount">-</h2>
+                    <a href="/api/erpnext" class="btn btn-sm btn-success">Manage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Employee Agents</h5>
+                    <h2 class="text-info" id="agentCount">-</h2>
+                    <a href="/api/agents" class="btn btn-sm btn-info">Manage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Subscriptions</h5>
+                    <h2 class="text-warning" id="subscriptionCount">-</h2>
+                    <a href="/api/subscriptions" class="btn btn-sm btn-warning">Manage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Load dashboard statistics
+        async function loadDashboard() {
+            try {
+                const [tenants, erpnext, agents, subscriptions] = await Promise.all([
+                    fetch('/api/tenants?MaxResultCount=1').then(r => r.json()),
+                    fetch('/api/erpnext?MaxResultCount=1').then(r => r.json()),
+                    fetch('/api/agents?MaxResultCount=1').then(r => r.json()),
+                    fetch('/api/subscriptions?MaxResultCount=1').then(r => r.json())
+                ]);
+
+                document.getElementById('tenantCount').textContent = tenants.totalCount || 0;
+                document.getElementById('erpnextCount').textContent = erpnext.totalCount || 0;
+                document.getElementById('agentCount').textContent = agents.totalCount || 0;
+                document.getElementById('subscriptionCount').textContent = subscriptions.totalCount || 0;
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        loadDashboard();
+    </script>
+}

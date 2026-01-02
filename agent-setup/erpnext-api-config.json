@@ -1,0 +1,30 @@
+{
+  "erpnext": {
+    "base_url": "http://localhost:8000",
+    "api_key": "YOUR_API_KEY",
+    "api_secret": "YOUR_API_SECRET",
+    "version": "v16",
+    "timeout": 30
+  },
+  "agents": {
+    "enabled": true,
+    "max_concurrent_agents": 10,
+    "rate_limit_per_agent": 100,
+    "rate_limit_window": 60
+  },
+  "endpoints": {
+    "resource": "/api/resource",
+    "method": "/api/method",
+    "webhook": "/api/method/frappe.integrations.webhook_handler.handle_webhook"
+  },
+  "authentication": {
+    "type": "api_key",
+    "header_name": "Authorization",
+    "token_prefix": "token"
+  },
+  "logging": {
+    "enabled": true,
+    "level": "INFO",
+    "log_agent_actions": true
+  }
+}

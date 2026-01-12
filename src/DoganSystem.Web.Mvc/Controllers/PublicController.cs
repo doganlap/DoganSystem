@@ -23,35 +23,16 @@ namespace DoganSystem.Web.Mvc.Controllers
         /// </summary>
         public async Task<IActionResult> Index()
         {
-            // #region agent log
-            try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "B", location = "PublicController.cs:Index", message = "Index action entry", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-            // #endregion
-            try
+            var pageInfo = await _publicPageAppService.GetHomePageInfoAsync();
+            if (pageInfo != null)
             {
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "B", location = "PublicController.cs:Index", message = "Before GetHomePageInfoAsync", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
-                var pageInfo = await _publicPageAppService.GetHomePageInfoAsync();
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "B", location = "PublicController.cs:Index", message = "After GetHomePageInfoAsync", data = new { companyName = pageInfo?.CompanyName }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
                 ViewBag.AppName = pageInfo.CompanyName;
                 ViewBag.AppDescription = pageInfo.CompanyDescription;
                 ViewBag.Headline = pageInfo.Headline;
                 ViewBag.Tagline = pageInfo.Tagline;
                 ViewBag.Positioning = pageInfo.PositioningStatement;
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "B", location = "PublicController.cs:Index", message = "Before return View", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
-                return View();
             }
-            catch (Exception ex)
-            {
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "A", location = "PublicController.cs:Index", message = "Index action EXCEPTION", data = new { exceptionType = ex.GetType().Name, message = ex.Message, stackTrace = ex.StackTrace != null ? ex.StackTrace.Substring(0, Math.Min(200, ex.StackTrace.Length)) : null }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
-                throw;
-            }
+            return View();
         }
 
         /// <summary>

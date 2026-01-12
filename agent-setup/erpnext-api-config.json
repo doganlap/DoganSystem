@@ -3,7 +3,7 @@
     "base_url": "http://localhost:8000",
     "api_key": "YOUR_API_KEY",
     "api_secret": "YOUR_API_SECRET",
-    "version": "v16",
+    "version": "v16.2",
     "timeout": 30
   },
   "agents": {

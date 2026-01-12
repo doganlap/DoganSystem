@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DoganSystem.EntityFrameworkCore;
 
@@ -10,7 +11,7 @@ namespace DoganSystem.Web.Mvc;
 /// </summary>
 public static class DbSeeder
 {
-    public static async Task SeedAsync(IServiceProvider serviceProvider)
+    public static async Task SeedAsync(IServiceProvider serviceProvider, IConfiguration? configuration = null)
     {
         Console.WriteLine("Starting direct database seeding...");
 
@@ -70,8 +71,11 @@ public static class DbSeeder
                 }
 
                 // Create admin user with hashed password
-                const string adminEmail = "admin@saudibusinessgate.com";
-                const string adminUserName = "admin";
+                var adminEmail = configuration?["Seed:AdminEmail"] ?? "admin@saudibusinessgate.com";
+                var adminUserName = configuration?["Seed:AdminUserName"] ?? "admin";
+                var adminPassword = configuration?["Seed:AdminPassword"]
+                    ?? Environment.GetEnvironmentVariable("DOGANSYSTEM_ADMIN_PASSWORD")
+                    ?? "Admin123!";
 
                 cmd.CommandText = "SELECT COUNT(*) FROM AbpUsers WHERE NormalizedEmail = @email";
                 cmd.Parameters.Clear();
@@ -81,7 +85,7 @@ public static class DbSeeder
                 if (adminUserCount == 0)
                 {
                     Console.WriteLine("Creating admin user...");
-                    var passwordHash = HashPassword("Admin123!");
+                    var passwordHash = HashPassword(adminPassword);
                     var userId = Guid.NewGuid().ToString();
                     var now = DateTime.UtcNow.ToString("o");
 
@@ -159,6 +163,6 @@ public static class DbSeeder
     private static string HashPassword(string password)
     {
         var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<object>();
-        return hasher.HashPassword(null!, password);
+        return hasher.HashPassword(new object(), password);
     }
 }

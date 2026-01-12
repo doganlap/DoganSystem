@@ -98,6 +98,38 @@ SMTP_PASSWORD=app-specific-password
 ./deploy.sh rebuild
 ```
 
+## Docker Hub Integration
+
+### Build and Push Images
+
+```bash
+# Build and push to Docker Hub (requires login)
+./scripts/build-and-push-docker.sh v1.0.0
+
+# Build only (skip push)
+./scripts/build-and-push-docker.sh v1.0.0 false
+
+# Use default 'latest' tag
+./scripts/build-and-push-docker.sh
+```
+
+### Using Pre-built Images
+
+Update `docker-compose.production.yml` to use Docker Hub images:
+
+```yaml
+services:
+  dogansystem-web:
+    image: doganlap/dogansystem-web:latest
+    # Remove build section when using pre-built images
+
+  api-gateway:
+    image: doganlap/dogansystem-ai:latest
+    # Remove build section when using pre-built images
+```
+
+See `DOCKER_HUB_SETUP.md` for detailed Docker Hub configuration.
+
 ## SSL Certificates
 
 ### Development (Self-signed)

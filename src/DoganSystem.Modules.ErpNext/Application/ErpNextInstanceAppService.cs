@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using DoganSystem.Core.Policy;
 using DoganSystem.Modules.ErpNext.Application.Dtos;
 using DoganSystem.Modules.ErpNext.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -18,17 +20,38 @@ namespace DoganSystem.Modules.ErpNext.Application
     {
         private readonly IRepository<ErpNextInstance, Guid> _erpNextRepository;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPolicyEnforcer _policyEnforcer;
+        private readonly IConfiguration _configuration;
 
         public ErpNextInstanceAppService(
             IRepository<ErpNextInstance, Guid> erpNextRepository,
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            IPolicyEnforcer policyEnforcer,
+            IConfiguration configuration)
         {
             _erpNextRepository = erpNextRepository;
             _httpClientFactory = httpClientFactory;
+            _policyEnforcer = policyEnforcer;
+            _configuration = configuration;
         }
 
         public async Task<ErpNextInstanceDto> CreateAsync(CreateErpNextInstanceDto input)
         {
+            // Enforce policy before creating ERPNext instance
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "create",
+                Environment = environment,
+                ResourceType = "ErpNextInstance",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             var instance = new ErpNextInstance
             {
                 Name = input.Name,
@@ -49,6 +72,21 @@ namespace DoganSystem.Modules.ErpNext.Application
         public async Task<ErpNextInstanceDto> UpdateAsync(Guid id, UpdateErpNextInstanceDto input)
         {
             var instance = await _erpNextRepository.GetAsync(id);
+
+            // Enforce policy before updating ERPNext instance
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "update",
+                Environment = environment,
+                ResourceType = "ErpNextInstance",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
 
             if (!string.IsNullOrEmpty(input.Name))
                 instance.Name = input.Name;

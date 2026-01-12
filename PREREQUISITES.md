@@ -1,6 +1,6 @@
-# ERPNext v16 Prerequisites Checklist
+# ERPNext v16.2 Prerequisites Checklist
 
-Use this checklist to ensure all prerequisites are installed before setting up ERPNext v16.
+Use this checklist to ensure all prerequisites are installed before setting up ERPNext v16.2.
 
 ## Required Software
 

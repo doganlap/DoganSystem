@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoganSystem.Core.Policy;
 using DoganSystem.Modules.TenantManagement.Application.Dtos;
 using DoganSystem.Modules.TenantManagement.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -16,14 +18,36 @@ namespace DoganSystem.Modules.TenantManagement.Application
     public class TenantAppService : ApplicationService, ITenantAppService
     {
         private readonly IRepository<Tenant, Guid> _tenantRepository;
+        private readonly IPolicyEnforcer _policyEnforcer;
+        private readonly IConfiguration _configuration;
 
-        public TenantAppService(IRepository<Tenant, Guid> tenantRepository)
+        public TenantAppService(
+            IRepository<Tenant, Guid> tenantRepository,
+            IPolicyEnforcer policyEnforcer,
+            IConfiguration configuration)
         {
             _tenantRepository = tenantRepository;
+            _policyEnforcer = policyEnforcer;
+            _configuration = configuration;
         }
 
         public async Task<TenantDto> CreateAsync(CreateTenantDto input)
         {
+            // Enforce policy before creating tenant
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "create",
+                Environment = environment,
+                ResourceType = "Tenant",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             // Check if subdomain already exists
             if (!string.IsNullOrEmpty(input.Subdomain))
             {
@@ -53,6 +77,21 @@ namespace DoganSystem.Modules.TenantManagement.Application
         public async Task<TenantDto> UpdateAsync(Guid id, UpdateTenantDto input)
         {
             var tenant = await _tenantRepository.GetAsync(id);
+
+            // Enforce policy before updating tenant
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "update",
+                Environment = environment,
+                ResourceType = "Tenant",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
 
             if (!string.IsNullOrEmpty(input.Name))
                 tenant.Name = input.Name;

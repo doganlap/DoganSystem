@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DoganSystem.Core.Policy;
 using DoganSystem.Modules.AgentOrchestrator.Application.Dtos;
 using DoganSystem.Modules.AgentOrchestrator.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -18,17 +19,35 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
     {
         private readonly IRepository<EmployeeAgent, Guid> _agentRepository;
         private readonly IConfiguration _configuration;
+        private readonly IPolicyEnforcer _policyEnforcer;
 
         public EmployeeAgentAppService(
             IRepository<EmployeeAgent, Guid> agentRepository,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IPolicyEnforcer policyEnforcer)
         {
             _agentRepository = agentRepository;
             _configuration = configuration;
+            _policyEnforcer = policyEnforcer;
         }
 
         public async Task<EmployeeAgentDto> CreateAsync(CreateEmployeeAgentDto input)
         {
+            // Enforce policy before creating employee agent
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "create",
+                Environment = environment,
+                ResourceType = "EmployeeAgent",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             var agent = new EmployeeAgent
             {
                 TenantId = input.TenantId,
@@ -64,6 +83,21 @@ namespace DoganSystem.Modules.AgentOrchestrator.Application
         public async Task<EmployeeAgentDto> UpdateAsync(Guid id, UpdateEmployeeAgentDto input)
         {
             var agent = await _agentRepository.GetAsync(id);
+
+            // Enforce policy before updating employee agent
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "update",
+                Environment = environment,
+                ResourceType = "EmployeeAgent",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
 
             if (!string.IsNullOrEmpty(input.EmployeeName))
                 agent.EmployeeName = input.EmployeeName;

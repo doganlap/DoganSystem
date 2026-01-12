@@ -1,12 +1,12 @@
-# DoganSystem - ERPNext v16 with Multi-Agent AI System
+# DoganSystem - ERPNext v16.2 with Multi-Agent AI System
 
 ## Project Overview
 
-This project provides a complete setup for **ERPNext v16** as a backend office system, operated by **multiple Claude AI agents** in a multi-agent environment.
+This project provides a complete setup for **ERPNext v16.2** as a backend office system, operated by **multiple Claude AI agents** in a multi-agent environment.
 
 ## What's Included
 
-### 1. ERPNext v16 Installation
+### 1. ERPNext v16.2 Installation
 - Complete installation guide for Windows, Linux, and macOS
 - Server deployment instructions
 - Production configuration
@@ -59,13 +59,13 @@ DoganSystem/
 
 ## Quick Start Guide
 
-### Step 1: Install ERPNext v16
+### Step 1: Install ERPNext v16.2
 
 **Windows:**
 1. Install prerequisites (Python, Node.js, MariaDB, Redis, Git, wkhtmltopdf)
 2. Install bench: `pip install frappe-bench`
-3. Initialize: `bench init --frappe-branch version-16 frappe-bench`
-4. Get ERPNext: `bench get-app erpnext --branch version-16`
+3. Initialize: `bench init --frappe-branch version-16.2 frappe-bench`
+4. Get ERPNext: `bench get-app erpnext --branch version-16.2`
 5. Create site: `bench new-site mysite.local`
 6. Install: `bench --site mysite.local install-app erpnext`
 7. Start: `bench start`
@@ -105,7 +105,7 @@ DoganSystem/
 
 ## Features
 
-### ERPNext v16
+### ERPNext v16.2
 - ✅ Complete ERP system (CRM, Sales, Inventory, Accounting, etc.)
 - ✅ REST API access
 - ✅ Customizable and extensible
@@ -215,7 +215,7 @@ curl -X POST http://localhost:8001/agents/message \
 
 ## Next Steps
 
-1. ✅ Install ERPNext v16
+1. ✅ Install ERPNext v16.2
 2. ✅ Set up multi-agent system
 3. ✅ Create specialized agents for your needs
 4. ✅ Customize agent system prompts

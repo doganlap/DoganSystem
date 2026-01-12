@@ -3,7 +3,7 @@
 ## 🎯 System Summary
 
 **DoganSystem** is a **complete multi-tenant SaaS platform** with:
-- ERPNext v16 backend
+- ERPNext v16.2 backend
 - Python-based multi-agent AI system
 - FastAPI REST APIs
 - Multi-tenant architecture
@@ -25,7 +25,7 @@
 | **Database** | SQLite (dev) / PostgreSQL (prod) | - |
 | **Cache/Queue** | Redis | 5.0.0+ |
 | **AI/ML** | Anthropic Claude API | 0.34.0+ |
-| **ERP System** | ERPNext v16 (Frappe) | 16.x |
+| **ERP System** | ERPNext v16.2 (Frappe) | 16.x |
 | **Email** | SMTP/IMAP | - |
 | **Payment** | Stripe | 7.0.0+ |
 | **Monitoring** | Prometheus | 0.19.0+ |
@@ -136,7 +136,7 @@
         └────────────┬─────────────┘
                      │
         ┌────────────▼────────────┐
-        │  ERPNext v16 (Frappe)    │
+        │  ERPNext v16.2 (Frappe)    │
         │  Port: 8000              │
         │  - ERP Backend           │
         │  - Database (MariaDB)    │

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
@@ -19,6 +20,7 @@ public class DoganSystemDataSeedContributor : IDataSeedContributor, ITransientDe
     private readonly IdentityRoleManager _roleManager;
     private readonly ICurrentTenant _currentTenant;
     private readonly IGuidGenerator _guidGenerator;
+    private readonly IConfiguration _configuration;
     private readonly ILogger<DoganSystemDataSeedContributor> _logger;
 
     public DoganSystemDataSeedContributor(
@@ -28,6 +30,7 @@ public class DoganSystemDataSeedContributor : IDataSeedContributor, ITransientDe
         IdentityRoleManager roleManager,
         ICurrentTenant currentTenant,
         IGuidGenerator guidGenerator,
+        IConfiguration configuration,
         ILogger<DoganSystemDataSeedContributor> logger)
     {
         _userRepository = userRepository;
@@ -36,6 +39,7 @@ public class DoganSystemDataSeedContributor : IDataSeedContributor, ITransientDe
         _roleManager = roleManager;
         _currentTenant = currentTenant;
         _guidGenerator = guidGenerator;
+        _configuration = configuration;
         _logger = logger;
     }
 
@@ -88,9 +92,9 @@ public class DoganSystemDataSeedContributor : IDataSeedContributor, ITransientDe
 
     private async Task SeedAdminUserAsync()
     {
-        const string adminEmail = "admin@saudibusinessgate.com";
-        const string adminUserName = "admin";
-        const string adminPassword = "Admin123!";
+        var adminEmail = _configuration["Seed:AdminEmail"] ?? "admin@saudibusinessgate.com";
+        var adminUserName = _configuration["Seed:AdminUserName"] ?? "admin";
+        var adminPassword = _configuration["Seed:AdminPassword"] ?? Environment.GetEnvironmentVariable("DOGANSYSTEM_ADMIN_PASSWORD") ?? "Admin123!";
 
         var adminUser = await _userRepository.FindByNormalizedEmailAsync(adminEmail.ToUpperInvariant());
         if (adminUser == null)

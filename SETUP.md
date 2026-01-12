@@ -1,4 +1,4 @@
-# ERPNext v16 Quick Setup
+# ERPNext v16.2 Quick Setup
 
 ## Windows Quick Start
 
@@ -21,13 +21,13 @@ pip install frappe-bench
 cd D:\
 
 # Initialize bench
-bench init --frappe-branch version-16 frappe-bench
+bench init --frappe-branch version-16.2 frappe-bench
 
 # Enter bench directory
 cd frappe-bench
 
-# Get ERPNext v16
-bench get-app erpnext --branch version-16
+# Get ERPNext v16.2
+bench get-app erpnext --branch version-16.2
 
 # Create site
 bench new-site mysite.local
@@ -61,11 +61,11 @@ brew install python@3.10 node@18 mariadb redis wkhtmltopdf git
 pip3 install frappe-bench
 
 # Create bench
-bench init --frappe-branch version-16 frappe-bench
+bench init --frappe-branch version-16.2 frappe-bench
 cd frappe-bench
 
 # Get ERPNext
-bench get-app erpnext --branch version-16
+bench get-app erpnext --branch version-16.2
 
 # Create site
 bench new-site mysite.local

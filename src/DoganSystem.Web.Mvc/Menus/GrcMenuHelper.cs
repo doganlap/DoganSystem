@@ -9,6 +9,12 @@ public static class GrcMenuHelper
 {
     public static bool CanAccess(IAuthorizationService authorizationService, ClaimsPrincipal user, string permission)
     {
-        return authorizationService.AuthorizeAsync(user, null, permission).Result.Succeeded;
+        return authorizationService.AuthorizeAsync(user, null, permission).GetAwaiter().GetResult().Succeeded;
+    }
+
+    public static async Task<bool> CanAccessAsync(IAuthorizationService authorizationService, ClaimsPrincipal user, string permission)
+    {
+        var result = await authorizationService.AuthorizeAsync(user, null, permission);
+        return result.Succeeded;
     }
 }

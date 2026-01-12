@@ -1,7 +1,7 @@
-# ERPNext v16 Windows Installation Script
+# ERPNext v16.2 Windows Installation Script
 # Run this script in PowerShell as Administrator
 
-Write-Host "ERPNext v16 Installation Script for Windows" -ForegroundColor Green
+Write-Host "ERPNext v16.2 Installation Script for Windows" -ForegroundColor Green
 Write-Host "===========================================" -ForegroundColor Green
 
 # Check if running as Administrator
@@ -75,9 +75,9 @@ Write-Host "`n===========================================" -ForegroundColor Gree
 Write-Host "Installation Complete!" -ForegroundColor Green
 Write-Host "`nNext steps:" -ForegroundColor Yellow
 Write-Host "1. Navigate to your desired directory (e.g., D:\)" -ForegroundColor White
-Write-Host "2. Run: bench init --frappe-branch version-16 frappe-bench" -ForegroundColor White
+Write-Host "2. Run: bench init --frappe-branch version-16.2 frappe-bench" -ForegroundColor White
 Write-Host "3. Run: cd frappe-bench" -ForegroundColor White
-Write-Host "4. Run: bench get-app erpnext --branch version-16" -ForegroundColor White
+Write-Host "4. Run: bench get-app erpnext --branch version-16.2" -ForegroundColor White
 Write-Host "5. Run: bench new-site your-site-name.local" -ForegroundColor White
 Write-Host "6. Run: bench --site your-site-name.local install-app erpnext" -ForegroundColor White
 Write-Host "7. Run: bench start" -ForegroundColor White

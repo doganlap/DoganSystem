@@ -9,6 +9,7 @@ using Volo.Abp.Emailing;
 using DoganSystem.Core;
 using DoganSystem.Application.ObjectMapper;
 using DoganSystem.Application.Policy;
+using DoganSystem.Core.Policy;
 using DoganSystem.Application.Permissions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,7 +48,7 @@ namespace DoganSystem.Application
 
             // Register Policy services
             context.Services.AddSingleton<PolicyStore>();
-            context.Services.AddScoped<IPolicyEnforcer, PolicyEnforcer>();
+            context.Services.AddScoped<DoganSystem.Core.Policy.IPolicyEnforcer, PolicyEnforcer>();
             context.Services.AddScoped<PolicyAuditLogger>();
         }
     }

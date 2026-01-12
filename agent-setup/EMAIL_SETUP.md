@@ -15,7 +15,7 @@ The email integration enables:
 
 1. **Email Account** (Gmail, Outlook, or custom SMTP)
 2. **App Password** (for Gmail/Outlook)
-3. **ERPNext v16** installed and running
+3. **ERPNext v16.2** installed and running
 4. **Multi-agent system** set up
 
 ## Step 1: Configure Email Account

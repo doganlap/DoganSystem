@@ -12,26 +12,14 @@ namespace DoganSystem.Web.Mvc
 {
     public class Program
     {
-        public async static Task<int> Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            // #region agent log
-            try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "A", location = "Program.cs:13", message = "Main entry", data = new { args = args?.Length ?? 0 }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-            // #endregion
             try
             {
                 var builder = WebApplication.CreateBuilder(args);
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "A", location = "Program.cs:18", message = "Builder created", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
                 await builder.AddApplicationAsync<DoganSystemWebMvcModule>();
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "A", location = "Program.cs:20", message = "Application module added", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
                 var app = builder.Build();
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "A", location = "Program.cs:22", message = "App built", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
-                
+
                 // Initialize application
                 await app.InitializeApplicationAsync();
                 Console.WriteLine("Application initialized successfully.");
@@ -39,7 +27,7 @@ namespace DoganSystem.Web.Mvc
                 // Seed database with initial data using direct EF Core access
                 try
                 {
-                    await DbSeeder.SeedAsync(app.Services);
+                    await DbSeeder.SeedAsync(app.Services, builder.Configuration);
                 }
                 catch (Exception seedEx)
                 {
@@ -48,9 +36,6 @@ namespace DoganSystem.Web.Mvc
                 }
 
                 await app.RunAsync();
-                // #region agent log
-                try { System.IO.File.AppendAllText("/root/CascadeProjects/DoganSystem/.cursor/debug.log", System.Text.Json.JsonSerializer.Serialize(new { sessionId = "debug-session", runId = "run1", hypothesisId = "C", location = "Program.cs:54", message = "After app.RunAsync (should not reach here)", data = new { }, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() }) + "\n"); } catch { }
-                // #endregion
                 return 0;
             }
             catch (Exception ex)

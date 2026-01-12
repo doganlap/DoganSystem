@@ -1,11 +1,11 @@
 #!/bin/bash
-# ERPNext v16 Linux Installation Script
+# ERPNext v16.2 Linux Installation Script
 # Run: chmod +x install-linux.sh && ./install-linux.sh
 
 set -e
 
 echo "==========================================="
-echo "ERPNext v16 Installation Script for Linux"
+echo "ERPNext v16.2 Installation Script for Linux"
 echo "==========================================="
 
 # Check if running as root
@@ -104,9 +104,9 @@ echo "==========================================="
 echo ""
 echo "Next steps:"
 echo "1. mkdir -p ~/frappe-bench && cd ~/frappe-bench"
-echo "2. bench init --frappe-branch version-16 frappe-bench"
+echo "2. bench init --frappe-branch version-16.2 frappe-bench"
 echo "3. cd frappe-bench"
-echo "4. bench get-app erpnext --branch version-16"
+echo "4. bench get-app erpnext --branch version-16.2"
 echo "5. bench new-site your-site-name.local"
 echo "6. bench --site your-site-name.local install-app erpnext"
 echo "7. bench start"

@@ -1,12 +1,14 @@
 # ERPNext Installation Status
 
+## Target Version: ERPNext v16.2 (Latest Stable)
+
 ## Current Status: ❌ NOT INSTALLED
 
 Based on the workspace analysis:
 
 ### What We Have:
 ✅ **Installation Guides** - Complete setup documentation
-- `README.md` - Full ERPNext v16 setup guide
+- `README.md` - Full ERPNext v16.2 setup guide
 - `SETUP.md` - Quick setup reference
 - `PREREQUISITES.md` - Prerequisites checklist
 - `install-windows.ps1` - Windows installation script
@@ -71,13 +73,13 @@ chmod +x install-linux.sh
 
 3. **Create Bench:**
    ```bash
-   bench init --frappe-branch version-16 frappe-bench
+   bench init --frappe-branch version-16.2 frappe-bench
    cd frappe-bench
    ```
 
 4. **Get ERPNext:**
    ```bash
-   bench get-app erpnext --branch version-16
+   bench get-app erpnext --branch version-16.2
    ```
 
 5. **Create Site:**

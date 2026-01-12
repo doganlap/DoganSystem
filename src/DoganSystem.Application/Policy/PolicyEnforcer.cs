@@ -1,9 +1,10 @@
 using DoganSystem.Application.Policy.PolicyModels;
+using DoganSystem.Core.Policy;
 using Microsoft.Extensions.Logging;
 
 namespace DoganSystem.Application.Policy;
 
-public class PolicyEnforcer : IPolicyEnforcer
+public class PolicyEnforcer : DoganSystem.Core.Policy.IPolicyEnforcer
 {
     private readonly PolicyStore _policyStore;
     private readonly PolicyAuditLogger _auditLogger;

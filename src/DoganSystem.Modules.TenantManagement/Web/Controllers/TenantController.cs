@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using DoganSystem.Modules.TenantManagement.Application;
 using DoganSystem.Modules.TenantManagement.Application.Dtos;
+using DoganSystem.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
@@ -10,6 +12,7 @@ namespace DoganSystem.Modules.TenantManagement.Web.Controllers
 {
     [Route("api/tenants")]
     [ApiController]
+    [Authorize(GrcPermissions.Admin.Tenants)]
     public class TenantController : AbpControllerBase
     {
         private readonly ITenantAppService _tenantAppService;

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoganSystem.Core.Policy;
 using DoganSystem.Modules.Subscription.Application.Dtos;
 using DoganSystem.Modules.Subscription.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -17,6 +19,8 @@ namespace DoganSystem.Modules.Subscription.Application
     public class SubscriptionAppService : ApplicationService, ISubscriptionAppService
     {
         private readonly IRepository<SubscriptionEntity, Guid> _subscriptionRepository;
+        private readonly IPolicyEnforcer _policyEnforcer;
+        private readonly IConfiguration _configuration;
 
         // Plan pricing
         private readonly Dictionary<string, decimal> _planPricing = new()
@@ -26,13 +30,33 @@ namespace DoganSystem.Modules.Subscription.Application
             { "Enterprise", 999.00m }
         };
 
-        public SubscriptionAppService(IRepository<SubscriptionEntity, Guid> subscriptionRepository)
+        public SubscriptionAppService(
+            IRepository<SubscriptionEntity, Guid> subscriptionRepository,
+            IPolicyEnforcer policyEnforcer,
+            IConfiguration configuration)
         {
             _subscriptionRepository = subscriptionRepository;
+            _policyEnforcer = policyEnforcer;
+            _configuration = configuration;
         }
 
         public async Task<SubscriptionDto> CreateAsync(CreateSubscriptionDto input)
         {
+            // Enforce policy before creating subscription
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "create",
+                Environment = environment,
+                ResourceType = "Subscription",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             var subscription = new SubscriptionEntity
             {
                 TenantId = input.TenantId,
@@ -54,6 +78,21 @@ namespace DoganSystem.Modules.Subscription.Application
         public async Task<SubscriptionDto> UpdateAsync(Guid id, UpdateSubscriptionDto input)
         {
             var subscription = await _subscriptionRepository.GetAsync(id);
+
+            // Enforce policy before updating subscription
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "update",
+                Environment = environment,
+                ResourceType = "Subscription",
+                Resource = input,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
 
             if (!string.IsNullOrEmpty(input.PlanType))
             {
@@ -158,6 +197,22 @@ namespace DoganSystem.Modules.Subscription.Application
         public async Task<SubscriptionDto> CancelAsync(Guid id)
         {
             var subscription = await _subscriptionRepository.GetAsync(id);
+
+            // Enforce policy before canceling subscription
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "cancel",
+                Environment = environment,
+                ResourceType = "Subscription",
+                Resource = subscription,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             subscription.Status = "Cancelled";
             subscription.EndDate = DateTime.UtcNow;
             subscription = await _subscriptionRepository.UpdateAsync(subscription);
@@ -167,6 +222,22 @@ namespace DoganSystem.Modules.Subscription.Application
         public async Task<SubscriptionDto> RenewAsync(Guid id)
         {
             var subscription = await _subscriptionRepository.GetAsync(id);
+
+            // Enforce policy before renewing subscription
+            var environment = _configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
+            var policyContext = new PolicyContext
+            {
+                Action = "renew",
+                Environment = environment,
+                ResourceType = "Subscription",
+                Resource = subscription,
+                TenantId = CurrentTenant.Id,
+                PrincipalId = CurrentUser.Id?.ToString(),
+                PrincipalRoles = CurrentUser.Roles?.ToList() ?? new List<string>()
+            };
+
+            await _policyEnforcer.EnforceAsync(policyContext);
+
             subscription.Status = "Active";
             subscription.NextBillingDate = DateTime.UtcNow.AddMonths(1);
             subscription = await _subscriptionRepository.UpdateAsync(subscription);

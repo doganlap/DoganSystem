@@ -53,7 +53,7 @@ Complete multi-tenant SaaS platform with ERPNext integration, multi-agent AI orc
 - SQL Server (LocalDB or full instance)
 - Python 3.10+ (for agent orchestrator)
 - Node.js 18+ (for ERPNext)
-- ERPNext v16 (optional, can be installed separately)
+- ERPNext v16.2 (optional, can be installed separately)
 
 ## 🏗️ Architecture
 

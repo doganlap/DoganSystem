@@ -29,14 +29,14 @@ The multi-agent system allows multiple Claude AI agents to:
          │ ERPNext API
          │
 ┌────────▼────────┐
-│   ERPNext v16   │
+│   ERPNext v16.2   │
 │   Backend       │
 └─────────────────┘
 ```
 
 ## Prerequisites
 
-1. **ERPNext v16** installed and running
+1. **ERPNext v16.2** installed and running
 2. **Python 3.10+** installed
 3. **Claude API Key** from Anthropic
 4. **ERPNext API Key** generated in ERPNext

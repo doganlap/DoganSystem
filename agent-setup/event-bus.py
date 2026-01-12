@@ -43,7 +43,8 @@ class EventBus:
         self,
         tenant_isolation: TenantIsolation,
         redis_host: Optional[str] = None,
-        redis_port: int = 6379
+        redis_port: int = 6379,
+        redis_password: Optional[str] = None
     ):
         self.tenant_isolation = tenant_isolation
         self.event_queue: Queue = Queue()
@@ -56,6 +57,7 @@ class EventBus:
                 self.redis_client = redis.Redis(
                     host=redis_host,
                     port=redis_port,
+                    password=redis_password,
                     decode_responses=True
                 )
                 self.redis_client.ping()

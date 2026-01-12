@@ -51,7 +51,7 @@ foreach ($location in $possibleLocations) {
 
 if (-not $benchPath) {
     Write-Host "   ✗ Frappe Bench directory not found" -ForegroundColor Red
-    Write-Host "   → Create with: bench init --frappe-branch version-16 frappe-bench" -ForegroundColor Yellow
+    Write-Host "   → Create with: bench init --frappe-branch version-16.2 frappe-bench" -ForegroundColor Yellow
 }
 
 # Check if ERPNext app is installed
@@ -63,7 +63,7 @@ if ($benchPath) {
         $status.ERPNextInstalled = $true
     } else {
         Write-Host "   ✗ ERPNext app not found" -ForegroundColor Red
-        Write-Host "   → Install with: bench get-app erpnext --branch version-16" -ForegroundColor Yellow
+        Write-Host "   → Install with: bench get-app erpnext --branch version-16.2" -ForegroundColor Yellow
     }
     
     # Check for sites

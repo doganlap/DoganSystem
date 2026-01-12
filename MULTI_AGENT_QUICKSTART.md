@@ -2,7 +2,7 @@
 
 ## Overview
 
-This system enables **multiple Claude AI agents** to operate ERPNext v16 as a backend office system. Agents can:
+This system enables **multiple Claude AI agents** to operate ERPNext v16.2 as a backend office system. Agents can:
 - Query ERPNext data using natural language
 - Create, update, and delete records
 - Execute custom operations
@@ -19,7 +19,7 @@ Claude Agents → API Server → ERPNext Backend
 
 ## Prerequisites
 
-1. ✅ ERPNext v16 installed and running
+1. ✅ ERPNext v16.2 installed and running
 2. ✅ Python 3.10+ installed
 3. ✅ Claude API key from Anthropic
 4. ✅ ERPNext API key (generate in ERPNext)

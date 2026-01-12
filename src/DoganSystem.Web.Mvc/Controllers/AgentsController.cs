@@ -2,11 +2,14 @@ using System;
 using System.Threading.Tasks;
 using DoganSystem.Modules.AgentOrchestrator.Application;
 using DoganSystem.Modules.AgentOrchestrator.Application.Dtos;
+using DoganSystem.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace DoganSystem.Web.Mvc.Controllers
 {
+    [Authorize(GrcPermissions.Admin.Access)]
     public class AgentsController : AbpController
     {
         private readonly IEmployeeAgentAppService _agentAppService;

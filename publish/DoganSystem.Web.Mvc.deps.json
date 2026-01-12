@@ -1349,7 +1349,7 @@
       "Microsoft.Extensions.Primitives/8.0.0": {},
       "Microsoft.Identity.Client/4.56.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "7.4.1"
+          "Microsoft.IdentityModel.Abstractions": "7.1.2"
         },
         "runtime": {
           "lib/net6.0/Microsoft.Identity.Client.dll": {
@@ -1377,11 +1377,11 @@
           "lib/netstandard2.0/Microsoft.Identity.Client.Extensions.Msal.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Abstractions/7.4.1": {
+      "Microsoft.IdentityModel.Abstractions/7.1.2": {
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "assemblyVersion": "7.4.1.0",
-            "fileVersion": "7.4.1.50315"
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.41121"
           }
         },
         "compile": {
@@ -1390,7 +1390,7 @@
       },
       "Microsoft.IdentityModel.JsonWebTokens/7.1.2": {
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "7.4.1"
+          "Microsoft.IdentityModel.Tokens": "7.1.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
@@ -1402,14 +1402,14 @@
           "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Logging/7.4.1": {
+      "Microsoft.IdentityModel.Logging/7.1.2": {
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "7.4.1"
+          "Microsoft.IdentityModel.Abstractions": "7.1.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Logging.dll": {
-            "assemblyVersion": "7.4.1.0",
-            "fileVersion": "7.4.1.50315"
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.41121"
           }
         },
         "compile": {
@@ -1418,8 +1418,8 @@
       },
       "Microsoft.IdentityModel.Protocols/7.1.2": {
         "dependencies": {
-          "Microsoft.IdentityModel.Logging": "7.4.1",
-          "Microsoft.IdentityModel.Tokens": "7.4.1"
+          "Microsoft.IdentityModel.Logging": "7.1.2",
+          "Microsoft.IdentityModel.Tokens": "7.1.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Protocols.dll": {
@@ -1446,14 +1446,14 @@
           "lib/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Tokens/7.4.1": {
+      "Microsoft.IdentityModel.Tokens/7.1.2": {
         "dependencies": {
-          "Microsoft.IdentityModel.Logging": "7.4.1"
+          "Microsoft.IdentityModel.Logging": "7.1.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Tokens.dll": {
-            "assemblyVersion": "7.4.1.0",
-            "fileVersion": "7.4.1.50315"
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.41121"
           }
         },
         "compile": {
@@ -1567,6 +1567,37 @@
           "lib/netstandard2.1/Nito.Disposables.dll": {}
         }
       },
+      "Npgsql/8.0.3": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.dll": {
+            "assemblyVersion": "8.0.3.0",
+            "fileVersion": "8.0.3.0"
+          }
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.dll": {}
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
+          "Npgsql": "8.0.3"
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.4.0"
+          }
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
+        }
+      },
       "NUglify/1.21.0": {
         "runtime": {
           "lib/net5.0/NUglify.dll": {
@@ -1576,39 +1607,6 @@
         },
         "compile": {
           "lib/net5.0/NUglify.dll": {}
-        }
-      },
-      "OpenIddict.Abstractions/5.5.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
-          "Microsoft.Extensions.Primitives": "8.0.0",
-          "Microsoft.IdentityModel.Tokens": "7.4.1"
-        },
-        "runtime": {
-          "lib/net8.0/OpenIddict.Abstractions.dll": {
-            "assemblyVersion": "5.5.0.0",
-            "fileVersion": "5.500.24.22566"
-          }
-        },
-        "compile": {
-          "lib/net8.0/OpenIddict.Abstractions.dll": {}
-        }
-      },
-      "OpenIddict.Core/5.5.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Caching.Memory": "8.0.0",
-          "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Options": "8.0.2",
-          "OpenIddict.Abstractions": "5.5.0"
-        },
-        "runtime": {
-          "lib/net8.0/OpenIddict.Core.dll": {
-            "assemblyVersion": "5.5.0.0",
-            "fileVersion": "5.500.24.22566"
-          }
-        },
-        "compile": {
-          "lib/net8.0/OpenIddict.Core.dll": {}
         }
       },
       "Polly/8.2.0": {
@@ -2142,7 +2140,7 @@
       "System.IdentityModel.Tokens.Jwt/7.1.2": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "7.1.2",
-          "Microsoft.IdentityModel.Tokens": "7.4.1"
+          "Microsoft.IdentityModel.Tokens": "7.1.2"
         },
         "runtime": {
           "lib/net8.0/System.IdentityModel.Tokens.Jwt.dll": {
@@ -3037,6 +3035,21 @@
           "lib/net8.0/Volo.Abp.EntityFrameworkCore.dll": {}
         }
       },
+      "Volo.Abp.EntityFrameworkCore.PostgreSql/8.3.4": {
+        "dependencies": {
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+          "Volo.Abp.EntityFrameworkCore": "8.3.4"
+        },
+        "runtime": {
+          "lib/net8.0/Volo.Abp.EntityFrameworkCore.PostgreSql.dll": {
+            "assemblyVersion": "8.3.4.0",
+            "fileVersion": "8.3.4.0"
+          }
+        },
+        "compile": {
+          "lib/net8.0/Volo.Abp.EntityFrameworkCore.PostgreSql.dll": {}
+        }
+      },
       "Volo.Abp.EntityFrameworkCore.Sqlite/8.3.4": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.4",
@@ -3540,56 +3553,6 @@
         },
         "compile": {
           "lib/net8.0/Volo.Abp.ObjectMapping.dll": {}
-        }
-      },
-      "Volo.Abp.OpenIddict.Domain/8.3.4": {
-        "dependencies": {
-          "OpenIddict.Core": "5.5.0",
-          "Volo.Abp.Caching": "8.3.4",
-          "Volo.Abp.Ddd.Domain": "8.3.4",
-          "Volo.Abp.DistributedLocking.Abstractions": "8.3.4",
-          "Volo.Abp.Identity.Domain": "8.3.4",
-          "Volo.Abp.OpenIddict.Domain.Shared": "8.3.4"
-        },
-        "runtime": {
-          "lib/net8.0/Volo.Abp.OpenIddict.Domain.dll": {
-            "assemblyVersion": "8.3.4.0",
-            "fileVersion": "8.3.4.0"
-          }
-        },
-        "compile": {
-          "lib/net8.0/Volo.Abp.OpenIddict.Domain.dll": {}
-        }
-      },
-      "Volo.Abp.OpenIddict.Domain.Shared/8.3.4": {
-        "dependencies": {
-          "Microsoft.Extensions.FileProviders.Embedded": "8.0.4",
-          "OpenIddict.Abstractions": "5.5.0",
-          "Volo.Abp.Validation": "8.3.4"
-        },
-        "runtime": {
-          "lib/net8.0/Volo.Abp.OpenIddict.Domain.Shared.dll": {
-            "assemblyVersion": "8.3.4.0",
-            "fileVersion": "8.3.4.0"
-          }
-        },
-        "compile": {
-          "lib/net8.0/Volo.Abp.OpenIddict.Domain.Shared.dll": {}
-        }
-      },
-      "Volo.Abp.OpenIddict.EntityFrameworkCore/8.3.4": {
-        "dependencies": {
-          "Volo.Abp.EntityFrameworkCore": "8.3.4",
-          "Volo.Abp.OpenIddict.Domain": "8.3.4"
-        },
-        "runtime": {
-          "lib/net8.0/Volo.Abp.OpenIddict.EntityFrameworkCore.dll": {
-            "assemblyVersion": "8.3.4.0",
-            "fileVersion": "8.3.4.0"
-          }
-        },
-        "compile": {
-          "lib/net8.0/Volo.Abp.OpenIddict.EntityFrameworkCore.dll": {}
         }
       },
       "Volo.Abp.PermissionManagement.Application/8.3.4": {
@@ -4124,12 +4087,13 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0",
           "Microsoft.Extensions.Configuration.Json": "8.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
           "Volo.Abp.EntityFrameworkCore": "8.3.4",
+          "Volo.Abp.EntityFrameworkCore.PostgreSql": "8.3.4",
           "Volo.Abp.EntityFrameworkCore.SqlServer": "8.3.4",
           "Volo.Abp.EntityFrameworkCore.Sqlite": "8.3.4",
           "Volo.Abp.FeatureManagement.EntityFrameworkCore": "8.3.4",
           "Volo.Abp.Identity.EntityFrameworkCore": "8.3.4",
-          "Volo.Abp.OpenIddict.EntityFrameworkCore": "8.3.4",
           "Volo.Abp.PermissionManagement.EntityFrameworkCore": "8.3.4",
           "Volo.Abp.TenantManagement.EntityFrameworkCore": "8.3.4"
         },
@@ -6570,12 +6534,12 @@
       "path": "microsoft.identity.client.extensions.msal/4.56.0",
       "hashPath": "microsoft.identity.client.extensions.msal.4.56.0.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Abstractions/7.4.1": {
+    "Microsoft.IdentityModel.Abstractions/7.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GiQzMSzHQWPhnjpn/xy6SGcjtN8ZJbhB9ZEg3RglJ64QwH+VGp7xEpIN674UgjSDF+jJSrAY4/7/2S6F7Nh0hw==",
-      "path": "microsoft.identitymodel.abstractions/7.4.1",
-      "hashPath": "microsoft.identitymodel.abstractions.7.4.1.nupkg.sha512"
+      "sha512": "sha512-33eTIA2uO/L9utJjZWbKsMSVsQf7F8vtd6q5mQX7ZJzNvCpci5fleD6AeANGlbbb7WX7XKxq9+Dkb5e3GNDrmQ==",
+      "path": "microsoft.identitymodel.abstractions/7.1.2",
+      "hashPath": "microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512"
     },
     "Microsoft.IdentityModel.JsonWebTokens/7.1.2": {
       "type": "package",
@@ -6584,12 +6548,12 @@
       "path": "microsoft.identitymodel.jsonwebtokens/7.1.2",
       "hashPath": "microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Logging/7.4.1": {
+    "Microsoft.IdentityModel.Logging/7.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QsNBNAdoTP+JxBqqMw3isVeV86z2b+ka94Pue3eRRz8O15mfHhcSnb10IM+aqavAaxCO+EwNu5F/yyRlQ0usWg==",
-      "path": "microsoft.identitymodel.logging/7.4.1",
-      "hashPath": "microsoft.identitymodel.logging.7.4.1.nupkg.sha512"
+      "sha512": "sha512-YCxBt2EeJP8fcXk9desChkWI+0vFqFLvBwrz5hBMsoh0KJE6BC66DnzkdzkJNqMltLromc52dkdT206jJ38cTw==",
+      "path": "microsoft.identitymodel.logging/7.1.2",
+      "hashPath": "microsoft.identitymodel.logging.7.1.2.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Protocols/7.1.2": {
       "type": "package",
@@ -6605,12 +6569,12 @@
       "path": "microsoft.identitymodel.protocols.openidconnect/7.1.2",
       "hashPath": "microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Tokens/7.4.1": {
+    "Microsoft.IdentityModel.Tokens/7.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-akl3hQWdj87XkSRahwhrmx9ZfchF97RZoKr9v9fwjrpQz3t0x8lnsjcOfButSS6cvyY/EX0HJuXb5hgkqFjP/g==",
-      "path": "microsoft.identitymodel.tokens/7.4.1",
-      "hashPath": "microsoft.identitymodel.tokens.7.4.1.nupkg.sha512"
+      "sha512": "sha512-oICJMqr3aNEDZOwnH5SK49bR6Z4aX0zEAnOLuhloumOSuqnNq+GWBdQyrgILnlcT5xj09xKCP/7Y7gJYB+ls/g==",
+      "path": "microsoft.identitymodel.tokens/7.1.2",
+      "hashPath": "microsoft.identitymodel.tokens.7.1.2.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -6682,26 +6646,26 @@
       "path": "nito.disposables/2.2.1",
       "hashPath": "nito.disposables.2.2.1.nupkg.sha512"
     },
+    "Npgsql/8.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
+      "path": "npgsql/8.0.3",
+      "hashPath": "npgsql.8.0.3.nupkg.sha512"
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/hHd9MqTRVDgIpsToCcxMDxZqla0HAQACiITkq1+L9J2hmHKV6lBAPlauF+dlNSfHpus7rrljWx4nAanKD6qAw==",
+      "path": "npgsql.entityframeworkcore.postgresql/8.0.4",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512"
+    },
     "NUglify/1.21.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-9J44o89PRdcS4GOyj0obkLfjCAuJItI4FrNmwALkjRKlzvHVlTB2ALbC9aigIoCMqzy0Xlc0mIVD/jO9WVDHiA==",
       "path": "nuglify/1.21.0",
       "hashPath": "nuglify.1.21.0.nupkg.sha512"
-    },
-    "OpenIddict.Abstractions/5.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ex94l1k4x9Apxn4LfgDm2LPdNrs4HI5YD1rL6BSy/ZzQOVXJ/gQLpXkSXRxMHLB1u76UbcslZaltuU3JCMuBHQ==",
-      "path": "openiddict.abstractions/5.5.0",
-      "hashPath": "openiddict.abstractions.5.5.0.nupkg.sha512"
-    },
-    "OpenIddict.Core/5.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8orycL+kWFh2AMc0b5NvN+aTfwJ0lF0RE3r2JBxAl3/tH5BRiWntp4EWrmX859c0FaIWHTRh5Xb4M0Gbtorjuw==",
-      "path": "openiddict.core/5.5.0",
-      "hashPath": "openiddict.core.5.5.0.nupkg.sha512"
     },
     "Polly/8.2.0": {
       "type": "package",
@@ -7487,6 +7451,13 @@
       "path": "volo.abp.entityframeworkcore/8.3.4",
       "hashPath": "volo.abp.entityframeworkcore.8.3.4.nupkg.sha512"
     },
+    "Volo.Abp.EntityFrameworkCore.PostgreSql/8.3.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LpHJaxq3lRwlx/c7gm5qRzQq/NxUodc6NIeAuiQ7YhVH2IXMFmjE5BzO0iV2YWQcfEfk+XOLZ6a0iRUVHXp+2A==",
+      "path": "volo.abp.entityframeworkcore.postgresql/8.3.4",
+      "hashPath": "volo.abp.entityframeworkcore.postgresql.8.3.4.nupkg.sha512"
+    },
     "Volo.Abp.EntityFrameworkCore.Sqlite/8.3.4": {
       "type": "package",
       "serviceable": true,
@@ -7710,27 +7681,6 @@
       "sha512": "sha512-qB8XYJaFxrzEXy5Efegkts8gaOYVvIzXwcuntBxAbxJCW/R7eKRj/+QJWQQA82lVzdgMrW7Z3OFnY1x9NNpTiQ==",
       "path": "volo.abp.objectmapping/8.3.4",
       "hashPath": "volo.abp.objectmapping.8.3.4.nupkg.sha512"
-    },
-    "Volo.Abp.OpenIddict.Domain/8.3.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Nr1zw3M4FiF4w1tdZ4F91nh+f7N0tinG9ZlTtKZdft/8H9PMVZsznlGZANWzXbjYvWVO8fvHgJ/ovWn1aMQa5w==",
-      "path": "volo.abp.openiddict.domain/8.3.4",
-      "hashPath": "volo.abp.openiddict.domain.8.3.4.nupkg.sha512"
-    },
-    "Volo.Abp.OpenIddict.Domain.Shared/8.3.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6TnRvnQeq/3GUGDh6es+JbRjPkLrP/+6wfKyYMBP5SGM7v57q9bS3Nbdh6k97/EOrZZxNAMDi6M25rjn9AJFlQ==",
-      "path": "volo.abp.openiddict.domain.shared/8.3.4",
-      "hashPath": "volo.abp.openiddict.domain.shared.8.3.4.nupkg.sha512"
-    },
-    "Volo.Abp.OpenIddict.EntityFrameworkCore/8.3.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-vands4qA6s4IEmOfogBCyTKMAEDMiWn19JVF1KqaRHtbFPyilJPsklmxtds1AI6iYyBmjMMgbQs16dpz5qu7Xg==",
-      "path": "volo.abp.openiddict.entityframeworkcore/8.3.4",
-      "hashPath": "volo.abp.openiddict.entityframeworkcore.8.3.4.nupkg.sha512"
     },
     "Volo.Abp.PermissionManagement.Application/8.3.4": {
       "type": "package",

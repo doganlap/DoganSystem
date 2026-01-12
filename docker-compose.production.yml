@@ -67,6 +67,7 @@ services:
       - TENANT_DB_DIR=/app/data/tenant_databases
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ENABLE_AUTONOMOUS_WORKFLOWS=true
       - ENABLE_SELF_HEALING=true
       - ENABLE_EMAIL_PROCESSING=true
@@ -108,6 +109,7 @@ services:
       - PLATFORM_DB_PATH=/app/data/platform.db
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - LOG_LEVEL=INFO
     volumes:
       - ai-data:/app/data
@@ -138,6 +140,7 @@ services:
       - TENANT_DB_DIR=/app/data/tenant_databases
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - AUTO_PROVISION_NEW_TENANTS=true
       - LOG_LEVEL=INFO
     volumes:
@@ -166,6 +169,7 @@ services:
       - TENANT_DB_DIR=/app/data/tenant_databases
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - ENABLE_AUTONOMOUS_WORKFLOWS=true
       - ENABLE_SELF_HEALING=true
       - ENABLE_EMAIL_PROCESSING=${ENABLE_EMAIL_PROCESSING:-true}
@@ -200,6 +204,7 @@ services:
       - TENANT_DB_DIR=/app/data/tenant_databases
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - LOG_LEVEL=INFO
     volumes:
       - ai-data:/app/data
@@ -224,6 +229,7 @@ services:
       - TENANT_DB_DIR=/app/data/tenant_databases
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - LOG_LEVEL=INFO
     volumes:
       - ai-data:/app/data
@@ -235,17 +241,17 @@ services:
       - dogansystem-network
 
   #=============================================
-  # ERPNext v16 - ERP Backend
+  # ERPNext v16.2 - ERP Backend
   #=============================================
   erpnext:
-    image: frappe/erpnext:v16
+    image: frappe/erpnext:v16.2
     container_name: dogansystem-erpnext
     ports:
       - "8000:8000"
     environment:
       - FRAPPE_SITE_NAME_HEADER=erpnext.local
-      - ADMIN_PASSWORD=${ERPNEXT_ADMIN_PASSWORD:-admin123}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin123}
+      - ADMIN_PASSWORD=${ERPNEXT_ADMIN_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - erpnext-sites:/home/frappe/frappe-bench/sites
       - erpnext-logs:/home/frappe/frappe-bench/logs
@@ -267,17 +273,17 @@ services:
     image: mariadb:10.6
     container_name: dogansystem-erpnext-db
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin123}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=erpnext
       - MYSQL_USER=erpnext
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-erpnext123}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - erpnext-db-data:/var/lib/mysql
     restart: unless-stopped
     networks:
       - dogansystem-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-admin123}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -290,16 +296,19 @@ services:
   redis:
     image: redis:7-alpine
     container_name: dogansystem-redis
-    ports:
-      - "6379:6379"
+    # Remove port mapping for security - only accessible within Docker network
+    # ports:
+    #   - "6379:6379"
     volumes:
       - redis-data:/data
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --bind 0.0.0.0
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     restart: unless-stopped
     networks:
       - dogansystem-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -18,12 +18,15 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Monitoring Dashboard API", version="1.0.0")
 
+# CORS configuration - secure origins only
+import os
+allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "https://doganconsult.com,https://www.doganconsult.com,https://ds.doganconsult.com").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Tenant-ID", "X-Requested-With"],
 )
 
 # Initialize managers

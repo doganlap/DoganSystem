@@ -46,7 +46,7 @@ done
 
 if [ -z "$BENCH_PATH" ]; then
     echo "   ✗ Frappe Bench directory not found"
-    echo "   → Create with: bench init --frappe-branch version-16 frappe-bench"
+    echo "   → Create with: bench init --frappe-branch version-16.2 frappe-bench"
 fi
 
 # Check if ERPNext app is installed
@@ -59,7 +59,7 @@ if [ -n "$BENCH_PATH" ]; then
         ERPNEXT_INSTALLED=true
     else
         echo "   ✗ ERPNext app not found"
-        echo "   → Install with: bench get-app erpnext --branch version-16"
+        echo "   → Install with: bench get-app erpnext --branch version-16.2"
     fi
 
     # Check for sites

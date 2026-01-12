@@ -178,14 +178,14 @@ namespace DoganSystem.Web.Mvc.Controllers
 
     public class RegisterTrialRequest
     {
-        public string CompanyName { get; set; }
-        public string Subdomain { get; set; }
-        public string AdminEmail { get; set; }
-        public string AdminPassword { get; set; }
-        public string AdminUserName { get; set; }
-        public string AdminName { get; set; }
-        public string AdminSurname { get; set; }
-        public string AdminPhone { get; set; }
+        public string CompanyName { get; set; } = string.Empty;
+        public string Subdomain { get; set; } = string.Empty;
+        public string AdminEmail { get; set; } = string.Empty;
+        public string AdminPassword { get; set; } = string.Empty;
+        public string AdminUserName { get; set; } = string.Empty;
+        public string AdminName { get; set; } = string.Empty;
+        public string AdminSurname { get; set; } = string.Empty;
+        public string AdminPhone { get; set; } = string.Empty;
         public int TrialDays { get; set; } = 14;
     }
 
@@ -193,8 +193,8 @@ namespace DoganSystem.Web.Mvc.Controllers
     {
         public bool Success { get; set; }
         public Guid? TenantId { get; set; }
-        public string TenantName { get; set; }
+        public string TenantName { get; set; } = string.Empty;
         public Guid? AdminUserId { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

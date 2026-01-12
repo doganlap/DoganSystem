@@ -163,6 +163,9 @@ frappe-bench/
 *.p12
 secrets.json
 
+# Docker credentials (NEVER commit)
+.docker/config.json
+
 # Coverage
 coverage/
 *.coverage

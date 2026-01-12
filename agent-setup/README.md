@@ -62,7 +62,7 @@ This directory contains the multi-agent system that enables multiple Claude AI a
          │ ERPNext API
          │
 ┌────────▼────────┐
-│   ERPNext v16   │
+│   ERPNext v16.2   │
 │   Backend       │
 └─────────────────┘
 ```

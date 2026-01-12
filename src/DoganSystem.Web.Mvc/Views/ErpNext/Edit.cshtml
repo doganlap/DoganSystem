@@ -1,0 +1,102 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@model DoganSystem.Modules.ErpNext.Application.Dtos.UpdateErpNextInstanceDto
+@{
+    ViewData["Title"] = L["ErpNext:EditInstance"];
+    var instanceId = ViewBag.InstanceId;
+    var instanceName = ViewBag.InstanceName;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ErpNext">@L["ErpNext:Instances"]</a></li>
+                    <li class="breadcrumb-item"><a href="/ErpNext/Details/@instanceId">@instanceName</a></li>
+                    <li class="breadcrumb-item active">@L["Common:Edit"]</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-edit me-2"></i>@L["ErpNext:EditInstance"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" asp-route-id="@instanceId" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="form-label">@L["Common:Name"] *</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="BaseUrl" class="form-label">@L["ErpNext:BaseUrl"] *</label>
+                            <input asp-for="BaseUrl" type="url" class="form-control" placeholder="http://localhost:8000" />
+                            <span asp-validation-for="BaseUrl" class="text-danger"></span>
+                            <small class="form-text text-muted">@L["ErpNext:BaseUrlHint"]</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ApiKey" class="form-label">@L["ErpNext:ApiKey"]</label>
+                                    <input asp-for="ApiKey" class="form-control" />
+                                    <span asp-validation-for="ApiKey" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ApiSecret" class="form-label">@L["ErpNext:ApiSecret"]</label>
+                                    <input asp-for="ApiSecret" type="password" class="form-control" placeholder="@L["ErpNext:LeaveEmptyToKeep"]" />
+                                    <span asp-validation-for="ApiSecret" class="text-danger"></span>
+                                    <small class="form-text text-muted">@L["ErpNext:LeaveEmptyToKeep"]</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="SiteName" class="form-label">@L["ErpNext:SiteName"]</label>
+                            <input asp-for="SiteName" class="form-control" />
+                            <span asp-validation-for="SiteName" class="text-danger"></span>
+                            <small class="form-text text-muted">@L["ErpNext:SiteNameHint"]</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="form-check">
+                                <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+                                <label asp-for="IsActive" class="form-check-label">@L["Common:Active"]</label>
+                            </div>
+                            <small class="form-text text-muted">@L["ErpNext:ActiveHint"]</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="form-label">@L["Common:Description"]</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <hr />
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> @L["Common:SaveChanges"]
+                                </button>
+                                <a href="/ErpNext/Details/@instanceId" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> @L["Common:Cancel"]
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

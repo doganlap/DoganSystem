@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Registration Successful";
+    Layout = "_Layout";
+    var tenantName = ViewBag.TenantName ?? Context.Request.Query["tenant"].ToString();
+    var email = ViewBag.Email ?? Context.Request.Query["email"].ToString();
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <!-- Success Icon -->
+            <div class="mb-4">
+                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                    <i class="bi bi-check-lg" style="font-size: 3rem;"></i>
+                </div>
+            </div>
+
+            <h1 class="display-5 fw-bold text-success mb-3">Welcome to DoganSystem!</h1>
+            <p class="lead text-muted mb-4">Your 14-day free trial has been activated successfully.</p>
+
+            <!-- Account Details Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">Your Account Details</h5>
+                    <div class="text-start">
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Company:</div>
+                            <div class="col-7 fw-semibold">@tenantName</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Email:</div>
+                            <div class="col-7 fw-semibold">@email</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5 text-muted">Trial Ends:</div>
+                            <div class="col-7 fw-semibold">@DateTime.UtcNow.AddDays(14).ToString("MMMM dd, yyyy")</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 text-muted">Portal URL:</div>
+                            <div class="col-7 fw-semibold text-primary">@(tenantName?.ToString().ToLower().Replace(" ", "-")).dogansystem.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="card bg-light border-0 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">What's Next?</h5>
+                    <ol class="text-start mb-0">
+                        <li class="mb-2">Sign in with your email and password</li>
+                        <li class="mb-2">Complete your profile setup</li>
+                        <li class="mb-2">Explore the dashboard and features</li>
+                        <li>Start your compliance journey!</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <a href="/Account/Login?tenant=@tenantName" class="btn btn-primary btn-lg px-5">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In Now
+                </a>
+            </div>
+
+            <p class="text-muted mt-4">
+                <small>
+                    A confirmation email has been sent to <strong>@email</strong>.<br>
+                    Need help? <a href="/Public/Contact">Contact our support team</a>.
+                </small>
+            </p>
+        </div>
+    </div>
+
+    <!-- Features Preview -->
+    <div class="row mt-5 pt-4 border-top">
+        <div class="col-12 text-center mb-4">
+            <h4 class="text-muted">What You Can Do During Your Trial</h4>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-clipboard-check fs-1 text-primary mb-3"></i>
+                    <h6>Compliance Assessments</h6>
+                    <small class="text-muted">Run full compliance assessments against major frameworks</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-shield-exclamation fs-1 text-primary mb-3"></i>
+                    <h6>Risk Management</h6>
+                    <small class="text-muted">Identify, assess, and track organizational risks</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-earmark-text fs-1 text-primary mb-3"></i>
+                    <h6>Evidence Collection</h6>
+                    <small class="text-muted">Centralize and manage compliance evidence</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-graph-up fs-1 text-primary mb-3"></i>
+                    <h6>Analytics Dashboard</h6>
+                    <small class="text-muted">Real-time insights into your compliance posture</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

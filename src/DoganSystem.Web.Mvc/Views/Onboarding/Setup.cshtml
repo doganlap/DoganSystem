@@ -1,0 +1,364 @@
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.Users
+@inject ICurrentUser CurrentUser
+@{
+    ViewData["Title"] = "Company Setup";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Company Setup</h2>
+                <p class="text-muted">Configure your organization settings to get started</p>
+            </div>
+
+            <!-- Setup Wizard -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-0">
+                    <!-- Progress Steps -->
+                    <div class="bg-light p-4 border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <div class="text-center flex-fill step-indicator active" data-step="1">
+                                <div class="step-circle mx-auto mb-2">1</div>
+                                <small>Company Info</small>
+                            </div>
+                            <div class="text-center flex-fill step-indicator" data-step="2">
+                                <div class="step-circle mx-auto mb-2">2</div>
+                                <small>Industry</small>
+                            </div>
+                            <div class="text-center flex-fill step-indicator" data-step="3">
+                                <div class="step-circle mx-auto mb-2">3</div>
+                                <small>Compliance</small>
+                            </div>
+                            <div class="text-center flex-fill step-indicator" data-step="4">
+                                <div class="step-circle mx-auto mb-2">4</div>
+                                <small>Complete</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="setupForm" class="p-4">
+                        <!-- Step 1: Company Information -->
+                        <div class="setup-step" id="step1">
+                            <h5 class="mb-4">Company Information</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="companyLegalName" class="form-label">Legal Company Name</label>
+                                    <input type="text" class="form-control" id="companyLegalName" placeholder="Enter legal name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="companySize" class="form-label">Company Size</label>
+                                    <select class="form-select" id="companySize">
+                                        <option value="">Select size</option>
+                                        <option value="1-10">1-10 employees</option>
+                                        <option value="11-50">11-50 employees</option>
+                                        <option value="51-200">51-200 employees</option>
+                                        <option value="201-500">201-500 employees</option>
+                                        <option value="501+">501+ employees</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="companyWebsite" class="form-label">Website</label>
+                                    <input type="url" class="form-control" id="companyWebsite" placeholder="https://www.example.com">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="companyCountry" class="form-label">Country</label>
+                                    <select class="form-select" id="companyCountry">
+                                        <option value="">Select country</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="US">United States</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="button" class="btn btn-primary next-step" data-next="2">
+                                    Next <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Industry Selection -->
+                        <div class="setup-step d-none" id="step2">
+                            <h5 class="mb-4">Select Your Industry</h5>
+                            <p class="text-muted mb-4">This helps us customize your experience and recommend relevant compliance frameworks.</p>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="telecom" id="industryTelecom">
+                                        <label class="form-check-label w-100" for="industryTelecom">
+                                            <i class="bi bi-telephone fs-4 text-primary me-2"></i>
+                                            <strong>Telecommunications</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="finance" id="industryFinance">
+                                        <label class="form-check-label w-100" for="industryFinance">
+                                            <i class="bi bi-bank fs-4 text-primary me-2"></i>
+                                            <strong>Financial Services</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="government" id="industryGov">
+                                        <label class="form-check-label w-100" for="industryGov">
+                                            <i class="bi bi-building fs-4 text-primary me-2"></i>
+                                            <strong>Government</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="healthcare" id="industryHealth">
+                                        <label class="form-check-label w-100" for="industryHealth">
+                                            <i class="bi bi-heart-pulse fs-4 text-primary me-2"></i>
+                                            <strong>Healthcare</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="energy" id="industryEnergy">
+                                        <label class="form-check-label w-100" for="industryEnergy">
+                                            <i class="bi bi-lightning fs-4 text-primary me-2"></i>
+                                            <strong>Energy & Utilities</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3 industry-option">
+                                        <input class="form-check-input" type="checkbox" value="other" id="industryOther">
+                                        <label class="form-check-label w-100" for="industryOther">
+                                            <i class="bi bi-grid fs-4 text-primary me-2"></i>
+                                            <strong>Other</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary prev-step" data-prev="1">
+                                    <i class="bi bi-arrow-left me-2"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-primary next-step" data-next="3">
+                                    Next <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Compliance Frameworks -->
+                        <div class="setup-step d-none" id="step3">
+                            <h5 class="mb-4">Compliance Frameworks</h5>
+                            <p class="text-muted mb-4">Select the frameworks you need to comply with. You can change this later.</p>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="iso27001" id="frameworkISO">
+                                        <label class="form-check-label w-100" for="frameworkISO">
+                                            <strong>ISO 27001</strong>
+                                            <small class="d-block text-muted">Information Security Management</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="nca" id="frameworkNCA">
+                                        <label class="form-check-label w-100" for="frameworkNCA">
+                                            <strong>NCA ECC</strong>
+                                            <small class="d-block text-muted">Saudi Cybersecurity Controls</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="sama" id="frameworkSAMA">
+                                        <label class="form-check-label w-100" for="frameworkSAMA">
+                                            <strong>SAMA CSF</strong>
+                                            <small class="d-block text-muted">Saudi Financial Sector Framework</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="nist" id="frameworkNIST">
+                                        <label class="form-check-label w-100" for="frameworkNIST">
+                                            <strong>NIST CSF</strong>
+                                            <small class="d-block text-muted">Cybersecurity Framework</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="gdpr" id="frameworkGDPR">
+                                        <label class="form-check-label w-100" for="frameworkGDPR">
+                                            <strong>GDPR</strong>
+                                            <small class="d-block text-muted">EU Data Protection</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check card p-3">
+                                        <input class="form-check-input" type="checkbox" value="pdpl" id="frameworkPDPL">
+                                        <label class="form-check-label w-100" for="frameworkPDPL">
+                                            <strong>PDPL</strong>
+                                            <small class="d-block text-muted">Saudi Data Protection Law</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary prev-step" data-prev="2">
+                                    <i class="bi bi-arrow-left me-2"></i> Back
+                                </button>
+                                <button type="button" class="btn btn-primary next-step" data-next="4">
+                                    Complete Setup <i class="bi bi-check ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Complete -->
+                        <div class="setup-step d-none" id="step4">
+                            <div class="text-center py-5">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                    <i class="bi bi-check-lg" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h4 class="mb-3">Setup Complete!</h4>
+                                <p class="text-muted mb-4">Your organization is now configured. You're ready to start using DoganSystem.</p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <a href="/Home/Dashboard" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+                                    </a>
+                                    <a href="/Onboarding/Welcome" class="btn btn-outline-secondary btn-lg">
+                                        Continue Setup Guide
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Skip Option -->
+            <div class="text-center mt-4">
+                <a href="/Onboarding/Welcome" class="btn btn-link text-muted">
+                    Skip for now and complete later
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .step-circle {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #e9ecef;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .step-indicator.active .step-circle {
+        background-color: #0d6efd;
+        color: white;
+    }
+    .step-indicator.completed .step-circle {
+        background-color: #198754;
+        color: white;
+    }
+    .industry-option {
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .industry-option:hover {
+        border-color: #0d6efd !important;
+    }
+    .industry-option:has(.form-check-input:checked) {
+        border-color: #0d6efd !important;
+        background-color: #f0f7ff;
+    }
+</style>
+
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentStep = 1;
+
+        // Next step buttons
+        document.querySelectorAll('.next-step').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const nextStep = parseInt(this.dataset.next);
+                goToStep(nextStep);
+            });
+        });
+
+        // Previous step buttons
+        document.querySelectorAll('.prev-step').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const prevStep = parseInt(this.dataset.prev);
+                goToStep(prevStep);
+            });
+        });
+
+        function goToStep(step) {
+            // Hide current step
+            document.getElementById('step' + currentStep).classList.add('d-none');
+            // Show new step
+            document.getElementById('step' + step).classList.remove('d-none');
+
+            // Update indicators
+            document.querySelectorAll('.step-indicator').forEach(ind => {
+                const indStep = parseInt(ind.dataset.step);
+                ind.classList.remove('active', 'completed');
+                if (indStep < step) {
+                    ind.classList.add('completed');
+                } else if (indStep === step) {
+                    ind.classList.add('active');
+                }
+            });
+
+            // Mark onboarding step as complete
+            if (step === 4) {
+                const completedSteps = JSON.parse(localStorage.getItem('onboardingSteps') || '[]');
+                if (!completedSteps.includes('2')) {
+                    completedSteps.push('2');
+                    localStorage.setItem('onboardingSteps', JSON.stringify(completedSteps));
+                }
+                saveCompanySettings();
+            }
+
+            currentStep = step;
+        }
+
+        function saveCompanySettings() {
+            // Save settings to localStorage (can be extended to save to server)
+            const settings = {
+                companyLegalName: document.getElementById('companyLegalName').value,
+                companySize: document.getElementById('companySize').value,
+                companyWebsite: document.getElementById('companyWebsite').value,
+                companyCountry: document.getElementById('companyCountry').value,
+                industries: Array.from(document.querySelectorAll('.industry-option input:checked')).map(i => i.value),
+                frameworks: Array.from(document.querySelectorAll('#step3 input:checked')).map(i => i.value)
+            };
+            localStorage.setItem('companySettings', JSON.stringify(settings));
+        }
+    });
+</script>
+}

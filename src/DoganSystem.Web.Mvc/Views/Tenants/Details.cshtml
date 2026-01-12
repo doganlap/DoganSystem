@@ -1,44 +1,46 @@
 @model DoganSystem.Modules.TenantManagement.Application.Dtos.TenantDto
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
 @{
-    ViewData["Title"] = "Tenant Details";
+    ViewData["Title"] = L["Tenant:TenantDetails"];
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h2>Tenant Details</h2>
+            <h2>@L["Tenant:TenantDetails"]</h2>
             <div class="card">
                 <div class="card-body">
                     <dl class="row">
-                        <dt class="col-sm-3">Name:</dt>
+                        <dt class="col-sm-3">@L["Common:Name"]:</dt>
                         <dd class="col-sm-9">@Model.Name</dd>
 
-                        <dt class="col-sm-3">Subdomain:</dt>
+                        <dt class="col-sm-3">@L["Tenant:Subdomain"]:</dt>
                         <dd class="col-sm-9">@Model.Subdomain</dd>
 
-                        <dt class="col-sm-3">Domain:</dt>
+                        <dt class="col-sm-3">@L["Tenant:Domain"]:</dt>
                         <dd class="col-sm-9">@Model.Domain</dd>
 
-                        <dt class="col-sm-3">Status:</dt>
+                        <dt class="col-sm-3">@L["Common:Status"]:</dt>
                         <dd class="col-sm-9">
                             <span class="badge bg-@(Model.Status == "Active" ? "success" : "warning")">
                                 @Model.Status
                             </span>
                         </dd>
 
-                        <dt class="col-sm-3">Subscription Tier:</dt>
+                        <dt class="col-sm-3">@L["Tenant:SubscriptionTier"]:</dt>
                         <dd class="col-sm-9">@Model.SubscriptionTier</dd>
 
-                        <dt class="col-sm-3">Trial End Date:</dt>
-                        <dd class="col-sm-9">@(Model.TrialEndDate?.ToString("yyyy-MM-dd") ?? "N/A")</dd>
+                        <dt class="col-sm-3">@L["Tenant:TrialEndDate"]:</dt>
+                        <dd class="col-sm-9">@(Model.TrialEndDate?.ToString("yyyy-MM-dd") ?? L["Common:NotAvailable"])</dd>
 
-                        <dt class="col-sm-3">Created:</dt>
+                        <dt class="col-sm-3">@L["Common:Created"]:</dt>
                         <dd class="col-sm-9">@Model.CreationTime.ToString("yyyy-MM-dd HH:mm")</dd>
                     </dl>
 
                     <div class="mt-3">
-                        <a href="/Tenants/Edit/@Model.Id" class="btn btn-warning">Edit</a>
-                        <a href="/Tenants" class="btn btn-secondary">Back to List</a>
+                        <a href="/Tenants/Edit/@Model.Id" class="btn btn-warning">@L["Common:Edit"]</a>
+                        <a href="/Tenants" class="btn btn-secondary">@L["Common:BackToList"]</a>
                     </div>
                 </div>
             </div>

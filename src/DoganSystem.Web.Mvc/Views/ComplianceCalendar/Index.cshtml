@@ -1,0 +1,46 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@{
+    ViewData["Title"] = L["ComplianceCalendar:Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1><i class="fas fa-calendar-alt me-2"></i>@L["ComplianceCalendar:Title"]</h1>
+            <p class="text-muted">@L["ComplianceCalendar:Description"]</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@L["ComplianceCalendar:Title"]</h5>
+                    <button class="btn btn-primary"><i class="fas fa-plus me-1"></i>@L["ComplianceCalendar:NewEvent"]</button>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-1"></i> @L["Common:NoData"]
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="calendar-placeholder" style="min-height: 400px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.25rem; display: flex; align-items: center; justify-content: center;">
+                                <p class="text-muted">@L["ComplianceCalendar:CalendarPlaceholder"]</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>@L["ComplianceCalendar:UpcomingEvents"]</h6>
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <p class="text-muted mb-0">@L["Common:NoData"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

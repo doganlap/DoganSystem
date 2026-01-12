@@ -1,0 +1,47 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@{
+    ViewData["Title"] = L["Assessment:Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1><i class="fas fa-clipboard-check me-2"></i>@L["Assessment:Title"]</h1>
+            <p class="text-muted">@L["Assessment:Description"]</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@L["Assessment:List"]</h5>
+                    <a href="/assessments/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>@L["Assessment:New"]</a>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-1"></i> @L["Common:NoData"]
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>@L["Common:Name"]</th>
+                                <th>@L["Common:Type"]</th>
+                                <th>@L["Common:Status"]</th>
+                                <th>@L["Common:Date"]</th>
+                                <th>@L["Common:Actions"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">@L["Common:NoData"]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -66,11 +66,25 @@ class ERPNextActionRequest(BaseModel):
 
 @app.get("/")
 async def root():
-    """Health check endpoint"""
+    """Root endpoint"""
     return {
         "status": "online",
         "service": "ERPNext Multi-Agent API",
-        "version": "1.0.0"
+        "version": "2.0.0"
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for Docker/Kubernetes"""
+    return {
+        "status": "healthy",
+        "service": "agent-server",
+        "version": "2.0.0",
+        "agents_active": len(agent_manager.agents),
+        "max_agents": int(os.getenv("MAX_AGENTS", 10)),
+        "erpnext_configured": bool(os.getenv("ERPNEXT_API_KEY")),
+        "claude_ready": bool(os.getenv("CLAUDE_API_KEY"))
     }
 
 

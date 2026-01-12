@@ -1,0 +1,177 @@
+@using Microsoft.Extensions.Localization
+@using DoganSystem.Localization
+@inject IStringLocalizer<GrcResource> L
+@{
+    ViewData["Title"] = L["Public:Industries:Title"];
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-4">@L["Public:Industries:Headline"]</h1>
+                <p class="lead">@L["Public:Industries:Subtitle"]</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Government & Public Sector -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <i class="fas fa-landmark fa-5x text-brand-teal mb-4"></i>
+                <h2 class="text-brand-primary mb-4">@L["Public:Industries:Gov:Title"]</h2>
+                <p class="lead mb-4">
+                    @L["Public:Industries:Gov:Desc"]
+                </p>
+                <h5 class="text-brand-primary mb-3">@L["Public:Industries:KeyPoints"]</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Gov:Point1"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Gov:Point2"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Gov:Point3"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Gov:Point4"]</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="industry-card p-4">
+                    <h5 class="text-brand-primary mb-3">@L["Public:Industries:Experience"]</h5>
+                    <p class="text-muted mb-3">
+                        @L["Public:Industries:Gov:ExpDesc"]
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Gov:Exp1"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Gov:Exp2"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Gov:Exp3"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Gov:Exp4"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Telecommunications -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 order-lg-2">
+                <i class="fas fa-broadcast-tower fa-5x text-brand-teal mb-4"></i>
+                <h2 class="text-brand-primary mb-4">@L["Public:Industries:Telecom:Title"]</h2>
+                <p class="lead mb-4">
+                    @L["Public:Industries:Telecom:Desc"]
+                </p>
+                <h5 class="text-brand-primary mb-3">@L["Public:Industries:KeyPoints"]</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Point1"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Point2"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Point3"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Point4"]</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="industry-card p-4">
+                    <h5 class="text-brand-primary mb-3">@L["Public:Industries:Experience"]</h5>
+                    <p class="text-muted mb-3">
+                        @L["Public:Industries:Telecom:ExpDesc"]
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Exp1"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Exp2"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Exp3"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Telecom:Exp4"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Utilities & Energy -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <i class="fas fa-bolt fa-5x text-brand-teal mb-4"></i>
+                <h2 class="text-brand-primary mb-4">@L["Public:Industries:Utilities:Title"]</h2>
+                <p class="lead mb-4">
+                    @L["Public:Industries:Utilities:Desc"]
+                </p>
+                <h5 class="text-brand-primary mb-3">@L["Public:Industries:KeyPoints"]</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Point1"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Point2"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Point3"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Point4"]</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="industry-card p-4 bg-light">
+                    <h5 class="text-brand-primary mb-3">@L["Public:Industries:Experience"]</h5>
+                    <p class="text-muted mb-3">
+                        @L["Public:Industries:Utilities:ExpDesc"]
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Exp1"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Exp2"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Exp3"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Utilities:Exp4"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Critical Infrastructure -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 order-lg-2">
+                <i class="fas fa-building fa-5x text-brand-teal mb-4"></i>
+                <h2 class="text-brand-primary mb-4">@L["Public:Industries:Infra:Title"]</h2>
+                <p class="lead mb-4">
+                    @L["Public:Industries:Infra:Desc"]
+                </p>
+                <h5 class="text-brand-primary mb-3">@L["Public:Industries:KeyPoints"]</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Infra:Point1"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Infra:Point2"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Infra:Point3"]</li>
+                    <li class="mb-2"><i class="fas fa-check text-brand-teal me-2"></i> @L["Public:Industries:Infra:Point4"]</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="industry-card p-4">
+                    <h5 class="text-brand-primary mb-3">@L["Public:Industries:Experience"]</h5>
+                    <p class="text-muted mb-3">
+                        @L["Public:Industries:Infra:ExpDesc"]
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Infra:Exp1"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Infra:Exp2"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Infra:Exp3"]</li>
+                        <li class="mb-2"><i class="fas fa-arrow-left text-brand-teal me-2"></i> @L["Public:Industries:Infra:Exp4"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="mb-4 text-brand-primary">@L["Public:Industries:CTATitle"]</h2>
+        <p class="lead text-muted mb-4">@L["Public:Industries:CTADesc"]</p>
+        <a href="/Public/Contact" class="btn btn-brand-primary btn-lg me-2">
+            <i class="fas fa-calendar-alt"></i> @L["Public:Services:RequestConsultation"]
+        </a>
+        <a href="/Public/Credentials" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-file-alt"></i> @L["Public:Services:LearnMoreExpertise"]
+        </a>
+    </div>
+</section>

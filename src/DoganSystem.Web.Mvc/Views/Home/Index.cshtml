@@ -1,95 +1,592 @@
+@using Microsoft.Extensions.Localization
+@using DoganSystem.Localization
+@inject IStringLocalizer<GrcResource> L
 @{
-    ViewData["Title"] = "DoganSystem Dashboard";
+    ViewData["Title"] = L["Home:Title"];
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h1>DoganSystem Dashboard</h1>
-            <p class="lead">Multi-Tenant SaaS Platform with ERPNext Integration</p>
-        </div>
-    </div>
+<!-- Skip Link for Accessibility -->
+<a href="#main-content" class="skip-link">@L["Home:SkipToMain"]</a>
 
-    <div class="row mt-4">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Tenants</h5>
-                    <h2 class="text-primary" id="tenantCount">-</h2>
-                    <a href="/Tenants" class="btn btn-sm btn-primary">Manage</a>
+<!-- Hero Section -->
+<section class="hero-section" id="main-content">
+    <div class="container">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-7 animate-fade-in">
+                <span class="badge bg-white text-brand-primary mb-3 px-3 py-2 rounded-pill">
+                    <i class="fas fa-award me-1"></i> @L["Home:TrustedBadge"]
+                </span>
+                <h1 class="display-3 fw-bold mb-4 text-white" style="line-height: 1.1;">
+                    @L["Home:Headline"]
+                </h1>
+                <p class="lead mb-4 text-white opacity-90" style="font-size: 1.25rem;">
+                    @L["Home:Positioning"]
+                </p>
+                <p class="mb-4 text-white opacity-75">
+                    @L["Home:SubDescription"]
+                </p>
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    <a href="/Public/Contact" class="btn btn-light btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i> @L["Home:RequestConsultation"]
+                    </a>
+                    <a href="/Public/Services" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-arrow-right me-2"></i> @L["Home:ExploreServices"]
+                    </a>
+                </div>
+                <div class="mt-5 d-flex flex-wrap gap-4 align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle text-white me-2"></i>
+                        <span class="text-white opacity-75">@L["Home:Cert:ISO27001"]</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle text-white me-2"></i>
+                        <span class="text-white opacity-75">@L["Home:Cert:CMMC"]</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle text-white me-2"></i>
+                        <span class="text-white opacity-75">@L["Home:Cert:NERCCIP"]</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">ERPNext Instances</h5>
-                    <h2 class="text-success" id="erpnextCount">-</h2>
-                    <a href="/ErpNext" class="btn btn-sm btn-success">Manage</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Employee Agents</h5>
-                    <h2 class="text-info" id="agentCount">-</h2>
-                    <a href="/Agents" class="btn btn-sm btn-info">Manage</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Subscriptions</h5>
-                    <h2 class="text-warning" id="subscriptionCount">-</h2>
-                    <a href="/Subscriptions" class="btn btn-sm btn-warning">Manage</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Quick Actions</h5>
-                    <div class="btn-group" role="group">
-                        <a href="/Tenants/Create" class="btn btn-primary">Create Tenant</a>
-                        <a href="/Agents/Create" class="btn btn-info">Create Agent</a>
-                        <a href="/ErpNext/Create" class="btn btn-success">Add ERPNext</a>
-                        <a href="/swagger" class="btn btn-secondary">API Docs</a>
+            <div class="col-lg-5 text-center d-none d-lg-block">
+                <div class="position-relative">
+                    <i class="fas fa-network-wired fa-10x text-white opacity-25"></i>
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <div class="bg-white bg-opacity-10 rounded-circle p-5">
+                            <i class="fas fa-shield-alt fa-5x text-white"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-@section Scripts {
-    <script>
-        async function loadDashboard() {
-            try {
-                const [tenants, erpnext, agents, subscriptions] = await Promise.all([
-                    fetch('/api/tenants?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
-                    fetch('/api/erpnext?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
-                    fetch('/api/agents?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 })),
-                    fetch('/api/subscriptions?MaxResultCount=1').then(r => r.json()).catch(() => ({ totalCount: 0 }))
-                ]);
+<!-- Trusted By Section -->
+<section class="py-4 bg-white border-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <p class="text-muted mb-3 text-uppercase" style="letter-spacing: 2px; font-size: 0.875rem;">
+                    @L["Home:TrustedBy"]
+                </p>
+                <div class="d-flex flex-wrap justify-content-center align-items-center gap-5 opacity-50">
+                    <i class="fas fa-landmark fa-2x text-muted" title="@L["Home:TrustedBy:Government"]"></i>
+                    <i class="fas fa-broadcast-tower fa-2x text-muted" title="@L["Home:TrustedBy:Telecom"]"></i>
+                    <i class="fas fa-bolt fa-2x text-muted" title="@L["Home:TrustedBy:Utilities"]"></i>
+                    <i class="fas fa-building fa-2x text-muted" title="@L["Home:TrustedBy:Enterprise"]"></i>
+                    <i class="fas fa-plane fa-2x text-muted" title="@L["Home:TrustedBy:Transportation"]"></i>
+                    <i class="fas fa-hospital fa-2x text-muted" title="@L["Home:TrustedBy:Healthcare"]"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                document.getElementById('tenantCount').textContent = tenants.totalCount || 0;
-                document.getElementById('erpnextCount').textContent = erpnext.totalCount || 0;
-                document.getElementById('agentCount').textContent = agents.totalCount || 0;
-                document.getElementById('subscriptionCount').textContent = subscriptions.totalCount || 0;
-            } catch (error) {
-                console.error('Error loading dashboard:', error);
-                document.getElementById('tenantCount').textContent = '0';
-                document.getElementById('erpnextCount').textContent = '0';
-                document.getElementById('agentCount').textContent = '0';
-                document.getElementById('subscriptionCount').textContent = '0';
-            }
-        }
+<!-- Services Overview Section -->
+<section class="features-section py-5" id="services">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge bg-brand-teal text-white mb-3 px-3 py-2">@L["Home:Services:Badge"]</span>
+                <h2 class="display-5 fw-bold text-brand-primary">@L["Home:Services:Title"]</h2>
+                <p class="text-muted lead">
+                    @L["Home:Services:Subtitle"]
+                </p>
+            </div>
+        </div>
+        <div class="row g-4 stagger-animation">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-satellite-dish fa-2x text-brand-teal"></i>
+                        </div>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Services:Telecom:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Services:Telecom:Desc"]
+                        </p>
+                        <ul class="list-unstyled text-start text-muted small mt-3">
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Telecom:Feature1"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Telecom:Feature2"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Telecom:Feature3"]</li>
+                        </ul>
+                        <a href="/Public/Services#telecom" class="btn btn-sm btn-brand-teal mt-3">
+                            @L["Common:LearnMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-server fa-2x text-brand-teal"></i>
+                        </div>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Services:DataCenter:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Services:DataCenter:Desc"]
+                        </p>
+                        <ul class="list-unstyled text-start text-muted small mt-3">
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:DataCenter:Feature1"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:DataCenter:Feature2"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:DataCenter:Feature3"]</li>
+                        </ul>
+                        <a href="/Public/Services#datacenter" class="btn btn-sm btn-brand-teal mt-3">
+                            @L["Common:LearnMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-shield-alt fa-2x text-brand-teal"></i>
+                        </div>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Services:Cyber:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Services:Cyber:Desc"]
+                        </p>
+                        <ul class="list-unstyled text-start text-muted small mt-3">
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Cyber:Feature1"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Cyber:Feature2"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Cyber:Feature3"]</li>
+                        </ul>
+                        <a href="/Public/Services#cybersecurity" class="btn btn-sm btn-brand-teal mt-3">
+                            @L["Common:LearnMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-project-diagram fa-2x text-brand-teal"></i>
+                        </div>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Services:Governance:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Services:Governance:Desc"]
+                        </p>
+                        <ul class="list-unstyled text-start text-muted small mt-3">
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Governance:Feature1"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Governance:Feature2"]</li>
+                            <li><i class="fas fa-check text-brand-teal me-2"></i>@L["Home:Services:Governance:Feature3"]</li>
+                        </ul>
+                        <a href="/Public/Services#governance" class="btn btn-sm btn-brand-teal mt-3">
+                            @L["Common:LearnMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a href="/Public/Services" class="btn btn-brand-primary btn-lg">
+                    @L["Home:Services:ViewAll"] <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
-        loadDashboard();
-    </script>
-}
+<!-- Industries Section -->
+<section class="industry-section py-5" id="industries">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge bg-brand-primary text-white mb-3 px-3 py-2">@L["Home:Industries:Badge"]</span>
+                <h2 class="display-5 fw-bold text-brand-primary">@L["Home:Industries:Title"]</h2>
+                <p class="text-muted lead">
+                    @L["Home:Industries:Subtitle"]
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="industry-card h-100">
+                    <div class="text-center">
+                        <div class="bg-brand-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-landmark fa-2x text-brand-primary"></i>
+                        </div>
+                        <h5 class="text-brand-primary fw-bold">@L["Home:Industries:Gov:Title"]</h5>
+                        <p class="text-muted small">
+                            @L["Home:Industries:Gov:Desc"]
+                        </p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-brand-primary me-1">FedRAMP</span>
+                            <span class="badge bg-light text-brand-primary">FISMA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="industry-card h-100">
+                    <div class="text-center">
+                        <div class="bg-brand-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-broadcast-tower fa-2x text-brand-primary"></i>
+                        </div>
+                        <h5 class="text-brand-primary fw-bold">@L["Home:Industries:Telecom:Title"]</h5>
+                        <p class="text-muted small">
+                            @L["Home:Industries:Telecom:Desc"]
+                        </p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-brand-primary me-1">5G</span>
+                            <span class="badge bg-light text-brand-primary">Fiber</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="industry-card h-100">
+                    <div class="text-center">
+                        <div class="bg-brand-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-bolt fa-2x text-brand-primary"></i>
+                        </div>
+                        <h5 class="text-brand-primary fw-bold">@L["Home:Industries:Utilities:Title"]</h5>
+                        <p class="text-muted small">
+                            @L["Home:Industries:Utilities:Desc"]
+                        </p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-brand-primary me-1">NERC CIP</span>
+                            <span class="badge bg-light text-brand-primary">SCADA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="industry-card h-100">
+                    <div class="text-center">
+                        <div class="bg-brand-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-building fa-2x text-brand-primary"></i>
+                        </div>
+                        <h5 class="text-brand-primary fw-bold">@L["Home:Industries:Infra:Title"]</h5>
+                        <p class="text-muted small">
+                            @L["Home:Industries:Infra:Desc"]
+                        </p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-brand-primary me-1">24/7</span>
+                            <span class="badge bg-light text-brand-primary">Resilient</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a href="/Public/Industries" class="btn btn-brand-primary btn-lg">
+                    @L["Home:Industries:ViewAll"] <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-5 bg-white" id="why-us">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge bg-brand-teal text-white mb-3 px-3 py-2">@L["Home:WhyUs:Badge"]</span>
+                <h2 class="display-5 fw-bold text-brand-primary">@L["Home:WhyUs:Title"]</h2>
+                <p class="text-muted lead">
+                    @L["Home:WhyUs:Subtitle"]
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-graduation-cap fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:Expertise:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:Expertise:Desc"]
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-shield-alt fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:Security:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:Security:Desc"]
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-handshake fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:Partnership:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:Partnership:Desc"]
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-cogs fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:E2E:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:E2E:Desc"]
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-chart-line fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:Track:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:Track:Desc"]
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="bg-brand-teal bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 70px; height: 70px;">
+                        <i class="fas fa-rocket fa-2x text-brand-teal"></i>
+                    </div>
+                    <h5 class="text-brand-primary fw-bold">@L["Home:WhyUs:Innovation:Title"]</h5>
+                    <p class="text-muted">
+                        @L["Home:WhyUs:Innovation:Desc"]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-gradient-brand text-white">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold text-white mb-1">25+</h2>
+                    <p class="text-white opacity-75 mb-0">@L["Home:Stats:Years"]</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold text-white mb-1">500+</h2>
+                    <p class="text-white opacity-75 mb-0">@L["Home:Stats:Projects"]</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold text-white mb-1">100+</h2>
+                    <p class="text-white opacity-75 mb-0">@L["Home:Stats:Clients"]</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-4 fw-bold text-white mb-1">99.9%</h2>
+                    <p class="text-white opacity-75 mb-0">@L["Home:Stats:Uptime"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial/Quote Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <i class="fas fa-quote-left fa-3x text-brand-teal opacity-25 mb-4"></i>
+                <blockquote class="blockquote mb-4">
+                    <p class="lead fst-italic text-brand-primary" style="font-size: 1.5rem; line-height: 1.6;">
+                        "@L["Home:Testimonial:Quote"]"
+                    </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="bg-brand-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                    <div class="text-start">
+                        <p class="fw-bold text-brand-primary mb-0">@L["Home:Testimonial:Title"]</p>
+                        <p class="text-muted small mb-0">@L["Home:Testimonial:Org"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge bg-brand-primary text-white mb-3 px-3 py-2">@L["Home:Creds:Badge"]</span>
+                <h2 class="display-5 fw-bold text-brand-primary">@L["Home:Creds:Title"]</h2>
+                <p class="text-muted lead">
+                    @L["Home:Creds:Subtitle"]
+                </p>
+            </div>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-certificate fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">ISO 27001</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-shield-alt fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">CMMC</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-bolt fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">NERC CIP</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-project-diagram fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">PMP</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-network-wired fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">BICSI</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 text-center">
+                <div class="p-4 border rounded-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                    <i class="fas fa-cloud fa-3x text-brand-teal mb-3"></i>
+                    <p class="small fw-bold text-brand-primary mb-0">FedRAMP</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a href="/Public/Credentials" class="btn btn-outline-primary btn-lg">
+                    @L["Home:Creds:ViewAll"] <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white rounded-lg shadow-lg p-5 text-center">
+                    <span class="badge bg-brand-teal text-white mb-3 px-3 py-2">@L["Home:CTA:Badge"]</span>
+                    <h2 class="display-5 fw-bold text-brand-primary mb-4">@L["Home:CTA:Title"]</h2>
+                    <p class="lead text-muted mb-4">
+                        @L["Home:CTA:Subtitle"]
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="/Public/Contact" class="btn btn-brand-primary btn-lg">
+                            <i class="fas fa-calendar-alt me-2"></i> @L["Home:RequestConsultation"]
+                        </a>
+                        <a href="/Public/Credentials" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-file-alt me-2"></i> @L["Home:CTA:Download"]
+                        </a>
+                    </div>
+                    <div class="mt-4 pt-4 border-top">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <i class="fas fa-phone-alt text-brand-teal me-2"></i>
+                                <span class="text-muted">+1 (800) XXX-XXXX</span>
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <i class="fas fa-envelope text-brand-teal me-2"></i>
+                                <span class="text-muted">info@doganconsult.com</span>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fas fa-map-marker-alt text-brand-teal me-2"></i>
+                                <span class="text-muted">Washington, DC | Houston, TX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Insights Preview Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge bg-brand-primary text-white mb-3 px-3 py-2">@L["Home:Insights:Badge"]</span>
+                <h2 class="display-5 fw-bold text-brand-primary">@L["Home:Insights:Title"]</h2>
+                <p class="text-muted lead">
+                    @L["Home:Insights:Subtitle"]
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <span class="badge bg-brand-teal text-white mb-3">@L["Home:Insights:WP:Badge"]</span>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Insights:WP:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Insights:WP:Desc"]
+                        </p>
+                        <a href="/Public/Insights" class="text-brand-teal fw-semibold">
+                            @L["Common:ReadMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <span class="badge bg-brand-primary text-white mb-3">@L["Home:Insights:Guide:Badge"]</span>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Insights:Guide:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Insights:Guide:Desc"]
+                        </p>
+                        <a href="/Public/Insights" class="text-brand-teal fw-semibold">
+                            @L["Common:ReadMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <span class="badge bg-light text-brand-primary mb-3">@L["Home:Insights:Case:Badge"]</span>
+                        <h5 class="card-title text-brand-primary fw-bold">@L["Home:Insights:Case:Title"]</h5>
+                        <p class="card-text text-muted">
+                            @L["Home:Insights:Case:Desc"]
+                        </p>
+                        <a href="/Public/Insights" class="text-brand-teal fw-semibold">
+                            @L["Common:ReadMore"] <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a href="/Public/Insights" class="btn btn-brand-primary btn-lg">
+                    @L["Home:Insights:ViewAll"] <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

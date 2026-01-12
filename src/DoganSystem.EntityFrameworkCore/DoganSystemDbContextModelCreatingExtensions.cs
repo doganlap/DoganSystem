@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using DoganSystem.Core.Domain.Entities;
 using DoganSystem.Modules.ErpNext.Domain;
-using DoganSystem.Modules.TenantManagement.Domain;
 using DoganSystem.Modules.AgentOrchestrator.Domain;
 using DoganSystem.Modules.Subscription.Domain;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -22,17 +22,8 @@ namespace DoganSystem.EntityFrameworkCore
                 b.HasIndex(x => x.TenantId);
             });
             
-            // Configure Tenant Management module
-            builder.Entity<Tenant>(b =>
-            {
-                b.ToTable("Tenants");
-                b.ConfigureByConvention();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(256);
-                b.Property(x => x.Status).IsRequired().HasMaxLength(50);
-                b.Property(x => x.SubscriptionTier).IsRequired().HasMaxLength(50);
-                b.HasIndex(x => x.Subdomain).IsUnique();
-                b.HasIndex(x => x.Domain);
-            });
+            // Note: Tenant entity is now managed by ABP TenantManagement module
+            // The configuration is handled by builder.ConfigureTenantManagement() in DoganSystemDbContext
             
             // Configure Agent Orchestrator module
             builder.Entity<EmployeeAgent>(b =>
@@ -57,6 +48,24 @@ namespace DoganSystem.EntityFrameworkCore
                 b.Property(x => x.MonthlyPrice).HasPrecision(18, 2);
                 b.HasIndex(x => x.TenantId);
                 b.HasIndex(x => x.Status);
+            });
+
+            // Configure Contact Submissions (landing page contact form)
+            builder.Entity<ContactSubmission>(b =>
+            {
+                b.ToTable("ContactSubmissions");
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(100);
+                b.Property(x => x.Email).IsRequired().HasMaxLength(200);
+                b.Property(x => x.Company).HasMaxLength(200);
+                b.Property(x => x.ServiceInterest).HasMaxLength(50);
+                b.Property(x => x.Message).IsRequired().HasMaxLength(2000);
+                b.Property(x => x.Status).HasMaxLength(50);
+                b.Property(x => x.Notes).HasMaxLength(2000);
+                b.Property(x => x.ErpNextLeadId).HasMaxLength(100);
+                b.HasIndex(x => x.Email);
+                b.HasIndex(x => x.Status);
+                b.HasIndex(x => x.CreationTime);
             });
         }
     }

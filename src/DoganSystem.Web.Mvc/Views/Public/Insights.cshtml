@@ -1,0 +1,177 @@
+@using Microsoft.Extensions.Localization
+@using DoganSystem.Localization
+@inject IStringLocalizer<GrcResource> L
+@{
+    ViewData["Title"] = L["Public:Insights:Title"];
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-4">@L["Public:Insights:Headline"]</h1>
+                <p class="lead">@L["Public:Insights:Subtitle"]</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Whitepapers Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="text-brand-primary">@L["Public:Insights:WhitepapersTitle"]</h2>
+                <p class="text-muted lead">@L["Public:Insights:WhitepapersDesc"]</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm service-card">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-3x text-brand-teal mb-3"></i>
+                        <h5 class="card-title text-brand-primary">@L["Public:Insights:WP1:Title"]</h5>
+                        <p class="card-text text-muted">@L["Public:Insights:WP1:Desc"]</p>
+                        <a href="#" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm service-card">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-3x text-brand-teal mb-3"></i>
+                        <h5 class="card-title text-brand-primary">@L["Public:Insights:WP2:Title"]</h5>
+                        <p class="card-text text-muted">@L["Public:Insights:WP2:Desc"]</p>
+                        <a href="#" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm service-card">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-3x text-brand-teal mb-3"></i>
+                        <h5 class="card-title text-brand-primary">@L["Public:Insights:WP3:Title"]</h5>
+                        <p class="card-text text-muted">@L["Public:Insights:WP3:Desc"]</p>
+                        <a href="#" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog/News Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="text-brand-primary">@L["Public:Insights:BlogTitle"]</h2>
+                <p class="text-muted lead">@L["Public:Insights:BlogDesc"]</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="industry-card">
+                    <span class="badge bg-brand-teal mb-2">@L["Public:Insights:BadgeNews"]</span>
+                    <h5 class="text-brand-primary mb-3">@L["Public:Insights:Blog1:Title"]</h5>
+                    <p class="text-muted mb-3">@L["Public:Insights:Blog1:Desc"]</p>
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i> @L["Public:Insights:Blog1:Date"]</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="industry-card">
+                    <span class="badge bg-brand-teal mb-2">@L["Public:Insights:BadgeInsight"]</span>
+                    <h5 class="text-brand-primary mb-3">@L["Public:Insights:Blog2:Title"]</h5>
+                    <p class="text-muted mb-3">@L["Public:Insights:Blog2:Desc"]</p>
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i> @L["Public:Insights:Blog2:Date"]</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="industry-card">
+                    <span class="badge bg-brand-teal mb-2">@L["Public:Insights:BadgeArticle"]</span>
+                    <h5 class="text-brand-primary mb-3">@L["Public:Insights:Blog3:Title"]</h5>
+                    <p class="text-muted mb-3">@L["Public:Insights:Blog3:Desc"]</p>
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i> @L["Public:Insights:Blog3:Date"]</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="industry-card">
+                    <span class="badge bg-brand-teal mb-2">@L["Public:Insights:BadgeInsight"]</span>
+                    <h5 class="text-brand-primary mb-3">@L["Public:Insights:Blog4:Title"]</h5>
+                    <p class="text-muted mb-3">@L["Public:Insights:Blog4:Desc"]</p>
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i> @L["Public:Insights:Blog4:Date"]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="text-brand-primary">@L["Public:Insights:ResourcesTitle"]</h2>
+                <p class="text-muted lead">@L["Public:Insights:ResourcesDesc"]</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-download fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Insights:Res1:Title"]</h5>
+                    <p class="text-muted">@L["Public:Insights:Res1:Desc"]</p>
+                    <a href="/Public/Contact" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-book fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Insights:Res2:Title"]</h5>
+                    <p class="text-muted">@L["Public:Insights:Res2:Desc"]</p>
+                    <a href="/Public/Contact" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-check-circle fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Insights:Res3:Title"]</h5>
+                    <p class="text-muted">@L["Public:Insights:Res3:Desc"]</p>
+                    <a href="/Public/Contact" class="btn btn-sm btn-brand-teal">@L["Public:Insights:Download"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Subscribe Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="text-brand-primary mb-4">@L["Public:Insights:SubscribeTitle"]</h3>
+                <p class="text-muted mb-4">@L["Public:Insights:SubscribeDesc"]</p>
+                <form class="d-flex justify-content-center gap-2">
+                    <input type="email" class="form-control" style="max-width: 400px;" placeholder="@L["Public:Insights:EmailPlaceholder"]" required>
+                    <button type="submit" class="btn btn-brand-primary">@L["Public:Insights:Subscribe"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="mb-4 text-brand-primary">@L["Public:Insights:CTATitle"]</h2>
+        <p class="lead text-muted mb-4">@L["Public:Insights:CTADesc"]</p>
+        <a href="/Public/Contact" class="btn btn-brand-primary btn-lg me-2">
+            <i class="fas fa-calendar-alt"></i> @L["Public:Services:RequestConsultation"]
+        </a>
+        <a href="/Public/Credentials" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-file-alt"></i> @L["Public:Services:LearnMoreExpertise"]
+        </a>
+    </div>
+</section>

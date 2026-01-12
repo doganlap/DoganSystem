@@ -1,0 +1,263 @@
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.Users
+@inject ICurrentUser CurrentUser
+@{
+    ViewData["Title"] = "Welcome";
+    Layout = "_Layout";
+    var userName = CurrentUser.Name ?? CurrentUser.UserName ?? "there";
+    var trialDaysRemaining = ViewBag.TrialDaysRemaining ?? 14;
+}
+
+<div class="container py-5">
+    <!-- Welcome Header -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center">
+            <h1 class="display-4 fw-bold mb-3">Welcome, @userName!</h1>
+            <p class="lead text-muted">
+                Let's get you set up and ready to use DoganSystem. Follow these simple steps to make the most of your trial.
+            </p>
+            @if (trialDaysRemaining != null && (int)trialDaysRemaining <= 14)
+            {
+                <div class="alert alert-info d-inline-block">
+                    <i class="bi bi-clock me-2"></i>
+                    <strong>@trialDaysRemaining days</strong> remaining in your free trial
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">Getting Started Progress</h5>
+                        <span class="badge bg-primary" id="progressBadge">0% Complete</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Steps -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Step 1: Profile -->
+            <div class="card mb-3 setup-step" data-step="1">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="step-icon">1</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mb-1">Complete Your Profile</h5>
+                            <p class="text-muted mb-0">Add your contact information and preferences</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/Account/Manage" class="btn btn-outline-primary">
+                                <i class="bi bi-person me-2"></i>Update Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Company Settings -->
+            <div class="card mb-3 setup-step" data-step="2">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="step-icon">2</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mb-1">Configure Company Settings</h5>
+                            <p class="text-muted mb-0">Set up your organization details and preferences</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/Onboarding/Setup" class="btn btn-outline-primary">
+                                <i class="bi bi-building me-2"></i>Setup Company
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Invite Team -->
+            <div class="card mb-3 setup-step" data-step="3">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="step-icon">3</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mb-1">Invite Team Members</h5>
+                            <p class="text-muted mb-0">Add colleagues to collaborate on compliance tasks</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/Onboarding/InviteTeam" class="btn btn-outline-primary">
+                                <i class="bi bi-people me-2"></i>Invite Team
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Explore Dashboard -->
+            <div class="card mb-3 setup-step" data-step="4">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="step-icon">4</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mb-1">Explore the Dashboard</h5>
+                            <p class="text-muted mb-0">Get familiar with your compliance command center</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/Home/Dashboard" class="btn btn-outline-primary">
+                                <i class="bi bi-speedometer2 me-2"></i>View Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Create First Assessment -->
+            <div class="card mb-3 setup-step" data-step="5">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <span class="step-icon">5</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mb-1">Start Your First Assessment</h5>
+                            <p class="text-muted mb-0">Begin your compliance journey with a framework assessment</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="/Assessments/Create" class="btn btn-outline-primary">
+                                <i class="bi bi-clipboard-plus me-2"></i>Create Assessment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-10">
+            <h5 class="text-muted mb-4 text-center">Quick Actions</h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <a href="/Home/Dashboard" class="card h-100 text-decoration-none text-dark border-0 shadow-sm hover-shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-speedometer2 fs-1 text-primary mb-2"></i>
+                            <h6 class="mb-0">Dashboard</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/Public/Features" class="card h-100 text-decoration-none text-dark border-0 shadow-sm hover-shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-journal-text fs-1 text-primary mb-2"></i>
+                            <h6 class="mb-0">Documentation</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/Public/Contact" class="card h-100 text-decoration-none text-dark border-0 shadow-sm hover-shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-headset fs-1 text-primary mb-2"></i>
+                            <h6 class="mb-0">Get Support</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/Subscriptions" class="card h-100 text-decoration-none text-dark border-0 shadow-sm hover-shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-arrow-up-circle fs-1 text-primary mb-2"></i>
+                            <h6 class="mb-0">Upgrade Plan</h6>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skip to Dashboard -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-10 text-center">
+            <a href="/Home/Dashboard" class="btn btn-link text-muted">
+                Skip setup and go to Dashboard <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: all 0.2s ease;
+    }
+    .setup-step.completed .step-number {
+        background-color: #198754 !important;
+    }
+    .setup-step.completed .step-icon::before {
+        content: "\F26E";
+        font-family: "bootstrap-icons";
+    }
+</style>
+
+@section Scripts {
+<script>
+    // Check localStorage for completed steps
+    document.addEventListener('DOMContentLoaded', function() {
+        const completedSteps = JSON.parse(localStorage.getItem('onboardingSteps') || '[]');
+        let completed = 0;
+
+        document.querySelectorAll('.setup-step').forEach(step => {
+            const stepNum = step.dataset.step;
+            if (completedSteps.includes(stepNum)) {
+                step.classList.add('completed');
+                step.querySelector('.step-number').classList.remove('bg-secondary');
+                step.querySelector('.step-number').classList.add('bg-success');
+                step.querySelector('.step-icon').innerHTML = '<i class="bi bi-check"></i>';
+                completed++;
+            }
+        });
+
+        const progress = (completed / 5) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+        document.getElementById('progressBadge').textContent = Math.round(progress) + '% Complete';
+    });
+
+    // Mark step as complete when clicking action button
+    document.querySelectorAll('.setup-step .btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const step = this.closest('.setup-step');
+            const stepNum = step.dataset.step;
+            const completedSteps = JSON.parse(localStorage.getItem('onboardingSteps') || '[]');
+            if (!completedSteps.includes(stepNum)) {
+                completedSteps.push(stepNum);
+                localStorage.setItem('onboardingSteps', JSON.stringify(completedSteps));
+            }
+        });
+    });
+</script>
+}

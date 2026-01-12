@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DoganSystem.Modules.ErpNext.Application.Dtos;
 using DoganSystem.Modules.ErpNext.Domain;
@@ -16,10 +17,14 @@ namespace DoganSystem.Modules.ErpNext.Application
     public class ErpNextInstanceAppService : ApplicationService, IErpNextInstanceAppService
     {
         private readonly IRepository<ErpNextInstance, Guid> _erpNextRepository;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public ErpNextInstanceAppService(IRepository<ErpNextInstance, Guid> erpNextRepository)
+        public ErpNextInstanceAppService(
+            IRepository<ErpNextInstance, Guid> erpNextRepository,
+            IHttpClientFactory httpClientFactory)
         {
             _erpNextRepository = erpNextRepository;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<ErpNextInstanceDto> CreateAsync(CreateErpNextInstanceDto input)
@@ -88,8 +93,8 @@ namespace DoganSystem.Modules.ErpNext.Application
 
             if (!string.IsNullOrEmpty(input.Filter))
             {
-                queryable = queryable.Where(x => 
-                    x.Name.Contains(input.Filter) || 
+                queryable = queryable.Where(x =>
+                    x.Name.Contains(input.Filter) ||
                     x.BaseUrl.Contains(input.Filter));
             }
 
@@ -147,43 +152,48 @@ namespace DoganSystem.Modules.ErpNext.Application
         public async Task<ErpNextInstanceDto> TestConnectionAsync(Guid id)
         {
             var instance = await _erpNextRepository.GetAsync(id);
-            
-            // Test ERPNext connection
+
+            // Test ERPNext connection using IHttpClientFactory (built-in .NET best practice)
             try
             {
-                using var client = new HttpClient();
+                var client = _httpClientFactory.CreateClient("ErpNext");
                 client.Timeout = TimeSpan.FromSeconds(30);
-                
+
                 // Build ERPNext API URL
                 var apiUrl = $"{instance.BaseUrl.TrimEnd('/')}/api/resource/User";
-                
-                // Add authentication headers if API key is provided
+
+                // Create request with authentication headers if API key is provided
+                var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
                 if (!string.IsNullOrEmpty(instance.ApiKey) && !string.IsNullOrEmpty(instance.ApiSecret))
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", $"token {instance.ApiKey}:{instance.ApiSecret}");
+                    request.Headers.Add("Authorization", $"token {instance.ApiKey}:{instance.ApiSecret}");
                 }
-                
+
                 // Test connection with a simple GET request
-                var response = await client.GetAsync(apiUrl);
-                
+                var response = await client.SendAsync(request);
+
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
                     throw new UserFriendlyException($"ERPNext API returned status {response.StatusCode}: {errorContent}");
                 }
-                
+
                 instance.LastSyncTime = DateTime.UtcNow;
                 instance = await _erpNextRepository.UpdateAsync(instance);
-                
+
                 return ObjectMapper.Map<ErpNextInstance, ErpNextInstanceDto>(instance);
             }
             catch (HttpRequestException ex)
             {
                 throw new UserFriendlyException($"Failed to connect to ERPNext at {instance.BaseUrl}: {ex.Message}");
             }
-            catch (TaskCanceledException ex)
+            catch (TaskCanceledException)
             {
-                throw new UserFriendlyException($"Connection to ERPNext timed out: {ex.Message}");
+                throw new UserFriendlyException($"Connection to ERPNext timed out after 30 seconds");
+            }
+            catch (UserFriendlyException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

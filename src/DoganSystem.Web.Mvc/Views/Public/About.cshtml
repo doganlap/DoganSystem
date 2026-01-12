@@ -1,0 +1,116 @@
+@using Microsoft.Extensions.Localization
+@using DoganSystem.Localization
+@inject IStringLocalizer<GrcResource> L
+@{
+    ViewData["Title"] = L["Public:About:Title"];
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-4">@L["Public:About:Headline"]</h1>
+                <p class="lead">@L["Brand:Tagline"]</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-brand-primary mb-4">@L["Public:About:MissionTitle"]</h2>
+                <p class="lead text-muted mb-4">
+                    @L["Public:About:MissionDesc1"]
+                </p>
+                <p class="mb-4">
+                    @L["Public:About:MissionDesc2"]
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="text-brand-primary">@L["Public:About:ValuesTitle"]</h2>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-gem fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:About:Value1:Title"]</h5>
+                    <p class="text-muted">@L["Public:About:Value1:Desc"]</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-lock fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:About:Value2:Title"]</h5>
+                    <p class="text-muted">@L["Public:About:Value2:Desc"]</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-users fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:About:Value3:Title"]</h5>
+                    <p class="text-muted">@L["Public:About:Value3:Desc"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="text-brand-primary mb-4">@L["Public:About:ExperienceTitle"]</h2>
+                <p class="mb-4">
+                    @L["Public:About:ExperienceDesc"]
+                </p>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-check-circle text-brand-teal me-2"></i> @L["Public:About:Exp1"]</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-brand-teal me-2"></i> @L["Public:About:Exp2"]</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-brand-teal me-2"></i> @L["Public:About:Exp3"]</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-brand-teal me-2"></i> @L["Public:About:Exp4"]</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-brand-primary mb-4">@L["Public:About:BackgroundTitle"]</h2>
+                <p class="mb-4">
+                    @L["Public:About:BackgroundDesc"]
+                </p>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-network-wired text-brand-teal me-2"></i> @L["Public:About:Bg1"]</li>
+                    <li class="mb-3"><i class="fas fa-server text-brand-teal me-2"></i> @L["Public:About:Bg2"]</li>
+                    <li class="mb-3"><i class="fas fa-shield-alt text-brand-teal me-2"></i> @L["Public:About:Bg3"]</li>
+                    <li class="mb-3"><i class="fas fa-project-diagram text-brand-teal me-2"></i> @L["Public:About:Bg4"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="mb-4 text-brand-primary">@L["Public:About:CTATitle"]</h2>
+        <p class="lead text-muted mb-4">@L["Public:About:CTADesc"]</p>
+        <a href="/Public/Contact" class="btn btn-brand-primary btn-lg me-2">
+            <i class="fas fa-calendar-alt"></i> @L["Public:Index:RequestConsultation"]
+        </a>
+        <a href="/Public/Credentials" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-file-alt"></i> @L["Public:About:CredentialsBtn"]
+        </a>
+    </div>
+</section>

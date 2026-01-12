@@ -121,11 +121,28 @@ async def tenant_middleware(request: Request, call_next):
 
 @app.get("/")
 async def root():
-    """Health check"""
+    """Root endpoint"""
     return {
         "status": "online",
         "service": "DoganSystem Multi-Tenant API Gateway",
-        "version": "1.0.0"
+        "version": "2.0.0"
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for Docker/Kubernetes"""
+    return {
+        "status": "healthy",
+        "service": "api-gateway",
+        "version": "2.0.0",
+        "ai_features": {
+            "autonomous_workflows": unified_config.enable_autonomous_workflows,
+            "self_healing": unified_config.enable_self_healing,
+            "email_processing": unified_config.enable_email_processing,
+            "employee_agents": unified_config.enable_employee_agents,
+            "multi_tenant": unified_config.enable_multi_tenant
+        }
     }
 
 

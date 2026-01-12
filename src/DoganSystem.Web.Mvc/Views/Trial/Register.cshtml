@@ -1,0 +1,253 @@
+@{
+    ViewData["Title"] = "Start Your Free Trial";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h2 class="mb-0">Start Your 14-Day Free Trial</h2>
+                    <p class="mb-0 mt-2 opacity-75">No credit card required. Full access to all features.</p>
+                </div>
+                <div class="card-body p-5">
+                    <form id="trialRegistrationForm">
+                        <!-- Company Information -->
+                        <h5 class="text-muted mb-3">Company Information</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="companyName" class="form-label">Company Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="companyName" name="companyName" required
+                                       placeholder="Your Company Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="subdomain" class="form-label">Subdomain <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="subdomain" name="subdomain" required
+                                           placeholder="yourcompany" pattern="[a-z0-9-]+"
+                                           title="Only lowercase letters, numbers, and hyphens">
+                                    <span class="input-group-text">.dogansystem.com</span>
+                                </div>
+                                <div id="subdomainFeedback" class="form-text"></div>
+                            </div>
+                        </div>
+
+                        <!-- Admin Account -->
+                        <h5 class="text-muted mb-3">Admin Account</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="adminName" name="adminName" required
+                                       placeholder="John">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="adminSurname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="adminSurname" name="adminSurname" required
+                                       placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="adminEmail" name="adminEmail" required
+                                       placeholder="john.doe@company.com">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="adminPhone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="adminPhone" name="adminPhone"
+                                       placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminPassword" class="form-label">Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="adminPassword" name="adminPassword" required
+                                       minlength="8" placeholder="Min. 8 characters">
+                                <div class="form-text">Must contain uppercase, lowercase, number, and special character.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required
+                                       placeholder="Confirm your password">
+                            </div>
+                        </div>
+
+                        <!-- Terms -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    I agree to the <a href="/Public/Terms" target="_blank">Terms of Service</a>
+                                    and <a href="/Public/Privacy" target="_blank">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Error Display -->
+                        <div id="errorAlert" class="alert alert-danger d-none" role="alert"></div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                <span id="submitText">Start Free Trial</span>
+                                <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted">Already have an account? <a href="/Account/Login">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="row mt-5 text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <i class="bi bi-shield-check fs-1 text-primary"></i>
+                        <h6 class="mt-2">Full Access</h6>
+                        <small class="text-muted">All features included during trial</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <i class="bi bi-credit-card fs-1 text-primary"></i>
+                        <h6 class="mt-2">No Credit Card</h6>
+                        <small class="text-muted">Start without payment info</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <i class="bi bi-headset fs-1 text-primary"></i>
+                        <h6 class="mt-2">Free Support</h6>
+                        <small class="text-muted">Expert help when you need it</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Subdomain availability check
+    let subdomainTimeout;
+    document.getElementById('subdomain').addEventListener('input', function() {
+        const subdomain = this.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+        this.value = subdomain;
+
+        clearTimeout(subdomainTimeout);
+        const feedback = document.getElementById('subdomainFeedback');
+
+        if (subdomain.length < 3) {
+            feedback.innerHTML = '<span class="text-muted">Minimum 3 characters</span>';
+            return;
+        }
+
+        feedback.innerHTML = '<span class="text-muted">Checking availability...</span>';
+
+        subdomainTimeout = setTimeout(async () => {
+            try {
+                const response = await fetch(`/api/trial/check-subdomain?subdomain=${subdomain}`);
+                const data = await response.json();
+                if (data.available) {
+                    feedback.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Available</span>';
+                } else {
+                    feedback.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle"></i> Already taken</span>';
+                }
+            } catch (error) {
+                feedback.innerHTML = '<span class="text-warning">Could not check availability</span>';
+            }
+        }, 500);
+    });
+
+    // Auto-generate subdomain from company name
+    document.getElementById('companyName').addEventListener('input', function() {
+        const subdomain = this.value.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .substring(0, 30);
+        const subdomainField = document.getElementById('subdomain');
+        if (!subdomainField.dataset.userModified) {
+            subdomainField.value = subdomain;
+            subdomainField.dispatchEvent(new Event('input'));
+        }
+    });
+
+    document.getElementById('subdomain').addEventListener('focus', function() {
+        this.dataset.userModified = 'true';
+    });
+
+    // Password match validation
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        const password = document.getElementById('adminPassword').value;
+        if (this.value !== password) {
+            this.setCustomValidity('Passwords do not match');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+
+    // Form submission
+    document.getElementById('trialRegistrationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const errorAlert = document.getElementById('errorAlert');
+
+        // Validate passwords match
+        if (document.getElementById('adminPassword').value !== document.getElementById('confirmPassword').value) {
+            errorAlert.textContent = 'Passwords do not match';
+            errorAlert.classList.remove('d-none');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitText.textContent = 'Creating your account...';
+        submitSpinner.classList.remove('d-none');
+        errorAlert.classList.add('d-none');
+
+        try {
+            const response = await fetch('/api/trial/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    companyName: document.getElementById('companyName').value,
+                    subdomain: document.getElementById('subdomain').value,
+                    adminEmail: document.getElementById('adminEmail').value,
+                    adminPassword: document.getElementById('adminPassword').value,
+                    adminUserName: document.getElementById('adminEmail').value,
+                    adminName: document.getElementById('adminName').value,
+                    adminSurname: document.getElementById('adminSurname').value,
+                    adminPhone: document.getElementById('adminPhone').value,
+                    trialDays: 14
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Redirect to success page
+                window.location.href = `/Trial/Success?tenant=${encodeURIComponent(data.tenantName)}&email=${encodeURIComponent(document.getElementById('adminEmail').value)}`;
+            } else {
+                errorAlert.textContent = data.message || 'Registration failed. Please try again.';
+                errorAlert.classList.remove('d-none');
+            }
+        } catch (error) {
+            errorAlert.textContent = 'An error occurred. Please try again.';
+            errorAlert.classList.remove('d-none');
+        } finally {
+            submitBtn.disabled = false;
+            submitText.textContent = 'Start Free Trial';
+            submitSpinner.classList.add('d-none');
+        }
+    });
+</script>
+}

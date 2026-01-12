@@ -1,0 +1,350 @@
+###############################################
+# DoganSystem Production Docker Compose
+# All AI Features Enabled
+###############################################
+version: '3.8'
+
+services:
+  #=============================================
+  # C# Web Application (Main Frontend)
+  #=============================================
+  dogansystem-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dogansystem-web
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__Default=Data Source=/app/data/DoganSystem.db
+      - PythonServices__OrchestratorUrl=http://api-gateway:8006
+      - PythonServices__ApiGatewayUrl=http://api-gateway:8006
+      - ErpNext__DefaultUrl=${ERPNEXT_BASE_URL:-http://erpnext:8000}
+      - ErpNext__ApiKey=${ERPNEXT_API_KEY}
+      - ErpNext__ApiSecret=${ERPNEXT_API_SECRET}
+      - Email__Smtp__Host=${SMTP_SERVER:-smtp.gmail.com}
+      - Email__Smtp__Port=${SMTP_PORT:-587}
+      - Email__Smtp__UserName=${SMTP_USERNAME}
+      - Email__Smtp__Password=${SMTP_PASSWORD}
+    volumes:
+      - dogansystem-data:/app/data
+      - ./logs/web:/app/logs
+    depends_on:
+      - api-gateway
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  #=============================================
+  # Python AI Services
+  #=============================================
+
+  # API Gateway - Main Entry Point for AI Services
+  api-gateway:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-api-gateway
+    command: uvicorn api-gateway:app --host 0.0.0.0 --port 8006
+    ports:
+      - "8006:8006"
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL:-http://erpnext:8000}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ENABLE_AUTONOMOUS_WORKFLOWS=true
+      - ENABLE_SELF_HEALING=true
+      - ENABLE_EMAIL_PROCESSING=true
+      - ENABLE_EMPLOYEE_AGENTS=true
+      - ENABLE_MULTI_TENANT=true
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/api-gateway:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8006/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Agent API Server - Claude AI Agents
+  agent-server:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-agent-server
+    command: uvicorn api-server:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8001:8001"
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL:-http://erpnext:8000}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - MAX_AGENTS=${MAX_AGENTS:-10}
+      - RATE_LIMIT_PER_AGENT=${RATE_LIMIT_PER_AGENT:-100}
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/agent-server:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Tenant Admin API
+  tenant-admin:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-tenant-admin
+    command: uvicorn tenant-admin-api:app --host 0.0.0.0 --port 8007
+    ports:
+      - "8007:8007"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AUTO_PROVISION_NEW_TENANTS=true
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/tenant-admin:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+  # Autonomous Workflow Engine
+  workflow-engine:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-workflow-engine
+    command: python autonomous-orchestrator.py
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - ERPNEXT_BASE_URL=${ERPNEXT_BASE_URL:-http://erpnext:8000}
+      - ERPNEXT_API_KEY=${ERPNEXT_API_KEY}
+      - ERPNEXT_API_SECRET=${ERPNEXT_API_SECRET}
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ENABLE_AUTONOMOUS_WORKFLOWS=true
+      - ENABLE_SELF_HEALING=true
+      - ENABLE_EMAIL_PROCESSING=${ENABLE_EMAIL_PROCESSING:-true}
+      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - IMAP_SERVER=${IMAP_SERVER:-imap.gmail.com}
+      - IMAP_PORT=${IMAP_PORT:-993}
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/workflow-engine:/app/logs
+    depends_on:
+      - redis
+      - api-gateway
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+  # Monitoring Dashboard
+  monitoring:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-monitoring
+    command: uvicorn monitoring-dashboard:app --host 0.0.0.0 --port 8005
+    ports:
+      - "8005:8005"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/monitoring:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+  # Webhook Receiver
+  webhook-receiver:
+    build:
+      context: ./agent-setup
+      dockerfile: Dockerfile
+    container_name: dogansystem-webhook
+    command: uvicorn webhook-receiver:app --host 0.0.0.0 --port 8003
+    ports:
+      - "8003:8003"
+    environment:
+      - PLATFORM_DB_PATH=/app/data/platform.db
+      - TENANT_DB_DIR=/app/data/tenant_databases
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - LOG_LEVEL=INFO
+    volumes:
+      - ai-data:/app/data
+      - ./logs/webhook:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+  #=============================================
+  # ERPNext v16 - ERP Backend
+  #=============================================
+  erpnext:
+    image: frappe/erpnext:v16
+    container_name: dogansystem-erpnext
+    ports:
+      - "8000:8000"
+    environment:
+      - FRAPPE_SITE_NAME_HEADER=erpnext.local
+      - ADMIN_PASSWORD=${ERPNEXT_ADMIN_PASSWORD:-admin123}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin123}
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    depends_on:
+      - erpnext-db
+      - redis
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/method/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  # ERPNext Database (MariaDB)
+  erpnext-db:
+    image: mariadb:10.6
+    container_name: dogansystem-erpnext-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-admin123}
+      - MYSQL_DATABASE=erpnext
+      - MYSQL_USER=erpnext
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-erpnext123}
+    volumes:
+      - erpnext-db-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-admin123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  #=============================================
+  # Infrastructure Services
+  #=============================================
+
+  # Redis - Message Queue & Caching
+  redis:
+    image: redis:7-alpine
+    container_name: dogansystem-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: dogansystem-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - dogansystem-web
+      - api-gateway
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+#=============================================
+# Volumes
+#=============================================
+volumes:
+  dogansystem-data:
+    driver: local
+  ai-data:
+    driver: local
+  redis-data:
+    driver: local
+  erpnext-sites:
+    driver: local
+  erpnext-logs:
+    driver: local
+  erpnext-db-data:
+    driver: local
+
+#=============================================
+# Networks
+#=============================================
+networks:
+  dogansystem-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

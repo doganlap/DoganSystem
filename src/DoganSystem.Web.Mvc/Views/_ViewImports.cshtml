@@ -1,6 +1,11 @@
 @using DoganSystem.Web.Mvc
+@using DoganSystem.Application.Public
+@using DoganSystem.Localization
+@using Microsoft.Extensions.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers
+@using Volo.Abp.Localization
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI
 @addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI.Bootstrap
+@inject IStringLocalizer<GrcResource> L

@@ -1,162 +1,109 @@
-# DoganSystem - Deployment Status
+# Deployment Status
 
-## ✅ Application Running
+## ✅ Production Deployment Complete
 
-The application has been started and is running in Release mode.
-
-### Access URLs:
-- **HTTP**: http://localhost:5000
-- **HTTPS**: https://localhost:5001
-- **Swagger API**: https://localhost:5001/swagger
+**Date**: $(date)  
+**Status**: ✅ **DEPLOYED AND RUNNING**
 
 ---
 
-## 🚀 Deployment Options
+## Deployment Information
 
-### Option 1: Local Development (Currently Running)
-```powershell
-cd src\DoganSystem.Web.Mvc
-dotnet run --configuration Release
-```
+| Item | Value |
+|------|-------|
+| **Port** | 5000 |
+| **URL** | http://localhost:5000 |
+| **Status** | ✅ Running |
+| **Environment** | Production |
+| **Process ID** | See app.pid file |
 
-### Option 2: Publish for IIS Deployment
-```powershell
-# Publish the application
-cd src\DoganSystem.Web.Mvc
-dotnet publish -c Release -o publish
+---
 
-# The publish folder will contain all files needed for IIS
-```
+## Access URLs
 
-**IIS Configuration Steps:**
-1. Create Application Pool: `DoganSystemAppPool`
-   - .NET CLR Version: **No Managed Code**
-   - Managed Pipeline Mode: **Integrated**
-2. Create Website pointing to the `publish` folder
-3. Update connection string in `appsettings.json` or `web.config`
-4. Ensure SQL Server LocalDB or SQL Server is accessible
+### Main Application
+- **Landing Page**: http://localhost:5000/ or http://localhost:5000/Public/Index
+- **Contact Form**: http://localhost:5000/Public/Contact
+- **About Page**: http://localhost:5000/Public/About
+- **Services Page**: http://localhost:5000/Public/Services
+- **Pricing Page**: http://localhost:5000/Public/Pricing
+- **Features Page**: http://localhost:5000/Public/Features
 
-### Option 3: Docker Deployment
-```powershell
-# Build Docker image
-docker build -t dogansystem:latest .
+### API Endpoints
+- **Swagger UI**: http://localhost:5000/swagger (Development only)
+- **Trial Registration**: POST http://localhost:5000/api/trial/register
+- **Subdomain Check**: GET http://localhost:5000/api/trial/check-subdomain?subdomain=test
+- **ERPNext API**: http://localhost:5000/api/erpnext
+- **Tenants API**: http://localhost:5000/api/tenants
+- **Agents API**: http://localhost:5000/api/agents
+- **Subscriptions API**: http://localhost:5000/api/subscriptions
 
-# Run container
-docker run -d -p 8080:80 `
-  -e ConnectionStrings__Default="Server=(localdb)\mssqllocaldb;Database=DoganSystemDb;Trusted_Connection=True;TrustServerCertificate=True" `
-  --name dogansystem `
-  dogansystem:latest
-```
+---
 
-### Option 4: Azure App Service
-1. Publish to folder: `dotnet publish -c Release -o publish`
-2. Zip the publish folder
-3. Deploy via Azure Portal or Azure CLI
-4. Configure connection string in Azure App Settings
+## Connection Test
 
-### Option 5: Use Deployment Script
-```powershell
-# Local deployment
-.\deploy.ps1 -Target local
+**Status**: ✅ **CONNECTED**
 
-# IIS deployment
-.\deploy.ps1 -Target iis
+Test the connection:
+```bash
+curl http://localhost:5000/
+# Should return HTTP 200 with HTML content
 
-# Docker deployment
-.\deploy.ps1 -Target docker
+curl http://localhost:5000/Public/Contact
+# Should return HTTP 200 with contact form page
 ```
 
 ---
 
-## 📋 Pre-Deployment Checklist
+## Process Management
 
-- [x] Application builds successfully
-- [x] Database migrations applied
-- [x] SQL Server LocalDB running
-- [x] Connection string configured
-- [x] Application running locally
-- [ ] Production connection string configured (if deploying to production)
-- [ ] SSL certificate configured (for HTTPS in production)
-- [ ] Environment variables set (if needed)
-- [ ] Logging configured for production
+### Check Status
+```bash
+# Check if running
+ps aux | grep "DoganSystem.Web.Mvc.dll"
 
----
+# Check port
+netstat -tlnp | grep :5000
 
-## 🔧 Database Configuration
-
-### Current Configuration (Development)
-```json
-{
-  "ConnectionStrings": {
-    "Default": "Server=(localdb)\\mssqllocaldb;Database=DoganSystemDb;Trusted_Connection=True;TrustServerCertificate=True"
-  }
-}
+# Check logs
+tail -f /root/CascadeProjects/DoganSystem/app.log
 ```
 
-### Production Configuration Example
-```json
-{
-  "ConnectionStrings": {
-    "Default": "Server=your-server;Database=DoganSystemDb;User Id=your-user;Password=your-password;TrustServerCertificate=True"
-  }
-}
+### Stop Application
+```bash
+# Stop using PID
+kill $(cat /root/CascadeProjects/DoganSystem/app.pid)
+
+# Or kill all instances
+pkill -f "DoganSystem.Web.Mvc.dll"
+```
+
+### Start Application
+```bash
+cd /root/CascadeProjects/DoganSystem/publish
+ASPNETCORE_URLS="http://0.0.0.0:5000" ASPNETCORE_ENVIRONMENT=Production \
+  nohup dotnet DoganSystem.Web.Mvc.dll > ../app.log 2>&1 &
+echo $! > ../app.pid
 ```
 
 ---
 
-## 📦 Publish Command
+## Configuration
 
-To create a deployment package:
-
-```powershell
-cd src\DoganSystem.Web.Mvc
-dotnet publish -c Release -o publish
-```
-
-The `publish` folder contains:
-- All compiled DLLs
-- Configuration files
-- Static assets
-- Ready for deployment
+**Connection String**: SQLite database at `DoganSystem.db`  
+**Logging**: Logs written to `app.log`  
+**Environment**: Production  
 
 ---
 
-## 🌐 Production Deployment Steps
+## Next Steps
 
-1. **Build and Publish**
-   ```powershell
-   dotnet publish -c Release -o publish
-   ```
-
-2. **Update Configuration**
-   - Update `appsettings.json` with production settings
-   - Update connection strings
-   - Configure logging
-
-3. **Deploy Files**
-   - Copy `publish` folder contents to server
-   - Ensure .NET 8.0 Runtime is installed on server
-
-4. **Configure Server**
-   - Set up IIS or reverse proxy
-   - Configure SSL certificates
-   - Set up firewall rules
-
-5. **Verify Deployment**
-   - Test application endpoints
-   - Verify database connectivity
-   - Check logs for errors
+1. ✅ Application is running on port 5000
+2. ✅ Connection test successful
+3. ⚠️ Create admin user (if not already created)
+4. ⚠️ Test all endpoints
+5. ⚠️ Configure HTTPS (optional, for production)
 
 ---
 
-## 📝 Notes
-
-- Application is currently running in **Release** mode
-- Database migrations are already applied
-- SQL Server LocalDB is running and accessible
-- All compilation errors and warnings have been fixed
-- Code has been committed and pushed to GitHub
-
----
-
-**Last Updated**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+**Status**: ✅ **DEPLOYED AND RUNNING**

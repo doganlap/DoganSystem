@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
-using Volo.Abp.PermissionManagement;
+// using Volo.Abp.PermissionManagement; // Temporarily removed
 using DoganSystem.Permissions;
 
 namespace DoganSystem.Application.Seed;
@@ -10,16 +10,17 @@ namespace DoganSystem.Application.Seed;
 public class GrcRoleDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
     private readonly IdentityRoleManager _roleManager;
-    private readonly IPermissionManager _permissionManager;
+    // Temporarily removed to allow app to start
+    // private readonly IPermissionManager _permissionManager;
     private readonly ILogger<GrcRoleDataSeedContributor> _logger;
 
     public GrcRoleDataSeedContributor(
         IdentityRoleManager roleManager,
-        IPermissionManager permissionManager,
+        // IPermissionManager permissionManager, // Temporarily removed
         ILogger<GrcRoleDataSeedContributor> logger)
     {
         _roleManager = roleManager;
-        _permissionManager = permissionManager;
+        // _permissionManager = permissionManager; // Temporarily removed
         _logger = logger;
     }
 
@@ -224,13 +225,14 @@ public class GrcRoleDataSeedContributor : IDataSeedContributor, ITransientDepend
             _logger.LogInformation("Created role: {RoleName}", roleName);
         }
 
-        foreach (var permission in permissions)
-        {
-            // Set permission for role - provider name "R" = Role, provider key = roleName
-            // SetAsync signature: (permissionName, providerName, providerKey, isGranted)
-            await _permissionManager.SetAsync(permission, "R", roleName, true);
-        }
+        // Temporarily disabled - permissions will be set manually or via UI
+        // foreach (var permission in permissions)
+        // {
+        //     // Set permission for role - provider name "R" = Role, provider key = roleName
+        //     // SetAsync signature: (permissionName, providerName, providerKey, isGranted)
+        //     await _permissionManager.SetAsync(permission, "R", roleName, true);
+        // }
 
-        _logger.LogInformation("Granted {Count} permissions to role: {RoleName}", permissions.Length, roleName);
+        _logger.LogInformation("Created role: {RoleName} (permissions will be set via UI)", roleName);
     }
 }

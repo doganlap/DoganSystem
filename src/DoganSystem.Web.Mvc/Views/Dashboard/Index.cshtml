@@ -1,0 +1,80 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@{
+    ViewData["Title"] = L["Dashboard:Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1><i class="fas fa-tachometer-alt me-2"></i>@L["Dashboard:Title"]</h1>
+            <p class="text-muted">@L["Dashboard:Subtitle"]</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-clipboard-check fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">@L["Assessment:Title"]</h5>
+                    <h2 class="text-primary">-</h2>
+                    <a href="/assessments" class="btn btn-primary btn-sm">@L["Button:Details"]</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                    <h5 class="card-title">@L["Risk:Title"]</h5>
+                    <h2 class="text-danger">-</h2>
+                    <a href="/risks" class="btn btn-danger btn-sm">@L["Button:Details"]</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-file-alt fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">@L["Evidence:Title"]</h5>
+                    <h2 class="text-info">-</h2>
+                    <a href="/evidence" class="btn btn-info btn-sm">@L["Button:Details"]</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="fas fa-search fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">@L["Audit:Title"]</h5>
+                    <h2 class="text-warning">-</h2>
+                    <a href="/audits" class="btn btn-warning btn-sm">@L["Button:Details"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>@L["Dashboard:QuickActions"]</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-group flex-wrap" role="group">
+                        <a href="/assessments/create" class="btn btn-outline-primary"><i class="fas fa-plus me-1"></i>@L["Assessment:New"]</a>
+                        <a href="/risks/create" class="btn btn-outline-danger"><i class="fas fa-plus me-1"></i>@L["Risk:New"]</a>
+                        <a href="/evidence/create" class="btn btn-outline-info"><i class="fas fa-plus me-1"></i>@L["Evidence:Upload"]</a>
+                        <a href="/audits/create" class="btn btn-outline-warning"><i class="fas fa-plus me-1"></i>@L["Audit:New"]</a>
+                        <a href="/reports" class="btn btn-outline-secondary"><i class="fas fa-chart-bar me-1"></i>@L["Menu:Reports"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

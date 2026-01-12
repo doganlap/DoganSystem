@@ -1,0 +1,249 @@
+@using Microsoft.AspNetCore.Authorization
+@{
+    ViewData["Title"] = "Invite Team Members";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Invite Your Team</h2>
+                <p class="text-muted">Add team members to collaborate on compliance management</p>
+            </div>
+
+            <!-- Invite Form -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="mb-4">Send Invitations</h5>
+                    <form id="inviteForm">
+                        <div id="inviteRows">
+                            <div class="row invite-row mb-3">
+                                <div class="col-md-5">
+                                    <input type="email" class="form-control" placeholder="Email address" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select">
+                                        <option value="Viewer">Viewer</option>
+                                        <option value="Auditor">Auditor</option>
+                                        <option value="ComplianceManager">Compliance Manager</option>
+                                        <option value="RiskManager">Risk Manager</option>
+                                        <option value="TenantAdmin">Admin</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-outline-danger remove-row d-none">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-4" id="addRow">
+                            <i class="bi bi-plus me-1"></i> Add Another
+                        </button>
+
+                        <div class="mb-4">
+                            <label class="form-label">Personal Message (optional)</label>
+                            <textarea class="form-control" id="inviteMessage" rows="3"
+                                      placeholder="Add a personal message to your invitation..."></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" id="sendInvites">
+                                <i class="bi bi-envelope me-2"></i>Send Invitations
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Role Descriptions -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="mb-4">Role Descriptions</h5>
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 150px;"><span class="badge bg-secondary">Viewer</span></td>
+                                    <td>Can view assessments, risks, and reports. Cannot make changes.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-info">Auditor</span></td>
+                                    <td>Can view and audit compliance evidence. Limited edit access.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-primary">Compliance Manager</span></td>
+                                    <td>Full access to assessments, evidence, and compliance reports.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-warning text-dark">Risk Manager</span></td>
+                                    <td>Full access to risk management and mitigation tracking.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-danger">Admin</span></td>
+                                    <td>Full system access including user management and settings.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Invitations -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h5 class="mb-4">Pending Invitations</h5>
+                    <div id="pendingInvites">
+                        <p class="text-muted text-center py-3">No pending invitations</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="d-flex justify-content-between mt-4">
+                <a href="/Onboarding/Setup" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i> Back to Setup
+                </a>
+                <a href="/Onboarding/Welcome" class="btn btn-primary">
+                    Continue <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Add more invite rows
+    document.getElementById('addRow').addEventListener('click', function() {
+        const container = document.getElementById('inviteRows');
+        const newRow = document.createElement('div');
+        newRow.className = 'row invite-row mb-3';
+        newRow.innerHTML = `
+            <div class="col-md-5">
+                <input type="email" class="form-control" placeholder="Email address" required>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select">
+                    <option value="Viewer">Viewer</option>
+                    <option value="Auditor">Auditor</option>
+                    <option value="ComplianceManager">Compliance Manager</option>
+                    <option value="RiskManager">Risk Manager</option>
+                    <option value="TenantAdmin">Admin</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-danger remove-row">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        `;
+        container.appendChild(newRow);
+        updateRemoveButtons();
+    });
+
+    // Remove row handler
+    document.getElementById('inviteRows').addEventListener('click', function(e) {
+        if (e.target.closest('.remove-row')) {
+            e.target.closest('.invite-row').remove();
+            updateRemoveButtons();
+        }
+    });
+
+    function updateRemoveButtons() {
+        const rows = document.querySelectorAll('.invite-row');
+        rows.forEach((row, index) => {
+            const btn = row.querySelector('.remove-row');
+            if (rows.length > 1) {
+                btn.classList.remove('d-none');
+            } else {
+                btn.classList.add('d-none');
+            }
+        });
+    }
+
+    // Form submission
+    document.getElementById('inviteForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const rows = document.querySelectorAll('.invite-row');
+        const invites = [];
+
+        rows.forEach(row => {
+            const email = row.querySelector('input[type="email"]').value;
+            const role = row.querySelector('select').value;
+            if (email) {
+                invites.push({ email, role });
+            }
+        });
+
+        if (invites.length === 0) {
+            alert('Please enter at least one email address');
+            return;
+        }
+
+        const btn = document.getElementById('sendInvites');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+
+        // Simulate API call (replace with actual API call)
+        setTimeout(() => {
+            // Store invites locally for demo
+            const pending = JSON.parse(localStorage.getItem('pendingInvites') || '[]');
+            invites.forEach(inv => {
+                pending.push({ ...inv, sentAt: new Date().toISOString() });
+            });
+            localStorage.setItem('pendingInvites', JSON.stringify(pending));
+
+            // Mark step as complete
+            const completedSteps = JSON.parse(localStorage.getItem('onboardingSteps') || '[]');
+            if (!completedSteps.includes('3')) {
+                completedSteps.push('3');
+                localStorage.setItem('onboardingSteps', JSON.stringify(completedSteps));
+            }
+
+            // Show success
+            alert('Invitations sent successfully!');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-envelope me-2"></i>Send Invitations';
+
+            // Clear form
+            document.querySelectorAll('.invite-row input').forEach(i => i.value = '');
+
+            // Update pending list
+            updatePendingList();
+        }, 1500);
+    });
+
+    function updatePendingList() {
+        const pending = JSON.parse(localStorage.getItem('pendingInvites') || '[]');
+        const container = document.getElementById('pendingInvites');
+
+        if (pending.length === 0) {
+            container.innerHTML = '<p class="text-muted text-center py-3">No pending invitations</p>';
+            return;
+        }
+
+        let html = '<ul class="list-group list-group-flush">';
+        pending.forEach((inv, index) => {
+            html += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>${inv.email}</strong>
+                        <span class="badge bg-secondary ms-2">${inv.role}</span>
+                    </div>
+                    <small class="text-muted">Pending</small>
+                </li>
+            `;
+        });
+        html += '</ul>';
+        container.innerHTML = html;
+    }
+
+    // Load pending invites on page load
+    document.addEventListener('DOMContentLoaded', updatePendingList);
+</script>
+}

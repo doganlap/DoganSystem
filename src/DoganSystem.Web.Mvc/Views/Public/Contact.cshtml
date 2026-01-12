@@ -1,0 +1,143 @@
+@model ContactFormDto
+@using Microsoft.Extensions.Localization
+@using DoganSystem.Localization
+@inject IStringLocalizer<GrcResource> L
+@{
+    ViewData["Title"] = L["Public:Contact:Title"];
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-4">@L["Public:Contact:Headline"]</h1>
+                <p class="lead">@L["Public:Contact:Subtitle"]</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5">
+    <div class="container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h2 class="text-brand-primary mb-4">@L["Public:Contact:FormTitle"]</h2>
+                        <p class="text-muted mb-4">@L["Public:Contact:FormDesc"]</p>
+
+                        <form method="post" asp-action="Contact" class="contact-form">
+                            @Html.AntiForgeryToken()
+
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="Name" class="form-label">@L["Public:Contact:Name"] <span class="text-danger">@L["Public:Contact:Required"]</span></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Email" class="form-label">@L["Public:Contact:Email"] <span class="text-danger">@L["Public:Contact:Required"]</span></label>
+                                    <input asp-for="Email" type="email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Company" class="form-label">@L["Public:Contact:Company"]</label>
+                                <input asp-for="Company" class="form-control" />
+                                <span asp-validation-for="Company" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ServiceInterest" class="form-label">@L["Public:Contact:ServiceInterest"]</label>
+                                <select asp-for="ServiceInterest" class="form-select">
+                                    <option value="">@L["Public:Contact:SelectService"]</option>
+                                    <option value="telecom">@L["Public:Contact:ServiceTelecom"]</option>
+                                    <option value="datacenter">@L["Public:Contact:ServiceDataCenter"]</option>
+                                    <option value="cybersecurity">@L["Public:Contact:ServiceCyber"]</option>
+                                    <option value="governance">@L["Public:Contact:ServiceGovernance"]</option>
+                                    <option value="other">@L["Public:Contact:ServiceOther"]</option>
+                                </select>
+                                <span asp-validation-for="ServiceInterest" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Message" class="form-label">@L["Public:Contact:Message"] <span class="text-danger">@L["Public:Contact:Required"]</span></label>
+                                <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-brand-primary btn-lg">
+                                    <i class="fas fa-paper-plane"></i> @L["Public:Contact:Submit"]
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="text-brand-primary">@L["Public:Contact:InfoTitle"]</h2>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-envelope fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Contact:EmailLabel"]</h5>
+                    <p class="text-muted">@L["Public:Contact:EmailValue"]</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-phone fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Contact:PhoneLabel"]</h5>
+                    <p class="text-muted">@L["Public:Contact:PhoneValue"]</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-map-marker-alt fa-3x text-brand-teal mb-3"></i>
+                    <h5 class="text-brand-primary">@L["Public:Contact:LocationLabel"]</h5>
+                    <p class="text-muted">@L["Public:Contact:LocationValue"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+}

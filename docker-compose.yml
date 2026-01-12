@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  dogansystem:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dogansystem
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Default=Data Source=/app/data/DoganSystem.db
+      - PythonServices__OrchestratorUrl=http://orchestrator:8006
+      - PythonServices__ApiGatewayUrl=http://orchestrator:8006
+      - ErpNext__DefaultUrl=http://erpnext:8000
+    volumes:
+      - ./data:/app/data
+      - ./etc/policies:/app/etc/policies
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+
+networks:
+  dogansystem-network:
+    driver: bridge

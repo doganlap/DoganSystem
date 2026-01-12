@@ -1,0 +1,64 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@{
+    ViewData["Title"] = L["Integration:Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1><i class="fas fa-plug me-2"></i>@L["Integration:Title"]</h1>
+            <p class="text-muted">@L["Integration:Description"]</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@L["Integration:List"]</h5>
+                    <a href="/integrations/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>@L["Integration:New"]</a>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-1"></i> @L["Common:NoData"]
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-plug fa-3x text-primary mb-3"></i>
+                                    <h6>@L["Integration:ApiIntegration"]</h6>
+                                    <p class="text-muted small">@L["Integration:ApiIntegrationDesc"]</p>
+                                    <span class="badge bg-secondary">@L["Integration:NotConnected"]</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-database fa-3x text-success mb-3"></i>
+                                    <h6>@L["Integration:DatabaseSync"]</h6>
+                                    <p class="text-muted small">@L["Integration:DatabaseSyncDesc"]</p>
+                                    <span class="badge bg-secondary">@L["Integration:NotConnected"]</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-cloud fa-3x text-info mb-3"></i>
+                                    <h6>@L["Integration:CloudService"]</h6>
+                                    <p class="text-muted small">@L["Integration:CloudServiceDesc"]</p>
+                                    <span class="badge bg-secondary">@L["Integration:NotConnected"]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,48 +1,50 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
 @model DoganSystem.Modules.ErpNext.Application.Dtos.CreateErpNextInstanceDto
 @{
-    ViewData["Title"] = "Add ERPNext Instance";
+    ViewData["Title"] = L["ErpNext:AddInstance"];
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h2>Add ERPNext Instance</h2>
+            <h2><i class="fas fa-plus-circle me-2"></i>@L["ErpNext:AddInstance"]</h2>
             <form asp-action="Create" method="post">
                 <div class="form-group mb-3">
-                    <label asp-for="Name" class="form-label">Name *</label>
+                    <label asp-for="Name" class="form-label">@L["Common:Name"] *</label>
                     <input asp-for="Name" class="form-control" required />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="BaseUrl" class="form-label">Base URL *</label>
+                    <label asp-for="BaseUrl" class="form-label">@L["ErpNext:BaseUrl"] *</label>
                     <input asp-for="BaseUrl" type="url" class="form-control" placeholder="http://localhost:8000" required />
                     <span asp-validation-for="BaseUrl" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="ApiKey" class="form-label">API Key</label>
+                    <label asp-for="ApiKey" class="form-label">@L["ErpNext:ApiKey"]</label>
                     <input asp-for="ApiKey" class="form-control" />
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="ApiSecret" class="form-label">API Secret</label>
+                    <label asp-for="ApiSecret" class="form-label">@L["ErpNext:ApiSecret"]</label>
                     <input asp-for="ApiSecret" type="password" class="form-control" />
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="SiteName" class="form-label">Site Name</label>
+                    <label asp-for="SiteName" class="form-label">@L["ErpNext:SiteName"]</label>
                     <input asp-for="SiteName" class="form-control" />
                 </div>
 
                 <div class="form-group mb-3">
-                    <label asp-for="Description" class="form-label">Description</label>
+                    <label asp-for="Description" class="form-label">@L["Common:Description"]</label>
                     <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                 </div>
 
                 <div class="form-group mb-3">
-                    <button type="submit" class="btn btn-primary">Add Instance</button>
-                    <a href="/ErpNext" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus me-1"></i>@L["ErpNext:AddInstanceBtn"]</button>
+                    <a href="/ErpNext" class="btn btn-secondary"><i class="fas fa-times me-1"></i>@L["Common:Cancel"]</a>
                 </div>
             </form>
         </div>

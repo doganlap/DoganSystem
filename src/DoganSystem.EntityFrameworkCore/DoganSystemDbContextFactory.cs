@@ -12,7 +12,7 @@ namespace DoganSystem.EntityFrameworkCore
             var configuration = BuildConfiguration();
 
             var builder = new DbContextOptionsBuilder<DoganSystemDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("Default"));
+                .UseNpgsql(configuration.GetConnectionString("Default"));
 
             return new DoganSystemDbContext(builder.Options);
         }

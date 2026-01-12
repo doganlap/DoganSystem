@@ -1,0 +1,40 @@
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<DoganSystem.Localization.GrcResource> L
+@{
+    ViewData["Title"] = L["Notification:Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1><i class="fas fa-bell me-2"></i>@L["Notification:Title"]</h1>
+            <p class="text-muted">@L["Notification:Description"]</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@L["Notification:Title"]</h5>
+                    <button class="btn btn-primary"><i class="fas fa-plus me-1"></i>@L["Notification:New"]</button>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-1"></i> @L["Common:NoData"]
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">@L["Common:NoData"]</h6>
+                                <small class="text-muted">-</small>
+                            </div>
+                            <p class="mb-1 text-muted">@L["Notification:NoNotifications"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

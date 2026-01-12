@@ -50,7 +50,7 @@ public class GrcMenuContributor : IMenuContributor
             "الإدارة",
             "/admin",
             icon: "fas fa-cog"
-        ).RequirePermissions(GrcPermissions.Admin.Access);
+        );
 
         adminMenuItem.AddItem(
             new ApplicationMenuItem(

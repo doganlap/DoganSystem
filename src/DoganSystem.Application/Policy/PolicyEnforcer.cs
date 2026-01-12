@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DoganSystem.Application.Policy;
 
-public class PolicyEnforcer : DoganSystem.Core.Policy.IPolicyEnforcer
+public class PolicyEnforcer : IPolicyEnforcer
 {
     private readonly PolicyStore _policyStore;
     private readonly PolicyAuditLogger _auditLogger;

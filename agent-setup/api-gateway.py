@@ -18,10 +18,19 @@ from tenant_router import TenantRouter, get_tenant_id
 from usage_tracker import UsageTracker, UsageMetric
 from metrics_collector import MetricsCollector
 from unified_orchestrator import UnifiedOrchestrator, UnifiedSystemConfig
+from env_validator import validate_environment_variables, EnvironmentValidationError
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Validate environment variables before starting the application
+try:
+    validate_environment_variables()
+except EnvironmentValidationError as e:
+    logger.critical(f"Environment validation failed: {e}")
+    logger.critical("Application startup aborted due to invalid configuration")
+    exit(1)
 
 app = FastAPI(title="DoganSystem Multi-Tenant API Gateway", version="2.0.0")
 

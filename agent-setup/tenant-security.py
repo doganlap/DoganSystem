@@ -73,7 +73,7 @@ class TenantSecurity:
         
         cursor.execute("""
             SELECT tenant_id FROM tenant_api_keys
-            WHERE api_key = ? AND expires_at IS NULL OR expires_at > datetime('now')
+            WHERE api_key = ? AND (expires_at IS NULL OR expires_at > datetime('now'))
         """, (api_key,))
         
         row = cursor.fetchone()

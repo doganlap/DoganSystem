@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,8 +69,19 @@ namespace DoganSystem.Web.Mvc.Controllers
         /// </summary>
         [HttpPost]
         [Route("/api/onboarding/invite")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendInvitation([FromBody] InviteTeamMemberRequest request)
         {
+            // Validate model state
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Validation failed: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))
+                });
+            }
+
             try
             {
                 // Create user using ABP's Identity service
@@ -128,6 +141,7 @@ namespace DoganSystem.Web.Mvc.Controllers
         /// </summary>
         [HttpPost]
         [Route("/api/onboarding/complete")]
+        [ValidateAntiForgeryToken]
         public IActionResult CompleteOnboarding()
         {
             // This would typically update a user setting or tenant setting
@@ -144,8 +158,16 @@ namespace DoganSystem.Web.Mvc.Controllers
 
     public class InviteTeamMemberRequest
     {
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address format")]
         public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Role is required")]
+        [RegularExpression(@"^(Viewer|Auditor|ComplianceManager|RiskManager|TenantAdmin)$",
+            ErrorMessage = "Role must be one of: Viewer, Auditor, ComplianceManager, RiskManager, TenantAdmin")]
         public string Role { get; set; } = "Viewer";
+
+        [StringLength(500, ErrorMessage = "Message cannot exceed 500 characters")]
         public string? Message { get; set; }
     }
 }

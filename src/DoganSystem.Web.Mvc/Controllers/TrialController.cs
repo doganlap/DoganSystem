@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -64,8 +66,29 @@ namespace DoganSystem.Web.Mvc.Controllers
         /// </summary>
         [HttpPost]
         [Route("/api/trial/register")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterTrial([FromBody] RegisterTrialRequest request)
         {
+            // Validate model state (includes data annotations)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new RegisterTrialResponse
+                {
+                    Success = false,
+                    Message = "Validation failed: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))
+                });
+            }
+
+            // Additional password strength validation
+            if (!IsPasswordStrong(request.AdminPassword))
+            {
+                return BadRequest(new RegisterTrialResponse
+                {
+                    Success = false,
+                    Message = "Password must be at least 8 characters and contain uppercase, lowercase, number, and special character."
+                });
+            }
+
             try
             {
                 // Create tenant using ABP TenantManagement service
@@ -174,18 +197,61 @@ namespace DoganSystem.Web.Mvc.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Validates password strength
+        /// </summary>
+        private static bool IsPasswordStrong(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
+                return false;
+
+            // Must contain uppercase
+            if (!Regex.IsMatch(password, @"[A-Z]"))
+                return false;
+
+            // Must contain lowercase
+            if (!Regex.IsMatch(password, @"[a-z]"))
+                return false;
+
+            // Must contain digit
+            if (!Regex.IsMatch(password, @"[0-9]"))
+                return false;
+
+            // Must contain special character
+            if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':;{}|<>_\-+=\[\]\\\/`~]"))
+                return false;
+
+            return true;
+        }
     }
 
     public class RegisterTrialRequest
     {
+        [Required(ErrorMessage = "Company name is required")]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Company name must be between 2 and 100 characters")]
         public string CompanyName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Subdomain is required")]
+        [RegularExpression(@"^[a-z0-9-]{3,50}$", ErrorMessage = "Subdomain must be 3-50 characters, lowercase letters, numbers, and hyphens only")]
         public string Subdomain { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Admin email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address format")]
         public string AdminEmail { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Admin password is required")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
         public string AdminPassword { get; set; } = string.Empty;
+
         public string AdminUserName { get; set; } = string.Empty;
         public string AdminName { get; set; } = string.Empty;
         public string AdminSurname { get; set; } = string.Empty;
+
+        [Phone(ErrorMessage = "Invalid phone number format")]
         public string AdminPhone { get; set; } = string.Empty;
+
+        [Range(1, 90, ErrorMessage = "Trial days must be between 1 and 90")]
         public int TrialDays { get; set; } = 14;
     }
 

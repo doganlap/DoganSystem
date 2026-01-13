@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="8.3.4" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="8.3.4" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="8.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DoganSystem.Core\DoganSystem.Core.csproj" />
+    <ProjectReference Include="..\DoganSystem.Modules.AgentOrchestrator\DoganSystem.Modules.AgentOrchestrator.csproj" />
+    <ProjectReference Include="..\DoganSystem.Modules.ErpNext\DoganSystem.Modules.ErpNext.csproj" />
+  </ItemGroup>
+
+</Project>

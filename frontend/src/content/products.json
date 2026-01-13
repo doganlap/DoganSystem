@@ -1,0 +1,281 @@
+{
+  "environment": {
+    "stage": "production",
+    "version": "1.0.0",
+    "buildDate": "2026-01-10"
+  },
+  "ecosystem": {
+    "name": {
+      "ar": "منظومة دوغان",
+      "en": "Dogan Ecosystem"
+    },
+    "description": {
+      "ar": "أربع منصات متكاملة تعمل معاً لتقديم تحول رقمي شامل",
+      "en": "Four integrated platforms working together to deliver end-to-end digital transformation"
+    },
+    "status": "production"
+  },
+  "products": [
+    {
+      "id": "sbg",
+      "name": {
+        "ar": "البوابة السعودية للأعمال",
+        "en": "Saudi Business Gate"
+      },
+      "shortName": {
+        "ar": "SBG",
+        "en": "SBG"
+      },
+      "tagline": {
+        "ar": "بوابتك للأعمال في السعودية",
+        "en": "Your Gateway to Business in Saudi Arabia"
+      },
+      "description": {
+        "ar": "بوابة متكاملة للعملاء والشركاء مع سوق حلول ومركز خدمات ذاتية وإدارة الاشتراكات",
+        "en": "Integrated customer and partner portal with solution marketplace, self-service center, and subscription management"
+      },
+      "url": "https://saudibusinessgate.com",
+      "status": "production",
+      "category": "portal",
+      "features": {
+        "ar": [
+          "بوابة العملاء",
+          "إدارة الشركاء",
+          "سوق الحلول",
+          "الفوترة والمدفوعات",
+          "الدعم الفني"
+        ],
+        "en": [
+          "Customer Portal",
+          "Partner Management",
+          "Solution Marketplace",
+          "Billing & Payments",
+          "Technical Support"
+        ]
+      },
+      "portalFeatures": {
+        "customerPortal": {
+          "ar": ["لوحة المشاريع", "مركز المستندات", "تتبع التذاكر", "إدارة الاشتراكات"],
+          "en": ["Project Dashboard", "Document Center", "Ticket Tracking", "Subscription Management"]
+        },
+        "partnerPortal": {
+          "ar": ["تسجيل الشركاء", "برنامج الشراكة", "التدريب والتأهيل", "تتبع الأداء"],
+          "en": ["Partner Registration", "Partnership Program", "Training & Qualification", "Performance Tracking"]
+        },
+        "marketplace": {
+          "ar": ["كتالوج الحلول", "التكاملات الجاهزة", "التقييمات", "الشراء المباشر"],
+          "en": ["Solutions Catalog", "Ready Integrations", "Ratings & Reviews", "Direct Purchase"]
+        }
+      }
+    },
+    {
+      "id": "shahin",
+      "name": {
+        "ar": "شاهين للحوكمة",
+        "en": "Shahin GRC"
+      },
+      "shortName": {
+        "ar": "شاهين",
+        "en": "Shahin"
+      },
+      "tagline": {
+        "ar": "الحوكمة الاستثنائية",
+        "en": "Exceptional Governance"
+      },
+      "description": {
+        "ar": "منصة شاملة للحوكمة والمخاطر والامتثال مدعومة بالذكاء الاصطناعي، مصممة للبيئة التنظيمية السعودية",
+        "en": "Comprehensive AI-powered GRC platform designed for the Saudi regulatory environment"
+      },
+      "url": "https://shahin-grc.com",
+      "status": "production",
+      "category": "compliance",
+      "features": {
+        "ar": [
+          "117+ إطار تنظيمي",
+          "3,200+ ضابط جاهز",
+          "تقييمات بالذكاء الاصطناعي",
+          "دعم عربي كامل",
+          "لوحات معلومات ذكية",
+          "تقارير تلقائية"
+        ],
+        "en": [
+          "117+ Regulatory Frameworks",
+          "3,200+ Pre-loaded Controls",
+          "AI-Powered Assessments",
+          "Full Arabic Support",
+          "Smart Dashboards",
+          "Automated Reports"
+        ]
+      },
+      "frameworks": {
+        "cybersecurity": ["NCA ECC v2.0", "NCA CCC", "NCA OTCC"],
+        "financial": ["SAMA Cybersecurity Framework", "CMA Governance", "PDPL"],
+        "government": ["NDMO Framework", "SDAIA Data Governance", "Yesser"],
+        "healthcare": ["MOH Cybersecurity", "SFDA Data Protection", "CBAHI"],
+        "international": ["ISO 27001", "ISO 9001", "GDPR", "PCI DSS"]
+      },
+      "sectors": [
+        {
+          "id": "financial",
+          "name": {
+            "ar": "الخدمات المالية",
+            "en": "Financial Services"
+          },
+          "controlCount": 846
+        },
+        {
+          "id": "healthcare",
+          "name": {
+            "ar": "الرعاية الصحية",
+            "en": "Healthcare"
+          },
+          "controlCount": 678
+        },
+        {
+          "id": "government",
+          "name": {
+            "ar": "القطاع الحكومي",
+            "en": "Government"
+          },
+          "controlCount": 924
+        },
+        {
+          "id": "technology",
+          "name": {
+            "ar": "التكنولوجيا",
+            "en": "Technology"
+          },
+          "controlCount": 734
+        },
+        {
+          "id": "energy",
+          "name": {
+            "ar": "الطاقة والمرافق",
+            "en": "Energy & Utilities"
+          },
+          "controlCount": 562
+        },
+        {
+          "id": "manufacturing",
+          "name": {
+            "ar": "التصنيع",
+            "en": "Manufacturing"
+          },
+          "controlCount": 445
+        }
+      ],
+      "stats": {
+        "frameworks": "117+",
+        "controls": "3,200+",
+        "saudiRegulators": "40+",
+        "timeSaved": "70%",
+        "note": {
+          "ar": "الأرقام تستند إلى قياسات داخلية وتحتاج للتحقق",
+          "en": "Numbers based on internal measurements and require validation"
+        }
+      }
+    },
+    {
+      "id": "doganlab",
+      "name": {
+        "ar": "دوغان لاب",
+        "en": "DoganLab"
+      },
+      "shortName": {
+        "ar": "المختبر",
+        "en": "Lab"
+      },
+      "tagline": {
+        "ar": "مختبر الابتكار",
+        "en": "Innovation Laboratory"
+      },
+      "description": {
+        "ar": "بيئة تجريبية للنماذج الأولية والاختبار وابتكار الذكاء الاصطناعي",
+        "en": "Sandbox environment for prototyping, testing, and AI experimentation"
+      },
+      "url": "https://doganlab.com",
+      "status": "production",
+      "category": "innovation",
+      "features": {
+        "ar": [
+          "بيئات تجريبية معزولة",
+          "عروض توضيحية",
+          "تطوير سريع للنماذج",
+          "اختبار الذكاء الاصطناعي"
+        ],
+        "en": [
+          "Isolated Sandbox Environments",
+          "Demo Capabilities",
+          "Rapid Prototyping",
+          "AI Experimentation"
+        ]
+      }
+    },
+    {
+      "id": "doganhub",
+      "name": {
+        "ar": "دوغان هب",
+        "en": "DoganHub"
+      },
+      "shortName": {
+        "ar": "المركز",
+        "en": "Hub"
+      },
+      "tagline": {
+        "ar": "مركز عمليات الشبكات والأمن",
+        "en": "Network & Security Operations Center"
+      },
+      "description": {
+        "ar": "مركز NOC/SOC متكامل لمراقبة وإدارة جميع البنية التحتية لدوغان كونسلت على مدار الساعة",
+        "en": "Integrated NOC/SOC for 24/7 monitoring and management of all Dogan Consult infrastructure"
+      },
+      "url": "https://doganhub.com",
+      "status": "production",
+      "category": "operations",
+      "features": {
+        "ar": [
+          "مركز عمليات الشبكات (NOC)",
+          "مركز عمليات الأمن (SOC)",
+          "مراقبة البنية التحتية",
+          "إدارة الحوادث",
+          "لوحات المراقبة الفورية"
+        ],
+        "en": [
+          "Network Operations Center (NOC)",
+          "Security Operations Center (SOC)",
+          "Infrastructure Monitoring",
+          "Incident Management",
+          "Real-time Monitoring Dashboards"
+        ]
+      },
+      "monitoring": {
+        "systems": ["SBG", "Shahin GRC", "DoganLab", "ERPNext", "Network", "Cloud"],
+        "coverage": "24/7/365",
+        "sla": {
+          "uptime": "99.9%",
+          "responseTime": "< 15 min"
+        }
+      }
+    }
+  ],
+  "integrations": {
+    "core": {
+      "name": "ERPNext",
+      "description": {
+        "ar": "جميع المنصات متكاملة بسلاسة من خلال ERPNext",
+        "en": "All platforms seamlessly integrated through ERPNext"
+      }
+    },
+    "systems": [
+      "SAP",
+      "Oracle",
+      "Microsoft Dynamics",
+      "Salesforce",
+      "ServiceNow"
+    ]
+  },
+  "poweredBy": {
+    "ar": "طُوّر بواسطة دوغان كونسلت",
+    "en": "Powered by Dogan Consult"
+  }
+}

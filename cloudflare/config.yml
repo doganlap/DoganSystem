@@ -1,0 +1,96 @@
+# Cloudflare Tunnel Configuration for DoganSystem
+# This file will be used by cloudflared to route traffic from Cloudflare to your Docker services
+
+# Tunnel name (will be created during setup)
+tunnel: dogansystem
+
+# Credentials file (will be created automatically during cloudflared login)
+# Path will be updated by the setup script
+credentials-file: C:\Users\Administrator\.cloudflared\tunnel-credentials.json
+
+# Ingress rules - Routes external domains to internal Docker services
+# All traffic goes through nginx reverse proxy running in Docker
+ingress:
+  # Main website
+  - hostname: doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      httpHostHeader: doganconsult.com
+
+  # WWW subdomain
+  - hostname: www.doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      httpHostHeader: www.doganconsult.com
+
+  # API Backend
+  - hostname: api.doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      httpHostHeader: api.doganconsult.com
+
+  # AI Services Gateway
+  - hostname: ai.doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 120s  # AI requests may take longer
+      httpHostHeader: ai.doganconsult.com
+
+  # Monitoring Dashboard
+  - hostname: ds.doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      httpHostHeader: ds.doganconsult.com
+
+  # Login / Authentication
+  - hostname: login.doganconsult.com
+    service: http://host.docker.internal:80
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      httpHostHeader: login.doganconsult.com
+
+  # Catch-all rule (must be last)
+  - service: http_status:404
+
+# Origin request configuration (applies to all ingress rules unless overridden)
+originRequest:
+  # Connection settings
+  connectTimeout: 30s
+  tlsTimeout: 10s
+  tcpKeepAlive: 30s
+  keepAliveConnections: 100
+  keepAliveTimeout: 90s
+
+  # HTTP settings
+  noHappyEyeballs: false
+  disableChunkedEncoding: false
+
+  # Proxy settings (if you need to go through a corporate proxy)
+  # proxyType: "socks5"
+  # proxyAddress: "127.0.0.1:1080"
+
+# Metrics server for monitoring tunnel health
+metrics: localhost:60123
+
+# Logging
+# loglevel: info  # debug, info, warn, error, fatal
+
+# Number of concurrent connections
+# protocolVersion: auto  # auto, http2, http1, quic
+
+# Notes:
+# - host.docker.internal is a special DNS name in Docker Desktop
+#   that resolves to the Windows host's IP address
+# - All traffic goes to port 80 because nginx is listening there
+# - nginx (running in Docker) will then route to appropriate backend services
+# - Health checks and SSL termination are handled by Cloudflare

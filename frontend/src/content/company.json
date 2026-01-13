@@ -1,0 +1,261 @@
+{
+  "environment": {
+    "stage": "production",
+    "version": "1.0.0",
+    "buildDate": "2026-01-10",
+    "isProduction": true
+  },
+  "company": {
+    "name": {
+      "ar": "دوغان كونسلت",
+      "en": "Dogan Consult"
+    },
+    "tagline": {
+      "ar": "نبني. نحكم. نؤتمت.",
+      "en": "Build. Govern. Automate."
+    },
+    "description": {
+      "ar": "منصات حوكمة وتشغيل مدعومة بالذكاء الاصطناعي للمؤسسات والجهات الحكومية",
+      "en": "AI-powered governance and operations platforms for enterprise organizations and government entities"
+    },
+    "longDescription": {
+      "ar": "دوغان كونسلت شركة تقنية واستشارات متخصصة في التحول الرقمي والذكاء الاصطناعي والحوكمة والمخاطر والامتثال. نصمم وننفذ ونشغل منصات مؤسسية متوافقة مع الأنظمة السعودية والمعايير الدولية.",
+      "en": "Dogan Consult is a technology and advisory firm specializing in digital transformation, AI, governance, risk, and compliance. We design, implement, and operate enterprise platforms aligned with Saudi regulations and international standards."
+    }
+  },
+  "contact": {
+    "email": "info@doganconsult.com",
+    "support": "support@dogansystem.com",
+    "phone": "[PHONE_PLACEHOLDER]",
+    "address": {
+      "ar": "الرياض، المملكة العربية السعودية",
+      "en": "Riyadh, Saudi Arabia"
+    },
+    "website": "https://doganconsult.com"
+  },
+  "legal": {
+    "cr": "[CR_PLACEHOLDER]",
+    "vat": "[VAT_PLACEHOLDER]",
+    "copyright": {
+      "ar": "© 2025 دوغان كونسلت. جميع الحقوق محفوظة.",
+      "en": "© 2025 Dogan Consult. All rights reserved."
+    }
+  },
+  "social": {
+    "linkedin": "https://linkedin.com/company/doganconsult",
+    "twitter": "https://twitter.com/doganconsult",
+    "youtube": "",
+    "github": ""
+  },
+  "branding": {
+    "colors": {
+      "primary": "#0EA5E9",
+      "secondary": "#E53E3E",
+      "gold": "#D4AF37",
+      "goldLight": "#F7D36A",
+      "goldDark": "#B08A2E",
+      "neutralDark": "#1F2937",
+      "neutralLight": "#F9FAFB"
+    },
+    "fonts": {
+      "primary": "Inter",
+      "arabic": "IBM Plex Sans Arabic",
+      "mono": "JetBrains Mono"
+    },
+    "logo": {
+      "vector": "src/icons logo/logo_vectorized.svg",
+      "webGold": "src/icons logo/logo_web_flat_gold.svg",
+      "webAdaptable": "src/icons logo/logo_web_currentColor.svg",
+      "masterPng": "src/icons logo/logo_master_transparent.png",
+      "favicon": "src/icons logo/favicon.ico",
+      "faviconSizes": {
+        "16": "src/icons logo/favicon-16.png",
+        "32": "src/icons logo/favicon-32.png",
+        "48": "src/icons logo/favicon-48.png",
+        "64": "src/icons logo/favicon-64.png",
+        "128": "src/icons logo/favicon-128.png",
+        "256": "src/icons logo/favicon-256.png"
+      }
+    }
+  },
+  "vision": {
+    "ar": "أن نكون الشريك التقني الموثوق للمؤسسات والجهات الحكومية في رحلة التحول الرقمي والحوكمة الذكية",
+    "en": "To be the trusted technology partner for enterprises and government entities in their digital transformation and intelligent governance journey"
+  },
+  "mission": {
+    "ar": "تمكين المؤسسات من منصات آمنة وقابلة للتوسع وذكية تقلل المخاطر وتحسن الكفاءة وتدعم النمو المستدام",
+    "en": "To empower organizations with secure, scalable, and intelligent platforms that reduce risk, improve efficiency, and support sustainable growth"
+  },
+  "values": [
+    {
+      "ar": "الجودة أولاً",
+      "en": "Quality First"
+    },
+    {
+      "ar": "الامتثال بالتصميم",
+      "en": "Compliance by Design"
+    },
+    {
+      "ar": "التنفيذ لا التنظير",
+      "en": "Execution Over Theory"
+    },
+    {
+      "ar": "الشراكة طويلة المدى",
+      "en": "Long-term Partnership"
+    }
+  ],
+  "differentiators": [
+    {
+      "ar": "فهم عميق للبيئة التنظيمية السعودية",
+      "en": "Deep understanding of Saudi regulatory environment"
+    },
+    {
+      "ar": "الذكاء الاصطناعي مدمج في جميع المنصات",
+      "en": "AI embedded across all platforms"
+    },
+    {
+      "ar": "دعم عربي كامل مع قدرات RTL",
+      "en": "Full Arabic support with RTL capabilities"
+    },
+    {
+      "ar": "نموذج تسليم شامل من الاستراتيجية إلى التشغيل",
+      "en": "End-to-end delivery from strategy to operations"
+    }
+  ],
+  "industries": [
+    {
+      "id": "government",
+      "name": {
+        "ar": "القطاع الحكومي",
+        "en": "Government"
+      },
+      "description": {
+        "ar": "الوزارات والهيئات والبلديات",
+        "en": "Ministries, agencies, and municipalities"
+      }
+    },
+    {
+      "id": "financial",
+      "name": {
+        "ar": "الخدمات المالية",
+        "en": "Financial Services"
+      },
+      "description": {
+        "ar": "البنوك والتأمين والاستثمار",
+        "en": "Banks, insurance, and investment"
+      }
+    },
+    {
+      "id": "healthcare",
+      "name": {
+        "ar": "الرعاية الصحية",
+        "en": "Healthcare"
+      },
+      "description": {
+        "ar": "المستشفيات والعيادات والمختبرات",
+        "en": "Hospitals, clinics, and laboratories"
+      }
+    },
+    {
+      "id": "energy",
+      "name": {
+        "ar": "الطاقة والمرافق",
+        "en": "Energy & Utilities"
+      },
+      "description": {
+        "ar": "الكهرباء والنفط والطاقة المتجددة",
+        "en": "Electricity, oil, and renewable energy"
+      }
+    },
+    {
+      "id": "technology",
+      "name": {
+        "ar": "التكنولوجيا",
+        "en": "Technology"
+      },
+      "description": {
+        "ar": "تقنية المعلومات والسحابة والبرمجيات",
+        "en": "IT, cloud, and software"
+      }
+    },
+    {
+      "id": "enterprise",
+      "name": {
+        "ar": "المجموعات القابضة",
+        "en": "Large Enterprises"
+      },
+      "description": {
+        "ar": "الشركات الكبرى والمجموعات المتنوعة",
+        "en": "Large corporations and diversified groups"
+      }
+    }
+  ],
+  "services": [
+    {
+      "id": "digital-transformation",
+      "name": {
+        "ar": "التحول الرقمي",
+        "en": "Digital Transformation"
+      },
+      "description": {
+        "ar": "تحديث أنظمة المؤسسات ببنية آمنة وقابلة للتوسع",
+        "en": "Modernizing enterprise systems with secure, scalable architecture"
+      }
+    },
+    {
+      "id": "ai-automation",
+      "name": {
+        "ar": "الذكاء الاصطناعي والأتمتة",
+        "en": "AI & Automation"
+      },
+      "description": {
+        "ar": "دمج الذكاء في العمليات والمخاطر وصنع القرار",
+        "en": "Embedding intelligence into operations, risk, and decision-making"
+      }
+    },
+    {
+      "id": "grc",
+      "name": {
+        "ar": "الحوكمة والمخاطر والامتثال",
+        "en": "Governance, Risk & Compliance"
+      },
+      "description": {
+        "ar": "منصات جاهزة للجهات التنظيمية مع أدلة قابلة للتدقيق",
+        "en": "Regulator-ready platforms with audit-grade evidence"
+      }
+    },
+    {
+      "id": "integration",
+      "name": {
+        "ar": "التكامل والربط",
+        "en": "Systems Integration"
+      },
+      "description": {
+        "ar": "ربط الأنظمة المؤسسية ببنية موحدة",
+        "en": "Connecting enterprise systems with unified architecture"
+      }
+    },
+    {
+      "id": "managed-services",
+      "name": {
+        "ar": "الخدمات المدارة",
+        "en": "Managed Services"
+      },
+      "description": {
+        "ar": "تشغيل ودعم المنصات على مدار الساعة",
+        "en": "24/7 platform operations and support"
+      }
+    },
+    {
+      "id": "consulting",
+      "name": {
+        "ar": "الاستشارات والتدريب",
+        "en": "Consulting & Training"
+      },
+      "description": {
+        "ar": "توجيه استراتيجي وبرامج تدريب للفرق",
+        "en": "Strategic guidance and training programs for teams"
+      }
+    }
+  ]
+}

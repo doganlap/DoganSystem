@@ -1,0 +1,164 @@
+# Docker Compose Overrides for VM Deployment
+# This file is automatically merged with docker-compose.production.yml
+# Use this for VM-specific settings without modifying the main compose file
+#
+# IMPORTANT: Ports are configured to avoid conflicts with GrcMvc
+# See PORT_ALLOCATION_PLAN.md for details
+
+version: '3.8'
+
+services:
+  # Nginx - Expose port 80 for Cloudflare Tunnel
+  nginx:
+    # Expose nginx on localhost:80 so Cloudflare Tunnel can connect
+    ports:
+      - "80:80"  # Expose nginx on localhost:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - TZ=Asia/Riyadh
+
+  # .NET Backend - Windows-specific settings
+  dogansystem-web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - TZ=Asia/Riyadh
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+
+  # API Gateway - Resource limits for VM
+  api-gateway:
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+
+  # Agent Server - More resources for AI processing
+  agent-server:
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+
+  # Tenant Admin
+  tenant-admin:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+  # Monitoring Dashboard
+  monitoring:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+  # Webhook Receiver
+  webhook-receiver:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # Workflow Engine
+  workflow-engine:
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+
+  # ERPNext - Add backup volume
+  erpnext:
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+      - C:/DoganSystem/backups/erpnext:/home/frappe/backups
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 6G
+        reservations:
+          cpus: '2.0'
+          memory: 3G
+
+  # ERPNext Database - MariaDB resource limits
+  erpnext-db:
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=500
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+
+  # Redis - Optimized configuration
+  redis:
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass ${REDIS_PASSWORD}
+      --bind 0.0.0.0
+      --maxmemory 2gb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+# Additional volumes for backups
+volumes:
+  backup-data:
+    driver: local
+
+# Notes:
+# - Resource limits are set for a VM with 24GB RAM and 10 vCPUs
+# - Total allocated: ~34GB max (allows for bursting), ~18GB reserved
+# - Adjust based on your actual VM resources
+# - TZ=Asia/Riyadh sets timezone for Saudi Arabia
+# - Backup paths use Windows-style paths (C:/DoganSystem/backups)

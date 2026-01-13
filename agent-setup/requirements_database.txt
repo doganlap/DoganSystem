@@ -1,0 +1,9 @@
+# Database Requirements
+sqlalchemy>=2.0.0
+python-dotenv>=1.0.0
+
+# Optional: PostgreSQL support
+# psycopg2-binary>=2.9.0
+
+# Optional: MySQL support
+# pymysql>=1.1.0

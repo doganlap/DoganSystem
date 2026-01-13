@@ -1,0 +1,1444 @@
+{
+  "environment": {
+    "stage": "production",
+    "version": "1.0.0",
+    "buildDate": "2026-01-10"
+  },
+  "pages": {
+    "doganconsult": {
+      "hero": {
+        "headline": {
+          "ar": "نبني. نحكم. نؤتمت.",
+          "en": "Build. Govern. Automate."
+        },
+        "subheadline": {
+          "ar": "منصات حوكمة وتشغيل مدعومة بالذكاء الاصطناعي للمؤسسات والجهات الحكومية في المملكة العربية السعودية",
+          "en": "AI-powered governance and operations platforms for enterprise organizations and government entities in Saudi Arabia"
+        },
+        "cta": {
+          "primary": {
+            "ar": "احجز عرضاً توضيحياً",
+            "en": "Book a Demo"
+          },
+          "secondary": {
+            "ar": "تعرف على منصاتنا",
+            "en": "Explore Our Platforms"
+          }
+        }
+      },
+      "valueProposition": {
+        "ar": "أربع منصات متكاملة تعمل معاً لتقديم تحول رقمي شامل",
+        "en": "Four integrated platforms working together to deliver end-to-end digital transformation"
+      },
+      "targetAudience": [
+        {
+          "id": "government",
+          "name": {
+            "ar": "القطاع الحكومي",
+            "en": "Government Sector"
+          },
+          "description": {
+            "ar": "الوزارات والهيئات والبلديات التي تحتاج امتثالاً للأنظمة السعودية",
+            "en": "Ministries, agencies, and municipalities requiring Saudi regulatory compliance"
+          },
+          "painPoints": {
+            "ar": ["تعقيد الامتثال التنظيمي", "تكامل الأنظمة المتعددة", "أمن البيانات"],
+            "en": ["Regulatory compliance complexity", "Multi-system integration", "Data security"]
+          }
+        },
+        {
+          "id": "financial",
+          "name": {
+            "ar": "الخدمات المالية",
+            "en": "Financial Services"
+          },
+          "description": {
+            "ar": "البنوك وشركات التأمين والاستثمار الخاضعة لرقابة ساما",
+            "en": "Banks, insurance, and investment firms under SAMA oversight"
+          },
+          "painPoints": {
+            "ar": ["متطلبات ساما الصارمة", "إدارة المخاطر", "تقارير الامتثال"],
+            "en": ["Strict SAMA requirements", "Risk management", "Compliance reporting"]
+          }
+        },
+        {
+          "id": "healthcare",
+          "name": {
+            "ar": "الرعاية الصحية",
+            "en": "Healthcare"
+          },
+          "description": {
+            "ar": "المستشفيات والعيادات والمختبرات الطبية",
+            "en": "Hospitals, clinics, and medical laboratories"
+          },
+          "painPoints": {
+            "ar": ["خصوصية بيانات المرضى", "اعتماد CBAHI", "أمن السجلات الطبية"],
+            "en": ["Patient data privacy", "CBAHI accreditation", "Medical records security"]
+          }
+        },
+        {
+          "id": "energy",
+          "name": {
+            "ar": "الطاقة والمرافق",
+            "en": "Energy & Utilities"
+          },
+          "description": {
+            "ar": "شركات الكهرباء والنفط والطاقة المتجددة",
+            "en": "Electricity, oil, and renewable energy companies"
+          },
+          "painPoints": {
+            "ar": ["البنية التحتية الحرجة", "أمن OT", "الامتثال البيئي"],
+            "en": ["Critical infrastructure", "OT security", "Environmental compliance"]
+          }
+        },
+        {
+          "id": "technology",
+          "name": {
+            "ar": "شركات التكنولوجيا",
+            "en": "Technology Companies"
+          },
+          "description": {
+            "ar": "شركات تقنية المعلومات والسحابة والبرمجيات",
+            "en": "IT, cloud, and software companies"
+          },
+          "painPoints": {
+            "ar": ["شهادات الأمان", "حماية البيانات", "توطين البيانات"],
+            "en": ["Security certifications", "Data protection", "Data localization"]
+          }
+        },
+        {
+          "id": "enterprise",
+          "name": {
+            "ar": "المجموعات الكبرى",
+            "en": "Large Enterprises"
+          },
+          "description": {
+            "ar": "الشركات الكبرى والمجموعات المتنوعة",
+            "en": "Large corporations and diversified groups"
+          },
+          "painPoints": {
+            "ar": ["تكامل ERP", "حوكمة الفروع", "التقارير الموحدة"],
+            "en": ["ERP integration", "Subsidiary governance", "Consolidated reporting"]
+          }
+        }
+      ],
+      "platforms": {
+        "title": {
+          "ar": "منصاتنا المتكاملة",
+          "en": "Our Integrated Platforms"
+        }
+      },
+      "trustBar": {
+        "title": {
+          "ar": "مصمم للتوافق مع",
+          "en": "Designed to Align With"
+        },
+        "items": ["NCA ECC", "SAMA CSF", "PDPL", "ZATCA", "ISO 27001", "Nitaqat"]
+      },
+      "stats": {
+        "note": {
+          "ar": "الأرقام تستند إلى قياسات داخلية",
+          "en": "Numbers based on internal measurements"
+        },
+        "items": [
+          {
+            "value": "117+",
+            "label": {
+              "ar": "إطار تنظيمي",
+              "en": "Regulatory Frameworks"
+            }
+          },
+          {
+            "value": "3,200+",
+            "label": {
+              "ar": "ضابط جاهز",
+              "en": "Pre-loaded Controls"
+            }
+          },
+          {
+            "value": "40+",
+            "label": {
+              "ar": "جهة سعودية",
+              "en": "Saudi Regulators"
+            }
+          },
+          {
+            "value": "6",
+            "label": {
+              "ar": "وكلاء ذكاء اصطناعي",
+              "en": "AI Agents"
+            }
+          }
+        ]
+      }
+    },
+    "sbg": {
+      "hero": {
+        "headline": {
+          "ar": "بوابتك للأعمال في السعودية",
+          "en": "Your Gateway to Business in Saudi Arabia"
+        },
+        "subheadline": {
+          "ar": "بوابة متكاملة للعملاء والشركاء مع سوق حلول ومركز خدمات ذاتية",
+          "en": "Integrated customer and partner portal with solution marketplace and self-service center"
+        },
+        "cta": {
+          "primary": {
+            "ar": "سجل الآن",
+            "en": "Register Now"
+          },
+          "secondary": {
+            "ar": "استكشف السوق",
+            "en": "Explore Marketplace"
+          }
+        }
+      },
+      "features": {
+        "title": {
+          "ar": "قدرات البوابة",
+          "en": "Portal Capabilities"
+        },
+        "items": [
+          {
+            "id": "customer-portal",
+            "icon": "portal",
+            "name": {
+              "ar": "بوابة العملاء",
+              "en": "Customer Portal"
+            },
+            "description": {
+              "ar": "بوابة خدمة ذاتية متكاملة للعملاء",
+              "en": "Comprehensive self-service portal for customers"
+            },
+            "details": {
+              "ar": [
+                "لوحة مشاريع تفاعلية",
+                "مركز المستندات والتقارير",
+                "تتبع التذاكر والطلبات",
+                "إدارة الاشتراكات والفوترة"
+              ],
+              "en": [
+                "Interactive project dashboard",
+                "Document and report center",
+                "Ticket and request tracking",
+                "Subscription and billing management"
+              ]
+            }
+          },
+          {
+            "id": "partner-management",
+            "icon": "handshake",
+            "name": {
+              "ar": "إدارة الشركاء",
+              "en": "Partner Management"
+            },
+            "description": {
+              "ar": "منصة شاملة لتسجيل وإدارة الشركاء",
+              "en": "Comprehensive platform for partner registration and management"
+            },
+            "details": {
+              "ar": [
+                "تسجيل الشركاء الجدد",
+                "برنامج الشراكة المتدرج",
+                "تأهيل وتدريب الشركاء",
+                "تتبع أداء الشركاء"
+              ],
+              "en": [
+                "New partner registration",
+                "Tiered partnership program",
+                "Partner qualification and training",
+                "Partner performance tracking"
+              ]
+            }
+          },
+          {
+            "id": "marketplace",
+            "icon": "store",
+            "name": {
+              "ar": "سوق الحلول",
+              "en": "Solution Marketplace"
+            },
+            "description": {
+              "ar": "اكتشف واشترِ الحلول والتكاملات من الشركاء",
+              "en": "Discover and purchase solutions and integrations from partners"
+            },
+            "details": {
+              "ar": [
+                "كتالوج الحلول المعتمدة",
+                "تكاملات جاهزة للتفعيل",
+                "تقييمات ومراجعات العملاء",
+                "شراء وتفعيل مباشر"
+              ],
+              "en": [
+                "Certified solutions catalog",
+                "Ready-to-activate integrations",
+                "Customer ratings and reviews",
+                "Direct purchase and activation"
+              ]
+            }
+          },
+          {
+            "id": "self-service",
+            "icon": "support",
+            "name": {
+              "ar": "الخدمة الذاتية",
+              "en": "Self-Service"
+            },
+            "description": {
+              "ar": "إدارة حسابك وخدماتك بشكل مستقل",
+              "en": "Manage your account and services independently"
+            },
+            "details": {
+              "ar": [
+                "إدارة المستخدمين والصلاحيات",
+                "تحديث معلومات الحساب",
+                "طلب خدمات إضافية",
+                "مركز المساعدة والتوثيق"
+              ],
+              "en": [
+                "User and permission management",
+                "Account information updates",
+                "Request additional services",
+                "Help center and documentation"
+              ]
+            }
+          },
+          {
+            "id": "billing",
+            "icon": "invoice",
+            "name": {
+              "ar": "الفوترة والمدفوعات",
+              "en": "Billing & Payments"
+            },
+            "description": {
+              "ar": "إدارة الفواتير والمدفوعات بسهولة",
+              "en": "Manage invoices and payments easily"
+            },
+            "details": {
+              "ar": [
+                "عرض الفواتير وتحميلها",
+                "دفع إلكتروني آمن",
+                "تاريخ المدفوعات",
+                "فواتير إلكترونية (ZATCA)"
+              ],
+              "en": [
+                "View and download invoices",
+                "Secure electronic payment",
+                "Payment history",
+                "E-invoicing (ZATCA compliant)"
+              ]
+            }
+          },
+          {
+            "id": "support",
+            "icon": "headset",
+            "name": {
+              "ar": "الدعم الفني",
+              "en": "Technical Support"
+            },
+            "description": {
+              "ar": "دعم فني متعدد القنوات على مدار الساعة",
+              "en": "Multi-channel technical support 24/7"
+            },
+            "details": {
+              "ar": [
+                "نظام تذاكر ذكي",
+                "دردشة مباشرة مع الدعم",
+                "قاعدة معرفة شاملة",
+                "تصعيد تلقائي للمشكلات"
+              ],
+              "en": [
+                "Intelligent ticketing system",
+                "Live chat with support",
+                "Comprehensive knowledge base",
+                "Automatic issue escalation"
+              ]
+            }
+          }
+        ]
+      },
+      "agents": {
+        "title": {
+          "ar": "تعرف على فريق الوكلاء",
+          "en": "Meet the Agent Team"
+        },
+        "items": [
+          {
+            "id": "sara",
+            "name": {
+              "ar": "سارة",
+              "en": "Sara"
+            },
+            "role": {
+              "ar": "وكيل المشتريات",
+              "en": "Procurement Agent"
+            },
+            "avatar": "👩‍💼",
+            "expertise": {
+              "ar": ["إدارة الموردين", "أتمتة طلبات العروض", "تحسين التكاليف"],
+              "en": ["Vendor Management", "RFQ Automation", "Cost Optimization"]
+            },
+            "capabilities": {
+              "ar": [
+                "مقارنة عروض الأسعار تلقائياً",
+                "تتبع أداء الموردين",
+                "التنبؤ بالاحتياجات",
+                "إدارة العقود"
+              ],
+              "en": [
+                "Automatic quote comparison",
+                "Supplier performance tracking",
+                "Demand forecasting",
+                "Contract management"
+              ]
+            }
+          },
+          {
+            "id": "khaled",
+            "name": {
+              "ar": "خالد",
+              "en": "Khaled"
+            },
+            "role": {
+              "ar": "وكيل الحوكمة",
+              "en": "GRC Agent"
+            },
+            "avatar": "👨‍⚖️",
+            "expertise": {
+              "ar": ["امتثال NCA", "إدارة المخاطر", "سجلات التدقيق"],
+              "en": ["NCA Compliance", "Risk Management", "Audit Trails"]
+            },
+            "capabilities": {
+              "ar": [
+                "تقييم الامتثال التلقائي",
+                "رصد المخاطر الفورية",
+                "إعداد تقارير التدقيق",
+                "تتبع الضوابط"
+              ],
+              "en": [
+                "Automated compliance assessment",
+                "Real-time risk monitoring",
+                "Audit report preparation",
+                "Control tracking"
+              ]
+            }
+          },
+          {
+            "id": "nora",
+            "name": {
+              "ar": "نورة",
+              "en": "Nora"
+            },
+            "role": {
+              "ar": "وكيل المالية",
+              "en": "Financial Agent"
+            },
+            "avatar": "👩‍💻",
+            "expertise": {
+              "ar": ["معايير IFRS", "إقفال الفترات", "التقارير المالية"],
+              "en": ["IFRS Standards", "Period Close", "Financial Reporting"]
+            },
+            "capabilities": {
+              "ar": [
+                "تسوية الحسابات التلقائية",
+                "إعداد القوائم المالية",
+                "تحليل الانحرافات",
+                "التنبؤ بالتدفقات النقدية"
+              ],
+              "en": [
+                "Automatic account reconciliation",
+                "Financial statement preparation",
+                "Variance analysis",
+                "Cash flow forecasting"
+              ]
+            }
+          },
+          {
+            "id": "abdullah",
+            "name": {
+              "ar": "عبدالله",
+              "en": "Abdullah"
+            },
+            "role": {
+              "ar": "وكيل الموارد البشرية",
+              "en": "HR Agent"
+            },
+            "avatar": "👨‍💼",
+            "expertise": {
+              "ar": ["امتثال نطاقات", "التوظيف", "التأهيل"],
+              "en": ["Nitaqat Compliance", "Talent Acquisition", "Onboarding"]
+            },
+            "capabilities": {
+              "ar": [
+                "حساب نسب التوطين",
+                "فرز السير الذاتية بالذكاء الاصطناعي",
+                "أتمتة التأهيل",
+                "تتبع الإجازات والحضور"
+              ],
+              "en": [
+                "Saudization ratio calculation",
+                "AI-powered CV screening",
+                "Onboarding automation",
+                "Leave and attendance tracking"
+              ]
+            }
+          },
+          {
+            "id": "max",
+            "name": {
+              "ar": "ماكس",
+              "en": "Max"
+            },
+            "role": {
+              "ar": "وكيل الروبوتات",
+              "en": "Robotics Agent"
+            },
+            "avatar": "🤖",
+            "expertise": {
+              "ar": ["تكامل IoT", "التحكم بالحركة", "أتمتة المستودعات"],
+              "en": ["IoT Integration", "Motion Control", "Warehouse Automation"]
+            },
+            "capabilities": {
+              "ar": [
+                "مراقبة أجهزة IoT",
+                "أتمتة المستودعات",
+                "الصيانة التنبؤية",
+                "تحسين الإنتاج"
+              ],
+              "en": [
+                "IoT device monitoring",
+                "Warehouse automation",
+                "Predictive maintenance",
+                "Production optimization"
+              ]
+            }
+          },
+          {
+            "id": "lina",
+            "name": {
+              "ar": "لينا",
+              "en": "Lina"
+            },
+            "role": {
+              "ar": "وكيل الدعم الفني",
+              "en": "Service Desk Agent"
+            },
+            "avatar": "👩‍🔧",
+            "expertise": {
+              "ar": ["حل التذاكر", "إعادة تعيين كلمات المرور", "تشخيص الأنظمة"],
+              "en": ["Ticket Resolution", "Password Resets", "System Diagnostics"]
+            },
+            "capabilities": {
+              "ar": [
+                "دعم على مدار الساعة",
+                "تصنيف التذاكر بالذكاء الاصطناعي",
+                "قاعدة معرفة ذكية",
+                "تصعيد تلقائي"
+              ],
+              "en": [
+                "24/7 support coverage",
+                "AI ticket classification",
+                "Intelligent knowledge base",
+                "Automatic escalation"
+              ]
+            }
+          }
+        ]
+      },
+      "backend": {
+        "title": {
+          "ar": "البنية التقنية",
+          "en": "Technical Architecture"
+        },
+        "stack": [
+          {
+            "layer": {
+              "ar": "الواجهة الأمامية",
+              "en": "Frontend"
+            },
+            "technologies": ["Next.js", "React", "TypeScript", "MUI", "RTL Support"]
+          },
+          {
+            "layer": {
+              "ar": "الواجهة الخلفية",
+              "en": "Backend"
+            },
+            "technologies": ["ASP.NET Core 9", "ABP Framework", "OpenIddict", "Entity Framework"]
+          },
+          {
+            "layer": {
+              "ar": "قاعدة البيانات",
+              "en": "Database"
+            },
+            "technologies": ["SQL Server", "SQLite (Dev)", "Redis Cache"]
+          },
+          {
+            "layer": {
+              "ar": "الذكاء الاصطناعي",
+              "en": "AI Layer"
+            },
+            "technologies": ["Claude API", "Python SDK", "Anthropic SDK", "LangChain"]
+          },
+          {
+            "layer": {
+              "ar": "التكامل",
+              "en": "Integration"
+            },
+            "technologies": ["ERPNext", "REST API", "Webhooks", "Microsoft Graph"]
+          },
+          {
+            "layer": {
+              "ar": "الأمان",
+              "en": "Security"
+            },
+            "technologies": ["OAuth 2.0", "JWT", "HTTPS", "Azure AD"]
+          }
+        ],
+        "security": {
+          "ar": [
+            "تشفير البيانات في النقل والتخزين",
+            "مصادقة متعددة العوامل (MFA)",
+            "سجلات تدقيق كاملة",
+            "توطين البيانات في المملكة"
+          ],
+          "en": [
+            "Data encryption in transit and at rest",
+            "Multi-factor authentication (MFA)",
+            "Complete audit trails",
+            "Data residency in KSA"
+          ]
+        }
+      },
+      "activationFlow": {
+        "title": {
+          "ar": "كيف تبدأ",
+          "en": "How to Get Started"
+        },
+        "steps": [
+          {
+            "number": 1,
+            "title": {
+              "ar": "احجز عرضاً توضيحياً",
+              "en": "Book a Demo"
+            },
+            "description": {
+              "ar": "تواصل معنا لجدولة عرض توضيحي مخصص لاحتياجاتك",
+              "en": "Contact us to schedule a demo customized for your needs"
+            },
+            "duration": {
+              "ar": "30 دقيقة",
+              "en": "30 minutes"
+            }
+          },
+          {
+            "number": 2,
+            "title": {
+              "ar": "تقييم الاحتياجات",
+              "en": "Needs Assessment"
+            },
+            "description": {
+              "ar": "نحلل متطلباتك ونحدد الحلول المناسبة",
+              "en": "We analyze your requirements and identify suitable solutions"
+            },
+            "duration": {
+              "ar": "يوم - يومين",
+              "en": "1-2 days"
+            }
+          },
+          {
+            "number": 3,
+            "title": {
+              "ar": "إعداد البيئة",
+              "en": "Environment Setup"
+            },
+            "description": {
+              "ar": "نهيئ منصتك الخاصة مع التكوينات المطلوبة",
+              "en": "We configure your dedicated platform with required settings"
+            },
+            "duration": {
+              "ar": "أسبوع - أسبوعين",
+              "en": "1-2 weeks"
+            }
+          },
+          {
+            "number": 4,
+            "title": {
+              "ar": "تكامل الأنظمة",
+              "en": "System Integration"
+            },
+            "description": {
+              "ar": "نربط المنصة مع أنظمتك الحالية (ERP, HR, Finance)",
+              "en": "We connect the platform with your existing systems"
+            },
+            "duration": {
+              "ar": "أسبوعين - شهر",
+              "en": "2-4 weeks"
+            }
+          },
+          {
+            "number": 5,
+            "title": {
+              "ar": "التدريب والتفعيل",
+              "en": "Training & Go-Live"
+            },
+            "description": {
+              "ar": "تدريب فريقك وإطلاق المنصة في بيئة الإنتاج",
+              "en": "Train your team and launch in production"
+            },
+            "duration": {
+              "ar": "أسبوع",
+              "en": "1 week"
+            }
+          },
+          {
+            "number": 6,
+            "title": {
+              "ar": "الدعم المستمر",
+              "en": "Ongoing Support"
+            },
+            "description": {
+              "ar": "دعم فني على مدار الساعة مع تحديثات منتظمة",
+              "en": "24/7 technical support with regular updates"
+            },
+            "duration": {
+              "ar": "مستمر",
+              "en": "Ongoing"
+            }
+          }
+        ]
+      },
+      "pricing": {
+        "title": {
+          "ar": "باقات الاشتراك",
+          "en": "Subscription Plans"
+        },
+        "note": {
+          "ar": "تواصل معنا للحصول على عرض سعر مخصص",
+          "en": "Contact us for a customized quote"
+        },
+        "tiers": [
+          {
+            "id": "starter",
+            "name": {
+              "ar": "الباقة الأساسية",
+              "en": "Starter"
+            },
+            "description": {
+              "ar": "للشركات الصغيرة والمتوسطة",
+              "en": "For small and medium businesses"
+            },
+            "features": {
+              "ar": [
+                "حتى 50 مستخدم",
+                "3 وكلاء ذكاء اصطناعي",
+                "10 سير عمل",
+                "دعم بريد إلكتروني"
+              ],
+              "en": [
+                "Up to 50 users",
+                "3 AI agents",
+                "10 workflows",
+                "Email support"
+              ]
+            }
+          },
+          {
+            "id": "professional",
+            "name": {
+              "ar": "الباقة الاحترافية",
+              "en": "Professional"
+            },
+            "description": {
+              "ar": "للمؤسسات المتوسطة",
+              "en": "For medium enterprises"
+            },
+            "features": {
+              "ar": [
+                "حتى 200 مستخدم",
+                "جميع الوكلاء الستة",
+                "سير عمل غير محدود",
+                "دعم هاتفي + بريد إلكتروني",
+                "تكامل ERP"
+              ],
+              "en": [
+                "Up to 200 users",
+                "All 6 AI agents",
+                "Unlimited workflows",
+                "Phone + email support",
+                "ERP integration"
+              ]
+            },
+            "recommended": true
+          },
+          {
+            "id": "enterprise",
+            "name": {
+              "ar": "باقة المؤسسات",
+              "en": "Enterprise"
+            },
+            "description": {
+              "ar": "للمؤسسات الكبرى والجهات الحكومية",
+              "en": "For large enterprises and government"
+            },
+            "features": {
+              "ar": [
+                "مستخدمون غير محدودين",
+                "وكلاء مخصصون",
+                "بيئة خاصة (Private Cloud)",
+                "مدير حساب مخصص",
+                "SLA مضمون",
+                "تكامل مخصص"
+              ],
+              "en": [
+                "Unlimited users",
+                "Custom agents",
+                "Private cloud environment",
+                "Dedicated account manager",
+                "Guaranteed SLA",
+                "Custom integrations"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "shahin": {
+      "hero": {
+        "headline": {
+          "ar": "الحوكمة الاستثنائية",
+          "en": "Exceptional Governance"
+        },
+        "subheadline": {
+          "ar": "منصة شاملة للحوكمة والمخاطر والامتثال مدعومة بالذكاء الاصطناعي، مصممة للبيئة التنظيمية السعودية",
+          "en": "Comprehensive AI-powered GRC platform designed for the Saudi regulatory environment"
+        },
+        "cta": {
+          "primary": {
+            "ar": "ابدأ التقييم المجاني",
+            "en": "Start Free Assessment"
+          },
+          "secondary": {
+            "ar": "استكشف الأطر التنظيمية",
+            "en": "Explore Frameworks"
+          }
+        }
+      },
+      "features": {
+        "title": {
+          "ar": "لماذا شاهين؟",
+          "en": "Why Shahin?"
+        },
+        "items": [
+          {
+            "id": "frameworks",
+            "icon": "layers",
+            "stat": "117+",
+            "name": {
+              "ar": "إطار تنظيمي",
+              "en": "Regulatory Frameworks"
+            },
+            "description": {
+              "ar": "أكبر مكتبة أطر تنظيمية في المنطقة",
+              "en": "Largest regulatory framework library in the region"
+            }
+          },
+          {
+            "id": "controls",
+            "icon": "checklist",
+            "stat": "3,200+",
+            "name": {
+              "ar": "ضابط جاهز",
+              "en": "Pre-loaded Controls"
+            },
+            "description": {
+              "ar": "ضوابط مُعدّة مسبقاً جاهزة للتطبيق",
+              "en": "Pre-configured controls ready for implementation"
+            }
+          },
+          {
+            "id": "regulators",
+            "icon": "building",
+            "stat": "40+",
+            "name": {
+              "ar": "جهة سعودية",
+              "en": "Saudi Regulators"
+            },
+            "description": {
+              "ar": "تغطية شاملة للجهات التنظيمية السعودية",
+              "en": "Comprehensive coverage of Saudi regulators"
+            }
+          },
+          {
+            "id": "arabic",
+            "icon": "language",
+            "stat": "100%",
+            "name": {
+              "ar": "دعم عربي",
+              "en": "Arabic Support"
+            },
+            "description": {
+              "ar": "واجهة وتقارير عربية كاملة",
+              "en": "Complete Arabic interface and reports"
+            }
+          }
+        ]
+      },
+      "frameworks": {
+        "title": {
+          "ar": "الأطر التنظيمية المدعومة",
+          "en": "Supported Frameworks"
+        },
+        "categories": [
+          {
+            "id": "cybersecurity",
+            "name": {
+              "ar": "الأمن السيبراني",
+              "en": "Cybersecurity"
+            },
+            "items": ["NCA ECC v2.0", "NCA CCC", "NCA OTCC", "NCA DCC"]
+          },
+          {
+            "id": "financial",
+            "name": {
+              "ar": "القطاع المالي",
+              "en": "Financial Sector"
+            },
+            "items": ["SAMA Cybersecurity Framework", "CMA Governance", "PDPL", "ZATCA E-invoicing"]
+          },
+          {
+            "id": "government",
+            "name": {
+              "ar": "القطاع الحكومي",
+              "en": "Government Sector"
+            },
+            "items": ["NDMO Framework", "SDAIA Data Governance", "Yesser", "NIC Standards"]
+          },
+          {
+            "id": "healthcare",
+            "name": {
+              "ar": "الرعاية الصحية",
+              "en": "Healthcare"
+            },
+            "items": ["MOH Cybersecurity", "SFDA Data Protection", "CBAHI", "CCHI"]
+          },
+          {
+            "id": "international",
+            "name": {
+              "ar": "المعايير الدولية",
+              "en": "International Standards"
+            },
+            "items": ["ISO 27001", "ISO 9001", "ISO 22301", "GDPR", "PCI DSS", "SOC 2"]
+          }
+        ]
+      },
+      "sectors": {
+        "title": {
+          "ar": "القطاعات المستهدفة",
+          "en": "Target Sectors"
+        },
+        "items": [
+          {
+            "id": "financial",
+            "name": {
+              "ar": "الخدمات المالية",
+              "en": "Financial Services"
+            },
+            "controlCount": 846,
+            "regulators": ["SAMA", "CMA", "CCHI"]
+          },
+          {
+            "id": "healthcare",
+            "name": {
+              "ar": "الرعاية الصحية",
+              "en": "Healthcare"
+            },
+            "controlCount": 678,
+            "regulators": ["MOH", "SFDA", "CBAHI"]
+          },
+          {
+            "id": "government",
+            "name": {
+              "ar": "القطاع الحكومي",
+              "en": "Government"
+            },
+            "controlCount": 924,
+            "regulators": ["NCA", "NDMO", "SDAIA"]
+          },
+          {
+            "id": "technology",
+            "name": {
+              "ar": "التكنولوجيا",
+              "en": "Technology"
+            },
+            "controlCount": 734,
+            "regulators": ["NCA", "CITC", "MCIT"]
+          },
+          {
+            "id": "energy",
+            "name": {
+              "ar": "الطاقة والمرافق",
+              "en": "Energy & Utilities"
+            },
+            "controlCount": 562,
+            "regulators": ["NCA OTCC", "SEC", "ECRA"]
+          },
+          {
+            "id": "manufacturing",
+            "name": {
+              "ar": "التصنيع",
+              "en": "Manufacturing"
+            },
+            "controlCount": 445,
+            "regulators": ["NCA", "SASO", "MODON"]
+          }
+        ]
+      },
+      "aiCapabilities": {
+        "title": {
+          "ar": "قدرات الذكاء الاصطناعي",
+          "en": "AI Capabilities"
+        },
+        "items": [
+          {
+            "name": {
+              "ar": "تقييم الامتثال الذكي",
+              "en": "Intelligent Compliance Assessment"
+            },
+            "description": {
+              "ar": "تقييم تلقائي لمستوى الامتثال مع توصيات للتحسين",
+              "en": "Automatic compliance level assessment with improvement recommendations"
+            }
+          },
+          {
+            "name": {
+              "ar": "تحليل الفجوات",
+              "en": "Gap Analysis"
+            },
+            "description": {
+              "ar": "تحديد الفجوات بين الوضع الحالي والمتطلبات التنظيمية",
+              "en": "Identify gaps between current state and regulatory requirements"
+            }
+          },
+          {
+            "name": {
+              "ar": "التنبؤ بالمخاطر",
+              "en": "Risk Prediction"
+            },
+            "description": {
+              "ar": "توقع المخاطر المستقبلية بناءً على البيانات التاريخية",
+              "en": "Predict future risks based on historical data"
+            }
+          },
+          {
+            "name": {
+              "ar": "توليد التقارير",
+              "en": "Report Generation"
+            },
+            "description": {
+              "ar": "إنشاء تقارير امتثال جاهزة للتقديم للجهات التنظيمية",
+              "en": "Generate compliance reports ready for regulatory submission"
+            }
+          }
+        ]
+      }
+    },
+    "doganlab": {
+      "hero": {
+        "headline": {
+          "ar": "مختبر الابتكار",
+          "en": "Innovation Laboratory"
+        },
+        "subheadline": {
+          "ar": "بيئة تجريبية آمنة للنماذج الأولية والاختبار وابتكار الذكاء الاصطناعي",
+          "en": "Secure sandbox environment for prototyping, testing, and AI experimentation"
+        },
+        "cta": {
+          "primary": {
+            "ar": "ادخل المختبر",
+            "en": "Enter the Lab"
+          },
+          "secondary": {
+            "ar": "شاهد المشاريع",
+            "en": "View Projects"
+          }
+        }
+      },
+      "features": {
+        "items": [
+          {
+            "name": {
+              "ar": "بيئات تجريبية معزولة",
+              "en": "Isolated Sandbox Environments"
+            },
+            "description": {
+              "ar": "بيئات اختبار منفصلة لكل مشروع",
+              "en": "Separate test environments for each project"
+            }
+          },
+          {
+            "name": {
+              "ar": "عروض توضيحية",
+              "en": "Demo Capabilities"
+            },
+            "description": {
+              "ar": "عرض المنتجات للعملاء المحتملين",
+              "en": "Showcase products to potential clients"
+            }
+          },
+          {
+            "name": {
+              "ar": "تطوير سريع للنماذج",
+              "en": "Rapid Prototyping"
+            },
+            "description": {
+              "ar": "بناء واختبار النماذج الأولية بسرعة",
+              "en": "Build and test prototypes quickly"
+            }
+          },
+          {
+            "name": {
+              "ar": "اختبار الذكاء الاصطناعي",
+              "en": "AI Experimentation"
+            },
+            "description": {
+              "ar": "تجربة نماذج ذكاء اصطناعي جديدة",
+              "en": "Experiment with new AI models"
+            }
+          }
+        ]
+      }
+    },
+    "doganhub": {
+      "hero": {
+        "headline": {
+          "ar": "مركز عمليات الشبكات والأمن",
+          "en": "Network & Security Operations Center"
+        },
+        "subheadline": {
+          "ar": "مركز NOC/SOC متكامل لمراقبة وإدارة جميع البنية التحتية لدوغان كونسلت على مدار الساعة",
+          "en": "Integrated NOC/SOC for 24/7 monitoring and management of all Dogan Consult infrastructure"
+        },
+        "cta": {
+          "primary": {
+            "ar": "الدخول للمركز",
+            "en": "Access Operations Center"
+          },
+          "secondary": {
+            "ar": "عرض حالة الأنظمة",
+            "en": "View System Status"
+          }
+        }
+      },
+      "features": {
+        "title": {
+          "ar": "قدرات المركز",
+          "en": "Operations Center Capabilities"
+        },
+        "items": [
+          {
+            "id": "noc",
+            "icon": "network",
+            "name": {
+              "ar": "مركز عمليات الشبكات (NOC)",
+              "en": "Network Operations Center (NOC)"
+            },
+            "description": {
+              "ar": "مراقبة وإدارة جميع مكونات الشبكة والبنية التحتية",
+              "en": "Monitor and manage all network and infrastructure components"
+            },
+            "details": {
+              "ar": [
+                "مراقبة الشبكات والخوادم",
+                "إدارة الأداء والتوفر",
+                "التنبيهات الفورية",
+                "إدارة التغييرات"
+              ],
+              "en": [
+                "Network and server monitoring",
+                "Performance and availability management",
+                "Real-time alerts",
+                "Change management"
+              ]
+            }
+          },
+          {
+            "id": "soc",
+            "icon": "security",
+            "name": {
+              "ar": "مركز عمليات الأمن (SOC)",
+              "en": "Security Operations Center (SOC)"
+            },
+            "description": {
+              "ar": "مراقبة التهديدات الأمنية والاستجابة للحوادث",
+              "en": "Threat monitoring and incident response"
+            },
+            "details": {
+              "ar": [
+                "رصد التهديدات السيبرانية",
+                "تحليل السجلات الأمنية (SIEM)",
+                "الاستجابة للحوادث",
+                "صيد التهديدات (Threat Hunting)"
+              ],
+              "en": [
+                "Cyber threat detection",
+                "Security log analysis (SIEM)",
+                "Incident response",
+                "Threat hunting"
+              ]
+            }
+          },
+          {
+            "id": "infrastructure-monitoring",
+            "icon": "server",
+            "name": {
+              "ar": "مراقبة البنية التحتية",
+              "en": "Infrastructure Monitoring"
+            },
+            "description": {
+              "ar": "مراقبة شاملة لجميع مكونات البنية التحتية",
+              "en": "Comprehensive monitoring of all infrastructure components"
+            },
+            "details": {
+              "ar": [
+                "مراقبة الخوادم والتطبيقات",
+                "مراقبة قواعد البيانات",
+                "مراقبة الخدمات السحابية",
+                "مراقبة شبكات التخزين"
+              ],
+              "en": [
+                "Server and application monitoring",
+                "Database monitoring",
+                "Cloud services monitoring",
+                "Storage network monitoring"
+              ]
+            }
+          },
+          {
+            "id": "alerting",
+            "icon": "alert",
+            "name": {
+              "ar": "نظام التنبيهات",
+              "en": "Alerting System"
+            },
+            "description": {
+              "ar": "تنبيهات فورية ومتدرجة للمشكلات والتهديدات",
+              "en": "Real-time escalating alerts for issues and threats"
+            },
+            "details": {
+              "ar": [
+                "تنبيهات متعددة القنوات",
+                "تصعيد تلقائي",
+                "تصنيف الأولويات",
+                "إشعارات SMS والبريد"
+              ],
+              "en": [
+                "Multi-channel alerts",
+                "Automatic escalation",
+                "Priority classification",
+                "SMS and email notifications"
+              ]
+            }
+          },
+          {
+            "id": "dashboards",
+            "icon": "dashboard",
+            "name": {
+              "ar": "لوحات المراقبة",
+              "en": "Monitoring Dashboards"
+            },
+            "description": {
+              "ar": "لوحات معلومات فورية لحالة الأنظمة",
+              "en": "Real-time dashboards for system status"
+            },
+            "details": {
+              "ar": [
+                "لوحة صحة الأنظمة",
+                "خرائط الشبكة الحية",
+                "مؤشرات الأداء (KPIs)",
+                "تقارير SLA"
+              ],
+              "en": [
+                "System health dashboard",
+                "Live network maps",
+                "Performance KPIs",
+                "SLA reports"
+              ]
+            }
+          },
+          {
+            "id": "incident-management",
+            "icon": "ticket",
+            "name": {
+              "ar": "إدارة الحوادث",
+              "en": "Incident Management"
+            },
+            "description": {
+              "ar": "إدارة دورة حياة الحوادث من الاكتشاف إلى الحل",
+              "en": "Manage incident lifecycle from detection to resolution"
+            },
+            "details": {
+              "ar": [
+                "تسجيل الحوادث التلقائي",
+                "تتبع وقت الاستجابة",
+                "تحليل السبب الجذري",
+                "تقارير ما بعد الحادث"
+              ],
+              "en": [
+                "Automatic incident logging",
+                "Response time tracking",
+                "Root cause analysis",
+                "Post-incident reports"
+              ]
+            }
+          }
+        ]
+      },
+      "monitoring": {
+        "title": {
+          "ar": "الأنظمة المراقبة",
+          "en": "Monitored Systems"
+        },
+        "systems": [
+          {
+            "name": "Saudi Business Gate (SBG)",
+            "type": "platform",
+            "components": ["Web Servers", "API Gateway", "Database", "CDN"]
+          },
+          {
+            "name": "Shahin GRC",
+            "type": "platform",
+            "components": ["Application Server", "Assessment Engine", "Report Generator"]
+          },
+          {
+            "name": "DoganLab",
+            "type": "platform",
+            "components": ["Sandbox Environments", "AI Services", "Demo Systems"]
+          },
+          {
+            "name": "ERPNext",
+            "type": "erp",
+            "components": ["Core ERP", "Integrations", "Background Jobs"]
+          },
+          {
+            "name": "Network Infrastructure",
+            "type": "network",
+            "components": ["Firewalls", "Load Balancers", "VPN", "DNS"]
+          },
+          {
+            "name": "Cloud Services",
+            "type": "cloud",
+            "components": ["Azure", "Storage", "Backup", "CDN"]
+          }
+        ]
+      },
+      "sla": {
+        "title": {
+          "ar": "اتفاقيات مستوى الخدمة",
+          "en": "Service Level Agreements"
+        },
+        "metrics": [
+          {
+            "metric": {
+              "ar": "توفر الأنظمة",
+              "en": "System Uptime"
+            },
+            "target": "99.9%"
+          },
+          {
+            "metric": {
+              "ar": "وقت الاستجابة للحوادث الحرجة",
+              "en": "Critical Incident Response Time"
+            },
+            "target": "< 15 min"
+          },
+          {
+            "metric": {
+              "ar": "وقت الاستجابة للتنبيهات",
+              "en": "Alert Response Time"
+            },
+            "target": "< 5 min"
+          },
+          {
+            "metric": {
+              "ar": "معدل حل الحوادث من أول اتصال",
+              "en": "First Contact Resolution Rate"
+            },
+            "target": "> 80%"
+          }
+        ]
+      },
+      "team": {
+        "title": {
+          "ar": "فريق العمليات",
+          "en": "Operations Team"
+        },
+        "shifts": {
+          "ar": "تغطية على مدار الساعة (24/7/365)",
+          "en": "24/7/365 Coverage"
+        },
+        "roles": [
+          {
+            "ar": "مهندسو الشبكات",
+            "en": "Network Engineers"
+          },
+          {
+            "ar": "محللو الأمن السيبراني",
+            "en": "Security Analysts"
+          },
+          {
+            "ar": "مهندسو الأنظمة",
+            "en": "System Engineers"
+          },
+          {
+            "ar": "فريق الاستجابة للحوادث",
+            "en": "Incident Response Team"
+          }
+        ]
+      }
+    }
+  },
+  "common": {
+    "cta": {
+      "demo": {
+        "ar": "احجز عرضاً توضيحياً",
+        "en": "Book a Demo"
+      },
+      "contact": {
+        "ar": "تواصل معنا",
+        "en": "Contact Us"
+      },
+      "trial": {
+        "ar": "ابدأ مجاناً",
+        "en": "Start Free Trial"
+      },
+      "learnMore": {
+        "ar": "اعرف المزيد",
+        "en": "Learn More"
+      }
+    },
+    "footer": {
+      "copyright": {
+        "ar": "© 2025 دوغان كونسلت. جميع الحقوق محفوظة.",
+        "en": "© 2025 Dogan Consult. All rights reserved."
+      },
+      "legal": {
+        "privacy": {
+          "ar": "سياسة الخصوصية",
+          "en": "Privacy Policy"
+        },
+        "terms": {
+          "ar": "الشروط والأحكام",
+          "en": "Terms & Conditions"
+        }
+      },
+      "poweredBy": {
+        "ar": "طُوّر بواسطة دوغان كونسلت",
+        "en": "Powered by Dogan Consult"
+      }
+    },
+    "social": {
+      "linkedin": "https://linkedin.com/company/doganconsult",
+      "twitter": "https://twitter.com/doganconsult"
+    }
+  }
+}

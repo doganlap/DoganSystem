@@ -1,0 +1,8 @@
+# Dashboard API Requirements
+flask>=3.0.0
+flask-cors>=4.0.0
+python-dotenv>=1.0.0
+
+# Already required by other components
+# anthropic>=0.21.0
+# requests>=2.31.0

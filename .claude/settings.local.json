@@ -9,7 +9,10 @@
       "Bash(gh pr create:*)",
       "Bash(git merge:*)",
       "Bash(git commit:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"d:\\\\DoganSystem\\\\create-vm-auto.ps1\")",
+      "Bash(del \"d:\\\\DoganSystem\\\\create-vm-auto.ps1\")"
     ]
   }
 }

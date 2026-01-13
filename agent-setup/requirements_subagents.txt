@@ -1,0 +1,10 @@
+# Claude Code Subagent Bridge Requirements
+# Additional requirements for the subagent integration
+
+# Core dependencies (should already be installed)
+anthropic>=0.21.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# No additional dependencies needed
+# The bridge uses only standard library beyond what's already required

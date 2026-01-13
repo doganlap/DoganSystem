@@ -41,6 +41,7 @@ namespace DoganSystem.Web.Mvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateEmployeeAgentDto input)
         {
             if (ModelState.IsValid)
@@ -66,6 +67,7 @@ namespace DoganSystem.Web.Mvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, UpdateEmployeeAgentDto input)
         {
             if (ModelState.IsValid)

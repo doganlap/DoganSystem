@@ -18,10 +18,20 @@ from tenant_router import TenantRouter, get_tenant_id
 from usage_tracker import UsageTracker, UsageMetric
 from metrics_collector import MetricsCollector
 from unified_orchestrator import UnifiedOrchestrator, UnifiedSystemConfig
+from env_validator import validate_environment_variables, EnvironmentValidationError
+from health_check import health_checker
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Validate environment variables before starting the application
+try:
+    validate_environment_variables()
+except EnvironmentValidationError as e:
+    logger.critical(f"Environment validation failed: {e}")
+    logger.critical("Application startup aborted due to invalid configuration")
+    exit(1)
 
 app = FastAPI(title="DoganSystem Multi-Tenant API Gateway", version="2.0.0")
 
@@ -133,19 +143,35 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for Docker/Kubernetes"""
-    return {
-        "status": "healthy",
-        "service": "api-gateway",
-        "version": "2.0.0",
-        "ai_features": {
-            "autonomous_workflows": unified_config.enable_autonomous_workflows,
-            "self_healing": unified_config.enable_self_healing,
-            "email_processing": unified_config.enable_email_processing,
-            "employee_agents": unified_config.enable_employee_agents,
-            "multi_tenant": unified_config.enable_multi_tenant
-        }
+    """
+    Comprehensive health check endpoint for Docker/Kubernetes.
+    Validates all dependencies including database, Redis, ERPNext, Claude API, etc.
+    """
+    health_result = await health_checker.check_all()
+
+    # Add service-specific information
+    health_result["service"] = "api-gateway"
+    health_result["version"] = "2.0.0"
+    health_result["ai_features"] = {
+        "autonomous_workflows": unified_config.enable_autonomous_workflows,
+        "self_healing": unified_config.enable_self_healing,
+        "email_processing": unified_config.enable_email_processing,
+        "employee_agents": unified_config.enable_employee_agents,
+        "multi_tenant": unified_config.enable_multi_tenant
     }
+
+    # Return appropriate HTTP status code based on health
+    from fastapi.responses import JSONResponse
+    status_code_map = {
+        "healthy": 200,
+        "degraded": 200,  # Still return 200 for degraded (service is running)
+        "unhealthy": 503  # Service Unavailable
+    }
+
+    return JSONResponse(
+        content=health_result,
+        status_code=status_code_map.get(health_result["status"], 503)
+    )
 
 
 @app.get("/api/v1/tenant/info")

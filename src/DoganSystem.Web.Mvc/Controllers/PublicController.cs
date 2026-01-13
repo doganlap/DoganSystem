@@ -109,6 +109,51 @@ namespace DoganSystem.Web.Mvc.Controllers
         }
 
         /// <summary>
+        /// AI Agents showcase page - 12 specialized GRC AI agents
+        /// </summary>
+        public IActionResult Agents()
+        {
+            ViewBag.CompanyName = BrandMessages.CompanyName;
+            return View();
+        }
+
+        /// <summary>
+        /// ROI Calculator page - Interactive GRC ROI calculator
+        /// </summary>
+        public IActionResult ROI()
+        {
+            ViewBag.CompanyName = BrandMessages.CompanyName;
+            return View();
+        }
+
+        /// <summary>
+        /// Solutions page - Comprehensive GRC automation features
+        /// </summary>
+        public IActionResult Solutions()
+        {
+            ViewBag.CompanyName = BrandMessages.CompanyName;
+            return View();
+        }
+
+        /// <summary>
+        /// Compliance Coverage page - NCA ECC, SAMA CSF, PDPL support
+        /// </summary>
+        public IActionResult Compliance()
+        {
+            ViewBag.CompanyName = BrandMessages.CompanyName;
+            return View();
+        }
+
+        /// <summary>
+        /// Partners page - Technology, regulatory, and channel partners
+        /// </summary>
+        public IActionResult Partners()
+        {
+            ViewBag.CompanyName = BrandMessages.CompanyName;
+            return View();
+        }
+
+        /// <summary>
         /// Handle contact form submission
         /// </summary>
         [HttpPost]
@@ -122,7 +167,7 @@ namespace DoganSystem.Web.Mvc.Controllers
             }
 
             await _publicPageAppService.SubmitContactFormAsync(input);
-            
+
             TempData["SuccessMessage"] = "تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.";
             return RedirectToAction(nameof(Contact));
         }

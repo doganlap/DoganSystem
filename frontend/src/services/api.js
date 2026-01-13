@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API Base URL - Can be configured via environment variables
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8006/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8006/api';
 
 // Create axios instance with default config
 const apiClient = axios.create({
@@ -46,47 +46,47 @@ export const systemApi = {
 
 // Tenant API
 export const tenantApi = {
-  getAll: (params) => apiClient.get('/admin/tenants', { params }),
-  getById: (id) => apiClient.get(`/admin/tenants/${id}`),
-  create: (data) => apiClient.post('/admin/tenants', data),
-  update: (id, data) => apiClient.put(`/admin/tenants/${id}`, data),
-  delete: (id) => apiClient.delete(`/admin/tenants/${id}`),
-  getDashboard: (tenantId) => apiClient.get(`/${tenantId}/admin/dashboard`),
-  getMetrics: (tenantId) => apiClient.get(`/${tenantId}/admin/metrics`),
-  getUsage: (tenantId) => apiClient.get(`/${tenantId}/admin/usage`),
+  getAll: (params) => apiClient.get('/tenants', { params }),
+  getById: (id) => apiClient.get(`/tenants/${id}`),
+  create: (data) => apiClient.post('/tenants', data),
+  update: (id, data) => apiClient.put(`/tenants/${id}`, data),
+  delete: (id) => apiClient.delete(`/tenants/${id}`),
+  getDashboard: (tenantId) => apiClient.get(`/tenants/${tenantId}/dashboard`),
+  getMetrics: (tenantId) => apiClient.get(`/tenants/${tenantId}/metrics`),
+  getUsage: (tenantId) => apiClient.get(`/tenants/${tenantId}/usage`),
 };
 
 // Agent API
 export const agentApi = {
-  getAll: (tenantId, params) => apiClient.get(`/${tenantId}/agents`, { params }),
-  getById: (tenantId, agentId) => apiClient.get(`/${tenantId}/agents/${agentId}`),
-  create: (tenantId, data) => apiClient.post(`/${tenantId}/agents`, data),
-  update: (tenantId, agentId, data) => apiClient.put(`/${tenantId}/agents/${agentId}`, data),
-  delete: (tenantId, agentId) => apiClient.delete(`/${tenantId}/agents/${agentId}`),
+  getAll: (params) => apiClient.get('/agents', { params }),
+  getById: (agentId) => apiClient.get(`/agents/${agentId}`),
+  create: (data) => apiClient.post('/agents', data),
+  update: (agentId, data) => apiClient.put(`/agents/${agentId}`, data),
+  delete: (agentId) => apiClient.delete(`/agents/${agentId}`),
 };
 
 // ERPNext API
 export const erpNextApi = {
-  getAll: (tenantId, params) => apiClient.get(`/${tenantId}/erpnext`, { params }),
-  getById: (tenantId, instanceId) => apiClient.get(`/${tenantId}/erpnext/${instanceId}`),
-  create: (tenantId, data) => apiClient.post(`/${tenantId}/erpnext`, data),
-  update: (tenantId, instanceId, data) => apiClient.put(`/${tenantId}/erpnext/${instanceId}`, data),
-  delete: (tenantId, instanceId) => apiClient.delete(`/${tenantId}/erpnext/${instanceId}`),
-  testConnection: (tenantId, instanceId) => apiClient.post(`/${tenantId}/erpnext/${instanceId}/test-connection`),
+  getAll: (params) => apiClient.get('/erpnext', { params }),
+  getById: (instanceId) => apiClient.get(`/erpnext/${instanceId}`),
+  create: (data) => apiClient.post('/erpnext', data),
+  update: (instanceId, data) => apiClient.put(`/erpnext/${instanceId}`, data),
+  delete: (instanceId) => apiClient.delete(`/erpnext/${instanceId}`),
+  testConnection: (instanceId) => apiClient.post(`/erpnext/${instanceId}/test-connection`),
 };
 
 // Subscription API
 export const subscriptionApi = {
-  getAll: (tenantId, params) => apiClient.get(`/${tenantId}/billing/subscriptions`, { params }),
-  create: (tenantId, data) => apiClient.post(`/${tenantId}/billing/subscription`, data),
-  cancel: (tenantId, subscriptionId) => apiClient.post(`/${tenantId}/billing/subscriptions/${subscriptionId}/cancel`),
-  getInvoices: (tenantId) => apiClient.get(`/${tenantId}/billing/invoices`),
+  getAll: (params) => apiClient.get('/subscriptions', { params }),
+  create: (data) => apiClient.post('/subscriptions', data),
+  cancel: (subscriptionId) => apiClient.post(`/subscriptions/${subscriptionId}/cancel`),
+  getInvoices: () => apiClient.get('/subscriptions/invoices'),
 };
 
 // Module API
 export const moduleApi = {
-  getAll: (tenantId) => apiClient.get(`/${tenantId}/modules`),
-  purchase: (tenantId, moduleId, data) => apiClient.post(`/${tenantId}/modules/${moduleId}/purchase`, data),
+  getAll: () => apiClient.get('/modules'),
+  purchase: (moduleId, data) => apiClient.post(`/modules/${moduleId}/purchase`, data),
 };
 
 export default apiClient;

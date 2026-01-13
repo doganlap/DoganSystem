@@ -1,6 +1,7 @@
 using DoganSystem.Application.Policy.PolicyModels;
 using DoganSystem.Core.Policy;
 using Microsoft.Extensions.Logging;
+using CorePolicyContext = DoganSystem.Core.Policy.PolicyContext;
 
 namespace DoganSystem.Application.Policy;
 
@@ -20,7 +21,7 @@ public class PolicyEnforcer : IPolicyEnforcer
         _logger = logger;
     }
 
-    public async Task EnforceAsync(PolicyContext ctx, CancellationToken ct = default)
+    public async Task EnforceAsync(CorePolicyContext ctx, CancellationToken ct = default)
     {
         var policy = _policyStore.LoadPolicy();
         var matchedRules = new List<string>();
@@ -105,7 +106,7 @@ public class PolicyEnforcer : IPolicyEnforcer
         _auditLogger.LogDecision(ctx, finalDecision, matchedRules);
     }
 
-    private bool MatchesRule(PolicyRule rule, PolicyContext ctx)
+    private bool MatchesRule(PolicyRule rule, CorePolicyContext ctx)
     {
         // Check resource type match
         if (rule.Match.Resource.Type != "*" && rule.Match.Resource.Type != ctx.ResourceType)
@@ -149,7 +150,7 @@ public class PolicyEnforcer : IPolicyEnforcer
         return true;
     }
 
-    private bool MatchesException(PolicyException exception, PolicyContext ctx)
+    private bool MatchesException(PolicyException exception, CorePolicyContext ctx)
     {
         return MatchesRule(new PolicyRule
         {

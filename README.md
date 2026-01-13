@@ -30,6 +30,7 @@ dotnet build DoganSystem.sln --configuration Release
 - `BUILD_TROUBLESHOOTING.md` - Fix common issues
 - `APP_COMPLETION_SUMMARY.md` - What's been implemented
 - `BUILD_READY.md` - Current status and next steps
+- `VM_LOCAL_DEVELOPMENT_GUIDE.md` - Set up VMs for local development and testing
 
 ---
 
@@ -140,6 +141,7 @@ python unified-orchestrator.py
 - [Complete Implementation Guide](COMPLETE_IMPLEMENTATION.md)
 - [Unified System Integration](UNIFIED_SYSTEM_INTEGRATION.md)
 - [ERPNext Setup Guide](README.md#erpnext-setup)
+- [VM Local Development Guide](VM_LOCAL_DEVELOPMENT_GUIDE.md) - Set up VMs for local development and testing
 
 ## 🏛️ Project Structure
 

@@ -15,34 +15,34 @@ public class GrcMenuContributor : IMenuContributor
         var menu = context.Menu;
 
         // الصفحة الرئيسية
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Home",
-                "الصفحة الرئيسية",
-                "/",
-                icon: "fas fa-home"
-            ).RequirePermissions(GrcPermissions.Home.Default)
+        var homeItem = new ApplicationMenuItem(
+            "Grc.Home",
+            "الصفحة الرئيسية",
+            "/",
+            icon: "fas fa-home"
         );
+        homeItem.RequiredPermissionName = GrcPermissions.Home.Default;
+        menu.AddItem(homeItem);
 
         // لوحة التحكم
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Dashboard",
-                "لوحة التحكم",
-                "/dashboard",
-                icon: "fas fa-chart-line"
-            ).RequirePermissions(GrcPermissions.Dashboard.Default)
+        var dashboardItem = new ApplicationMenuItem(
+            "Grc.Dashboard",
+            "لوحة التحكم",
+            "/dashboard",
+            icon: "fas fa-chart-line"
         );
+        dashboardItem.RequiredPermissionName = GrcPermissions.Dashboard.Default;
+        menu.AddItem(dashboardItem);
 
         // الاشتراكات
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Subscriptions",
-                "الاشتراكات",
-                "/subscriptions",
-                icon: "fas fa-id-card"
-            ).RequirePermissions(GrcPermissions.Subscriptions.View)
+        var subscriptionsItem = new ApplicationMenuItem(
+            "Grc.Subscriptions",
+            "الاشتراكات",
+            "/subscriptions",
+            icon: "fas fa-id-card"
         );
+        subscriptionsItem.RequiredPermissionName = GrcPermissions.Subscriptions.View;
+        menu.AddItem(subscriptionsItem);
 
         // الإدارة (with submenu)
         var adminMenuItem = new ApplicationMenuItem(
@@ -52,184 +52,184 @@ public class GrcMenuContributor : IMenuContributor
             icon: "fas fa-cog"
         );
 
-        adminMenuItem.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Admin.Users",
-                "المستخدمون",
-                "/admin/users",
-                icon: "fas fa-users"
-            ).RequirePermissions(GrcPermissions.Admin.Users)
+        var usersItem = new ApplicationMenuItem(
+            "Grc.Admin.Users",
+            "المستخدمون",
+            "/admin/users",
+            icon: "fas fa-users"
         );
+        usersItem.RequiredPermissionName = GrcPermissions.Admin.Users;
+        adminMenuItem.AddItem(usersItem);
 
-        adminMenuItem.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Admin.Roles",
-                "الأدوار",
-                "/admin/roles",
-                icon: "fas fa-user-shield"
-            ).RequirePermissions(GrcPermissions.Admin.Roles)
+        var rolesItem = new ApplicationMenuItem(
+            "Grc.Admin.Roles",
+            "الأدوار",
+            "/admin/roles",
+            icon: "fas fa-user-shield"
         );
+        rolesItem.RequiredPermissionName = GrcPermissions.Admin.Roles;
+        adminMenuItem.AddItem(rolesItem);
 
-        adminMenuItem.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Admin.Tenants",
-                "العملاء",
-                "/admin/tenants",
-                icon: "fas fa-building"
-            ).RequirePermissions(GrcPermissions.Admin.Tenants)
+        var tenantsItem = new ApplicationMenuItem(
+            "Grc.Admin.Tenants",
+            "العملاء",
+            "/admin/tenants",
+            icon: "fas fa-building"
         );
+        tenantsItem.RequiredPermissionName = GrcPermissions.Admin.Tenants;
+        adminMenuItem.AddItem(tenantsItem);
 
         menu.AddItem(adminMenuItem);
 
         // مكتبة الأطر التنظيمية
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Frameworks",
-                "مكتبة الأطر التنظيمية",
-                "/frameworks",
-                icon: "fas fa-layer-group"
-            ).RequirePermissions(GrcPermissions.Frameworks.View)
+        var frameworksItem = new ApplicationMenuItem(
+            "Grc.Frameworks",
+            "مكتبة الأطر التنظيمية",
+            "/frameworks",
+            icon: "fas fa-layer-group"
         );
+        frameworksItem.RequiredPermissionName = GrcPermissions.Frameworks.View;
+        menu.AddItem(frameworksItem);
 
         // الجهات التنظيمية
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Regulators",
-                "الجهات التنظيمية",
-                "/regulators",
-                icon: "fas fa-landmark"
-            ).RequirePermissions(GrcPermissions.Regulators.View)
+        var regulatorsItem = new ApplicationMenuItem(
+            "Grc.Regulators",
+            "الجهات التنظيمية",
+            "/regulators",
+            icon: "fas fa-landmark"
         );
+        regulatorsItem.RequiredPermissionName = GrcPermissions.Regulators.View;
+        menu.AddItem(regulatorsItem);
 
         // التقييمات
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Assessments",
-                "التقييمات",
-                "/assessments",
-                icon: "fas fa-clipboard-check"
-            ).RequirePermissions(GrcPermissions.Assessments.View)
+        var assessmentsItem = new ApplicationMenuItem(
+            "Grc.Assessments",
+            "التقييمات",
+            "/assessments",
+            icon: "fas fa-clipboard-check"
         );
+        assessmentsItem.RequiredPermissionName = GrcPermissions.Assessments.View;
+        menu.AddItem(assessmentsItem);
 
         // تقييمات الضوابط
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.ControlAssessments",
-                "تقييمات الضوابط",
-                "/control-assessments",
-                icon: "fas fa-tasks"
-            ).RequirePermissions(GrcPermissions.ControlAssessments.View)
+        var controlAssessmentsItem = new ApplicationMenuItem(
+            "Grc.ControlAssessments",
+            "تقييمات الضوابط",
+            "/control-assessments",
+            icon: "fas fa-tasks"
         );
+        controlAssessmentsItem.RequiredPermissionName = GrcPermissions.ControlAssessments.View;
+        menu.AddItem(controlAssessmentsItem);
 
         // الأدلة
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Evidence",
-                "الأدلة",
-                "/evidence",
-                icon: "fas fa-file-alt"
-            ).RequirePermissions(GrcPermissions.Evidence.View)
+        var evidenceItem = new ApplicationMenuItem(
+            "Grc.Evidence",
+            "الأدلة",
+            "/evidence",
+            icon: "fas fa-file-alt"
         );
+        evidenceItem.RequiredPermissionName = GrcPermissions.Evidence.View;
+        menu.AddItem(evidenceItem);
 
         // إدارة المخاطر
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Risks",
-                "إدارة المخاطر",
-                "/risks",
-                icon: "fas fa-exclamation-triangle"
-            ).RequirePermissions(GrcPermissions.Risks.View)
+        var risksItem = new ApplicationMenuItem(
+            "Grc.Risks",
+            "إدارة المخاطر",
+            "/risks",
+            icon: "fas fa-exclamation-triangle"
         );
+        risksItem.RequiredPermissionName = GrcPermissions.Risks.View;
+        menu.AddItem(risksItem);
 
         // إدارة المراجعة
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Audits",
-                "إدارة المراجعة",
-                "/audits",
-                icon: "fas fa-search"
-            ).RequirePermissions(GrcPermissions.Audits.View)
+        var auditsItem = new ApplicationMenuItem(
+            "Grc.Audits",
+            "إدارة المراجعة",
+            "/audits",
+            icon: "fas fa-search"
         );
+        auditsItem.RequiredPermissionName = GrcPermissions.Audits.View;
+        menu.AddItem(auditsItem);
 
         // خطط العمل
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.ActionPlans",
-                "خطط العمل",
-                "/action-plans",
-                icon: "fas fa-project-diagram"
-            ).RequirePermissions(GrcPermissions.ActionPlans.View)
+        var actionPlansItem = new ApplicationMenuItem(
+            "Grc.ActionPlans",
+            "خطط العمل",
+            "/action-plans",
+            icon: "fas fa-project-diagram"
         );
+        actionPlansItem.RequiredPermissionName = GrcPermissions.ActionPlans.View;
+        menu.AddItem(actionPlansItem);
 
         // إدارة السياسات
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Policies",
-                "إدارة السياسات",
-                "/policies",
-                icon: "fas fa-gavel"
-            ).RequirePermissions(GrcPermissions.Policies.View)
+        var policiesItem = new ApplicationMenuItem(
+            "Grc.Policies",
+            "إدارة السياسات",
+            "/policies",
+            icon: "fas fa-gavel"
         );
+        policiesItem.RequiredPermissionName = GrcPermissions.Policies.View;
+        menu.AddItem(policiesItem);
 
         // تقويم الامتثال
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.ComplianceCalendar",
-                "تقويم الامتثال",
-                "/compliance-calendar",
-                icon: "fas fa-calendar-alt"
-            ).RequirePermissions(GrcPermissions.ComplianceCalendar.View)
+        var complianceCalendarItem = new ApplicationMenuItem(
+            "Grc.ComplianceCalendar",
+            "تقويم الامتثال",
+            "/compliance-calendar",
+            icon: "fas fa-calendar-alt"
         );
+        complianceCalendarItem.RequiredPermissionName = GrcPermissions.ComplianceCalendar.View;
+        menu.AddItem(complianceCalendarItem);
 
         // محرك سير العمل
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Workflow",
-                "محرك سير العمل",
-                "/workflow",
-                icon: "fas fa-sitemap"
-            ).RequirePermissions(GrcPermissions.Workflow.View)
+        var workflowItem = new ApplicationMenuItem(
+            "Grc.Workflow",
+            "محرك سير العمل",
+            "/workflow",
+            icon: "fas fa-sitemap"
         );
+        workflowItem.RequiredPermissionName = GrcPermissions.Workflow.View;
+        menu.AddItem(workflowItem);
 
         // الإشعارات
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Notifications",
-                "الإشعارات",
-                "/notifications",
-                icon: "fas fa-bell"
-            ).RequirePermissions(GrcPermissions.Notifications.View)
+        var notificationsItem = new ApplicationMenuItem(
+            "Grc.Notifications",
+            "الإشعارات",
+            "/notifications",
+            icon: "fas fa-bell"
         );
+        notificationsItem.RequiredPermissionName = GrcPermissions.Notifications.View;
+        menu.AddItem(notificationsItem);
 
         // إدارة الموردين
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Vendors",
-                "إدارة الموردين",
-                "/vendors",
-                icon: "fas fa-handshake"
-            ).RequirePermissions(GrcPermissions.Vendors.View)
+        var vendorsItem = new ApplicationMenuItem(
+            "Grc.Vendors",
+            "إدارة الموردين",
+            "/vendors",
+            icon: "fas fa-handshake"
         );
+        vendorsItem.RequiredPermissionName = GrcPermissions.Vendors.View;
+        menu.AddItem(vendorsItem);
 
         // التقارير والتحليلات
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Reports",
-                "التقارير والتحليلات",
-                "/reports",
-                icon: "fas fa-chart-pie"
-            ).RequirePermissions(GrcPermissions.Reports.View)
+        var reportsItem = new ApplicationMenuItem(
+            "Grc.Reports",
+            "التقارير والتحليلات",
+            "/reports",
+            icon: "fas fa-chart-pie"
         );
+        reportsItem.RequiredPermissionName = GrcPermissions.Reports.View;
+        menu.AddItem(reportsItem);
 
         // مركز التكامل
-        menu.AddItem(
-            new ApplicationMenuItem(
-                "Grc.Integrations",
-                "مركز التكامل",
-                "/integrations",
-                icon: "fas fa-plug"
-            ).RequirePermissions(GrcPermissions.Integrations.View)
+        var integrationsItem = new ApplicationMenuItem(
+            "Grc.Integrations",
+            "مركز التكامل",
+            "/integrations",
+            icon: "fas fa-plug"
         );
+        integrationsItem.RequiredPermissionName = GrcPermissions.Integrations.View;
+        menu.AddItem(integrationsItem);
 
         return Task.CompletedTask;
     }

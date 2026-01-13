@@ -48,7 +48,7 @@ namespace DoganSystem.Application
 
             // Register Policy services
             context.Services.AddSingleton<PolicyStore>();
-            context.Services.AddScoped<DoganSystem.Core.Policy.IPolicyEnforcer, PolicyEnforcer>();
+            context.Services.AddScoped<Core.Policy.IPolicyEnforcer, PolicyEnforcer>();
             context.Services.AddScoped<PolicyAuditLogger>();
         }
     }

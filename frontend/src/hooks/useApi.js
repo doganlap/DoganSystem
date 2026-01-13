@@ -53,11 +53,9 @@ export const useTenant = (id) => {
   });
 };
 
-export const useAgents = (tenantId, params) => {
+export const useAgents = (params) => {
   const { agentApi } = require('../services/api');
-  return useApiQuery(['agents', tenantId], () => agentApi.getAll(tenantId, params), {
-    enabled: !!tenantId,
-  });
+  return useApiQuery('agents', () => agentApi.getAll(params));
 };
 
 export const useSystemStatus = () => {

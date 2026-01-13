@@ -1,27 +1,58 @@
 version: '3.8'
 
 services:
+  # Backend API Service
   dogansystem:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dogansystem
+    container_name: dogansystem-backend
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__Default=Data Source=/app/data/DoganSystem.db
       - PythonServices__OrchestratorUrl=http://orchestrator:8006
       - PythonServices__ApiGatewayUrl=http://orchestrator:8006
       - ErpNext__DefaultUrl=http://erpnext:8000
+      - CORS__Origins=http://localhost,http://localhost:3000,http://localhost:80
     volumes:
       - ./data:/app/data
       - ./etc/policies:/app/etc/policies
+      - ./logs:/app/logs
     restart: unless-stopped
     networks:
       - dogansystem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dogansystem-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - dogansystem
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - dogansystem-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
 
 networks:
   dogansystem-network:
